@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}home_title{% endblock %}
+{% block static_resource %}
+{% endblock %}
+{% block left %}
+    <select id="project_list" name="project_list"
+                    class="easyui-combobox" labelPosition="left" prompt="请选择项目..."
+                    style="width:100%;" data-options="valueField:'id', textField:'名称',editable:false "></select>
+    <ul id="tree"></ul>
+{% endblock %}
+{% block center %}
+    <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
+        <div title="欢迎页" style="padding:10px" data-options="iconCls:'icon-editor'">
+            <h3>{{ current_user.username }} 欢迎你</h3>
+            <div style="float:left">
+                <div id="p1" class="easyui-panel" title="项目统计"
+                     style="width:400px;height:320px;padding:10px;"
+                     data-options="
+                     collapsible:true,
+                     tools:[{
+                        iconCls:'icon-reload',
+                        handler:function(){
+                            project_stats('project_stats');
+                        }
+                        }]
+                    ">
+                    <canvas id="project_stats"></canvas>
+                </div>
+            </div>
+            <div style="float:left;padding-left:10px;">
+                <div id="p2" class="easyui-panel" title="任务统计"
+                     style="width:400px;height:320px;padding:10px;"
+                     data-options="
+                     collapsible:true,
+                     tools:[{
+                        iconCls:'icon-reload',
+                        handler:function(){
+                            exec_stats('exec_stats');
+                        }
+                        }]
+                     ">
+                    <canvas id="exec_stats"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    $('#tree').tree({
+        data: [{
+            "id": 1,
+            "text": "Node 1",
+            "state": "closed",
+            "children": [
+            {
+                "id": 11,
+                "text": "Node 11",
+                "state": "closed",
+                "children": [
+                        {
+                            "id": 11,
+                            "text": "Node 111",
+                        },
+                        {
+                            "id": 12,
+                            "text": "Node 122",
+                        }]
+            },
+            {
+                "id": 12,
+                "text": "Node 12",
+                "state": "closed",
+            }]
+        },
+        {
+            "id": 2,
+            "text": "Node 2",
+            "state": "closed"
+        }]
+    });
+{% endblock %}

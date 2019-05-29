@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lucky自动化测试管理系统</title>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='js/easyui/themes/default/easyui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/easyui/themes/icon.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/easyui/jquery.easyui.min.js') }}"></script>
+    <style>
+        body {
+            background-color: #3b5999;
+        }
+
+        .login_box {
+            width: 300px;
+            height: 40px;
+            border-radius: 6px;
+            text-align: center;
+            border: none;
+        }
+
+        .login_btn {
+            dispaly:block;
+            width: 100px;
+            height: 40px;
+            border-radius: 6px;
+            text-align: center;
+            border: none;
+            margin-left: 100px;
+        {#color: #00458a;#} color: #e68900;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .login_line {
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .logo {
+            width: 400px;
+            margin: 80px auto 0;
+        }
+
+        .panel {
+            width: 380px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+<div id="logo" class="logo">
+    <img style="width:400px" src="{{ url_for('static', filename='img/logo9.png') }}">
+</div>
+<div id="panel" class="panel">
+
+    <form id="login_fm" method="post">
+        <div class="login_line">
+            <input class="login_box" type="text" placeholder="请输入用户名" name="username"/>
+        </div>
+        <div class="login_line">
+            <input class="login_box" type="password" placeholder="请输入密码" name="password"/>
+        </div>
+        <input type="hidden" name="method" value="sign_in"/>
+        <div class="login_line">
+             <input class="login_btn" value="Go!" onclick="submitForm()"/>
+        </div>
+    </form>
+</div>
+<script>
+    function submitForm() {
+        $('#login_fm').form('submit', {
+            url: "/api/v1/login/",
+            type: "post",
+            success: function(data) {
+                var obj = JSON.parse(data);
+                if (obj.status == "success") {
+                    location.href = obj.url;
+                } else {
+                    alert(obj.msg);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

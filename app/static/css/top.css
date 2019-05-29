@@ -1,0 +1,28 @@
+        .top {
+            background-color: #00a0df;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .logo {
+            float: left;
+            height: 60px;
+        }
+
+        .logout_btn{
+            float:right;
+            margin-left: 20px;
+        }
+
+        .top_username{
+            font-size: 20px;
+            color:#ffff00;
+            text-align: center;
+            float:right;
+        }
+
+        .nav li{
+            float:left;
+            height:80px;
+            margin-left: 5px;
+        }
