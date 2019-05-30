@@ -20,3 +20,9 @@ def work_home():
 def sign_out():
     logout_user()
     return render_template('login.html')
+
+
+@login_required
+@home_blue.route('/product', methods=['GET'])
+def product():
+    return render_template('product.html')

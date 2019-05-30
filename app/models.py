@@ -48,7 +48,7 @@ class Role(db.Model):
     def insert_roles():
         roles = {
             "普通用户": [Permission.GUEST],
-            "项目成员": [Permission.PROJECT, Permission.GUEST],
+            "会员": [Permission.PROJECT, Permission.GUEST],
             "管理员": [Permission.MANAGER, Permission.PROJECT, Permission.GUEST],
             "超级管理员": [Permission.ADMIN, Permission.MANAGER, Permission.PROJECT, Permission.GUEST]
         }
@@ -83,14 +83,37 @@ class User(UserMixin, db.Model):
                 self.role = Role.query.filter_by(id=self.role_id).first()
 
     @staticmethod
-    def add_user(email, username, password='123456', role_name='普通用户'):
+    def insert_admin():
+        email = current_app.config["FLASKY_ADMIN"]
+        user = User.query.filter_by(email=email).first()
+        if user is None:
+            role = Role.query.filter_by(name='超级管理员').first()
+            u = User(email=email, username="admin", password="123456", role_id=role.id)
+            db.session.add(u)
+            db.session.commit()
+
+    @staticmethod
+    def insert_manager():
+        role = Role.query.filter_by(name='管理员').first()
+        u = User(email="manager@126.com", username="lucky_manager",password="123456", role_id=role.id)
+        db.session.add(u)
+        db.session.commit()
+
+    @staticmethod
+    def insert_member():
+        role = Role.query.filter_by(name='会员').first()
+        u = User(email="member@126.com", username="lucky_member", password="123456", role_id=role.id)
+        db.session.add(u)
+        db.session.commit()
+
+    @staticmethod
+    def insert_user(email, username, password, role_name):
         user = User.query.filter_by(username=username).first()
         if user is None:
             role = Role.query.filter_by(name=role_name).first()
             user = User(email=email, username=username, password=password, role_id=role.id)
         db.session.add(user)
         db.session.commit()
-        return '添加用户'
 
     @property
     def password(self):

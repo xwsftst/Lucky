@@ -10,4 +10,7 @@ def init_api(app):
 
 
 from .login import Login
+from .project import Project
+
 api.add_resource(Login, '/login/')
+api.add_resource(Project, '/project/')

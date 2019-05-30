@@ -15,6 +15,7 @@ class Config:
     TESTING = False
     SECRET_KEY = 'JWH3h463237HTL37'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    FLASKY_ADMIN = 'xwsftst@126.com'
 
 
 class DevelopConfig(Config):
