@@ -4,25 +4,30 @@
     <meta charset="UTF-8">
     <title>{% block title %}sshbase_title{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/default/easyui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/bootstrap/easyui.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/icon.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/top.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lucky_icon.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.1.js') }}"></script>
+{#    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.1.js') }}"></script>#}
+    <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.easyui.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/lucky.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/product.js') }}"></script>
     {% block static_resource %}{% endblock %}
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north'" class="top">
     <img class="logo" href="#" src="{{ url_for('static', filename='img/logo4.png') }}">
     <ul class="nav">
-        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-task'" onclick="addTab('任务调度', '/task', 'icon-product');">任务调度</a></li>
         <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-product'" onclick="addTab('产品管理', '/product', 'icon-product');">产品管理</a></li>
-        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-project'" onclick="addTab('产品管理', '/project', 'icon-project');">项目管理</a></li>
-        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-user'" onclick="addTab('用户管理', '/user', 'icon-user');">用户管理</a></li>
-        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-keyword'" onclick="addTab('产品管理', '/keyword', 'icon-keyword');">关键字</a></li>
-        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-guide'" onclick="addTab('操作指南', '/product', 'icon-guide');">操作指南</a></li>
+        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-project'" onclick="addTab('项目管理', '/project', 'icon-project');">项目管理</a></li>
+        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-task'" onclick="addTab('任务调度', '/task', 'icon-task');">任务调度</a></li>
+        {% if current_user.is_administrator %}
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-user'" onclick="addTab('用户管理', '/user', 'icon-user');">用户管理</a></li>
+        {% endif %}
+        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-keyword'" onclick="addTab('关键字', '/keyword', 'icon-keyword');">关键字</a></li>
+        <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-guide'" onclick="addTab('操作指南', '/guide', 'icon-guide');">操作指南</a></li>
     </ul>
     <div class="logout_btn">
         <a href="/logout" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">退出</a>

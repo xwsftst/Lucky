@@ -3,7 +3,7 @@
 {% block static_resource %}
 {% endblock %}
 {% block left %}
-{#    <div style="margin: 0 0;"></div>#}
+    <div style="margin: 0 0;"></div>
     <div style="margin-bottom:5px">
         <select id="project_list" name="project_list"
                         class="easyui-combobox" labelPosition="left" prompt="请选择项目..."
@@ -22,7 +22,7 @@
 {#    </div>#}
 {% endblock %}
 {% block center %}
-    <div id="tt" class="easyui-tabs" style="width:100%;height:100%">
+    <div id="editor_tabs" class="easyui-tabs" style="width:100%">
         <div title="欢迎页" style="padding:10px" data-options="iconCls:'icon-editor'">
             <h3>{{ current_user.username }} 欢迎你</h3>
             <div style="float:left">

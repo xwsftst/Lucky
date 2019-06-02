@@ -10,7 +10,13 @@ def init_api(app):
 
 
 from .login import Login
-from .project import Project
+from .product import ProductApi
+from .project import ProjectApi
+from .user import UserApi
+from .role import RoleApi
 
 api.add_resource(Login, '/login/')
-api.add_resource(Project, '/project/')
+api.add_resource(ProductApi, '/product/')
+api.add_resource(ProjectApi, '/project/')
+api.add_resource(UserApi, '/user/')
+api.add_resource(RoleApi, '/role/')

@@ -17,6 +17,8 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASKY_ADMIN = 'xwsftst@126.com'
 
+    TRIGGER = None
+
 
 class DevelopConfig(Config):
     DEBUG = True
@@ -31,6 +33,7 @@ class DevelopConfig(Config):
     }
 
     SQLALCHEMY_DATABASE_URI = get_db_uri(DATABASE)
+    TRIGGER_DATABASE_URL = get_db_uri(DATABASE)
 
 
 class TestingConfig(Config):

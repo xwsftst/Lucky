@@ -95,7 +95,7 @@ class User(UserMixin, db.Model):
     @staticmethod
     def insert_manager():
         role = Role.query.filter_by(name='管理员').first()
-        u = User(email="manager@126.com", username="lucky_manager",password="123456", role_id=role.id)
+        u = User(email="manager@126.com", username="lucky_manager", password="123456", role_id=role.id)
         db.session.add(u)
         db.session.commit()
 
@@ -147,3 +147,61 @@ login_manager.anonymous_user = AnonymousUser
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class Product(db.Model):
+    """
+    产品
+    """
+    __tablename__ = "product"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+    desc = db.Column(db.String(128), index=True)
+    tags = db.Column(db.String(64), index=True)
+    enable = db.Column(db.Boolean, default=True, index=True)
+
+    create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    create_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+    update_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    update_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+
+
+class Project(db.Model):
+    """
+    项目
+    """
+    __tablename__ = "project"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+    product_id = db.Column(db.Integer)
+    # product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    category = db.Column(db.String(64), index=True)
+    desc = db.Column(db.String(128), index=True)
+    tags = db.Column(db.String(64), index=True)
+    enable = db.Column(db.Boolean, default=True, index=True)
+    version = db.Column(db.String(32), index=True)
+    cron = db.Column(db.Text)
+    setup = db.Column(db.Text)
+    teardown = db.Column(db.Text)
+
+    create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    create_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+    update_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    update_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+
+
+class Task(db.Model):
+    """
+        任务
+    """
+    __tablename__ = "task"
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer)
+    #project_id = db.Column(db.Integer, db.ForeignKey('auto_project.id'))
+    build_no = db.Column(db.Integer, index=True)
+    status = db.Column(db.String(32), index=True)
+    result = db.Column(db.String(32), index=True)
+    duration = db.Column(db.Integer)
+    create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    create_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+    end_timestamp = db.Column(db.DateTime, index=True, default=datetime.now())

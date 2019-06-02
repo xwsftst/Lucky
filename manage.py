@@ -1,12 +1,21 @@
+import sys
+
 from flask_migrate import MigrateCommand
 from flask_script import Manager
 
 from app import create_app
+from app.utils.trigger import Trigger
 
 app = create_app()
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
+
+def start_trigger():
+    app.config["TRIGGER"] = Trigger(app)
+    app.config["TRIGGER"].setup()
+    app.config["TRIGGER"].load_job_list()
+    app.config["TRIGGER"].start()
 
 # @manager.command
 # def deploy():
@@ -24,4 +33,6 @@ manager.add_command('db', MigrateCommand)
 
 
 if __name__ == '__main__':
+    if "runserver" in sys.argv:
+        start_trigger()
     manager.run()

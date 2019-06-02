@@ -44,6 +44,7 @@ function init_project_list(){
     $.ajax({
         type : 'POST',
         url : '/api/v1/project/',
+        ContentType:'text/html',
         data:  {
                "method": "query",
                "id": "-2"
@@ -89,5 +90,22 @@ function load_project_tree(id){
         success : function(data, textStatus, request) {
             $('#project_tree').tree("loadData", data);
             }
+    });
+}
+
+function open_win(id){
+    $('#{0}'.lym_format(id)).window('open');
+}
+
+function close_win(id){
+    $('#{0}'.lym_format(id)).window('close');
+}
+
+function show_msg(title, msg){
+    $.messager.show({
+        title: title,
+        msg: msg,
+        timeout: 3000,
+        showType: 'slide'
     });
 }
