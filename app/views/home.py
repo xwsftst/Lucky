@@ -41,3 +41,9 @@ def project():
 @admin_required
 def user():
     return render_template('user.html')
+
+#
+# @home_blue.route('/help/', methods=['GET'])
+# @login_required
+# def help():
+#     return render_template('help.html')

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}自定义关键字集列表{% endblock %}
+
+{% block resource %}
+{#    <script type="text/javascript" src="{{ url_for('static', filename='js/keyword.js') }}"></script>#}
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 8px 0;"></div>
+	<table id="object_list" class="easyui-datagrid" title="自定义关键字集列表" style="width:100%;height:auto;"
+			data-options="rownumbers: true,
+			    singleSelect: true,
+			    url: '/api/v1/object/?project_id={{ id }}',
+			    method: 'get',
+			    toolbar: '#toolbar',
+			    pagination: true,
+			    pageList: [10,20,30],
+				pageSize: 10">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:40">ID</th>
+				<th data-options="field:'name',width:160">名称</th>
+				<th data-options="field:'project_id'" hidden>项目ID</th>
+                <th data-options="field:'desc',width:200">描述</th>
+				<th data-options="field:'create_user'">创建人</th>
+				<th data-options="field:'create_timestamp'">创建日期</th>
+                <th data-options="field:'update_user'">修改人</th>
+				<th data-options="field:'update_timestamp'">修改日期</th>
+			</tr>
+		</thead>
+	</table>
+    <div id="object_win" class="easyui-window" title=""
+         data-options="modal:true,closed:true,iconCls:'icon-object'"
+         style="width:500px;height:230px;padding:10px;">
+        <form id="object_fm" action="/api/v1/object/" method="post">
+            <div style="margin-bottom:20px">
+                <input name="name" id="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="desc" id="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:64px;">
+            </div>
+            <input hidden name="method" id="method" value="create">
+            <input hidden name="category" id="category" value="object">
+            <input hidden name="id" id="id" value="-1">
+            <input hidden name="project_id" id="project_id" value="{{ id }}">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_frame_object('object_win', 'object_fm');">创建</a>
+            </div>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'create')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'edit')">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'delete')">删除</a>
+    </div>
+{% endblock %}

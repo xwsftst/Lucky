@@ -12,7 +12,7 @@
                 {% if current_user.username == 'admin' %}
                     <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-user'" onclick="addTab('用户管理', '/user', 'icon-user');">用户管理</a></li>
                 {% endif %}
-            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-keyword'" onclick="addTab('关键字', '/keyword', 'icon-keyword');">关键字</a></li>
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-keyword'" onclick="addTab('关键字', '/help', 'icon-keyword');">关键字</a></li>
             <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-guide'" onclick="addTab('操作指南', '/guide', 'icon-guide');">操作指南</a></li>
         </ul>
         <div class="logout_btn">
@@ -27,12 +27,22 @@
 {% endblock %}
 
 {% block left %}
-    <div data-options="region:'west',split:true" style="width: 200px">
+    <div data-options="region:'west',split:true" style="width: 320px">
         <div style="margin: 0 0;"></div>
         <div style="margin-bottom:5px">
             <select id="project_list" name="project_list"
                             class="easyui-combobox" labelPosition="left" prompt="请选择项目..."
                             style="width:100%;" data-options="valueField:'id', textField:'名称',editable:false "></select>
+        </div>
+        <div style="margin: 5px 0;"></div>
+        <div class="easyui-panel" style="padding:5px;width:100%">
+            <ul id="project_tree" name="project_tree" class="easyui-tree"
+                data-options="animate:true,
+                lines:true,
+                onContextMenu: onContextMenu,
+                onDblClick: onDblClick">
+                <li><span>项目操作</span></li>
+            </ul>
         </div>
     </div>
 {% endblock %}

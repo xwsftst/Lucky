@@ -109,3 +109,56 @@ function show_msg(title, msg){
         showType: 'slide'
     });
 }
+
+function onContextMenu(e, node){
+    e.preventDefault();
+    // select the node
+    $('#project_tree').tree('select', node.target);
+    // display context menu
+
+    $('#{0}_menu'.lym_format(node.attributes['category'])).menu('show', {
+        left: e.pageX,
+        top: e.pageY
+    });
+}
+
+function onDblClick(node) {
+    if(node.attributes["category"]=="object"){
+        addManageTab('对象管理', '/manage/var', 'icon-var');
+    }
+    else if(node.attributes["category"]=="suite"){
+        addManageTab('用例管理', '/manage/case', 'icon-case');
+    }
+    else if(node.attributes["category"]=="keyword"){
+        addManageTab('自定义关键字管理', '/manage/keyword', 'icon-user_keyword');
+    }
+    else if(node.attributes["category"]=="case"){
+        addManageTab('用例步骤', '/manage/step', 'icon-step');
+    }
+    else if(node.attributes["category"]=="var"){
+        show_var_win('var_win', 'var_fm', 'edit');
+    }
+    else if(node.attributes["category"]=="step"){
+        show_ui_step_win('ui_step_win', 'ui_step_fm', 'edit');
+    }
+}
+
+function addManageTab(title, url, icon){
+    var selected = $('#project_tree').tree('getSelected');
+    var editor_tabs = $("#editor_tabs");
+    if (editor_tabs.tabs('exists', title)){
+        //如果tab已经存在,则选中并刷新该tab
+        editor_tabs.tabs('select', title);
+        refreshTab({title: title, url: "{0}/{1}".lym_format(url,selected.attributes["id"])});
+    }
+    else {
+        var content='<iframe scrolling="yes" frameborder="0"  src="{0}/{1}" style="width:100%;height:700px;"></iframe>'.lym_format(url, selected.attributes["id"]);
+
+        editor_tabs.tabs('add',{
+            title: title,
+            closable: true,
+            content: content,
+            iconCls: icon||'icon-default'
+        });
+    }
+}
