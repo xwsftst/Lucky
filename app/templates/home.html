@@ -1,63 +1,93 @@
 {% extends "base.html" %}
+
 {% block title %}home_title{% endblock %}
-{% block static_resource %}
-{% endblock %}
-{% block left %}
-    <div style="margin: 0 0;"></div>
-    <div style="margin-bottom:5px">
-        <select id="project_list" name="project_list"
-                        class="easyui-combobox" labelPosition="left" prompt="请选择项目..."
-                        style="width:100%;" data-options="valueField:'id', textField:'名称',editable:false "></select>
+
+{% block top %}
+    <div data-options="region:'north'" class="top">
+        <img class="logo" href="#" src="{{ url_for('static', filename='img/logo4.png') }}">
+        <ul class="nav">
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-product'" onclick="addTab('产品管理', '/product', 'icon-product');">产品管理</a></li>
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-project'" onclick="addTab('项目管理', '/project', 'icon-project');">项目管理</a></li>
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-task'" onclick="addTab('任务调度', '/task', 'icon-task');">任务调度</a></li>
+                {% if current_user.username == 'admin' %}
+                    <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-user'" onclick="addTab('用户管理', '/user', 'icon-user');">用户管理</a></li>
+                {% endif %}
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-keyword'" onclick="addTab('关键字', '/keyword', 'icon-keyword');">关键字</a></li>
+            <li><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-guide'" onclick="addTab('操作指南', '/guide', 'icon-guide');">操作指南</a></li>
+        </ul>
+        <div class="logout_btn">
+            <a href="/logout" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">退出</a>
+        </div>
+        <div class="top_username">
+            {% if current_user.is_authenticated %}
+                Hi {{ current_user.username }}!
+            {% endif %}
+        </div>
     </div>
-{#    <div style="margin: 5px 0;"></div>#}
-{#    <div class="easyui-panel" style="padding:5px;width:100%">#}
-{#        <ul id="project_tree" name="project_tree" class="easyui-tree"#}
-{#            data-options="#}
-{#            animate:true,#}
-{#            lines:true,#}
-{#            onContextMenu: onContextMenu,#}
-{#            onDblClick: onDblClick">#}
-{#            <li><span>项目操作</span></li>#}
-{#        </ul>#}
-{#    </div>#}
 {% endblock %}
+
+{% block left %}
+    <div data-options="region:'west',split:true" style="width: 200px">
+        <div style="margin: 0 0;"></div>
+        <div style="margin-bottom:5px">
+            <select id="project_list" name="project_list"
+                            class="easyui-combobox" labelPosition="left" prompt="请选择项目..."
+                            style="width:100%;" data-options="valueField:'id', textField:'名称',editable:false "></select>
+        </div>
+    </div>
+{% endblock %}
+
 {% block center %}
-    <div id="editor_tabs" class="easyui-tabs" style="width:100%">
-        <div title="欢迎页" style="padding:10px" data-options="iconCls:'icon-editor'">
-            <h3>{{ current_user.username }} 欢迎你</h3>
-            <div style="float:left">
-                <div id="p1" class="easyui-panel" title="项目统计"
-                     style="width:400px;height:320px;padding:10px;"
-                     data-options="
-                     collapsible:true,
-                     tools:[{
-                        iconCls:'icon-reload',
-                        handler:function(){
-                            project_stats('project_stats');
-                        }
-                        }]
-                    ">
-                    <canvas id="project_stats"></canvas>
+    <div data-options="region:'center'" style="background:#eee;">
+    <div style="margin: 0 0;"></div>
+         <div id="editor_tabs" class="easyui-tabs" style="width:100%">
+            <div title="欢迎页" style="padding:10px" data-options="iconCls:'icon-editor'">
+                <h3>{{ current_user.username }} 欢迎你</h3>
+                <div style="float:left">
+                    <div id="p1" class="easyui-panel" title="项目统计"
+                         style="width:400px;height:320px;padding:10px;"
+                         data-options="
+                         collapsible:true,
+                         tools:[{
+                            iconCls:'icon-reload',
+                            handler:function(){
+                                project_stats('project_stats');
+                            }
+                            }]
+                        ">
+                        <canvas id="project_stats"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div style="float:left;padding-left:10px;">
-                <div id="p2" class="easyui-panel" title="任务统计"
-                     style="width:400px;height:320px;padding:10px;"
-                     data-options="
-                     collapsible:true,
-                     tools:[{
-                        iconCls:'icon-reload',
-                        handler:function(){
-                            exec_stats('exec_stats');
-                        }
-                        }]
-                     ">
-                    <canvas id="exec_stats"></canvas>
+                <div style="float:left;padding-left:10px;">
+                    <div id="p2" class="easyui-panel" title="任务统计"
+                         style="width:400px;height:320px;padding:10px;"
+                         data-options="
+                         collapsible:true,
+                         tools:[{
+                            iconCls:'icon-reload',
+                            handler:function(){
+                                exec_stats('exec_stats');
+                            }
+                            }]
+                         ">
+                        <canvas id="exec_stats"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block right %}
+    <div data-options="region:'east',title:'East',split:true" style="width:100px;">
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    <div data-options="region:'south',title:'South Title',split:true" style="height:100px;">
+    </div>
+{% endblock %}
+
 {% block js %}
     init_project_list();
 {% endblock %}

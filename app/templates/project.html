@@ -1,190 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}sshbase_title{% endblock %}</title>
-{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/default/easyui.css') }}">#}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/bootstrap/easyui.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/icon.css') }}">
-{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">#}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lucky_icon.css') }}">
-{#    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.1.js') }}"></script>#}
-    <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.easyui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/lucky.js') }}"></script>
+{% extends "base.html" %}
+
+{% block title %}项目管理{% endblock %}
+
+{% block resource %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/project.js') }}"></script>
-    <style>
-        .panel-header{
-            border-top: 0;
-        }
-    </style>
-</head>
-<body class="easyui-layout">
+{% endblock %}
 
-<div style="margin: 0;"></div>
-<table id="project_list" class="easyui-datagrid" title="产品列表" style="width:100%;height:auto;"
-        data-options="rownumbers: true,
-            singleSelect: true,
-            url: '/api/v1/project/',
-            method: 'get',
-            toolbar: '#toolbar',
-            pagination: true,
-            pageList: [10,20,30],
-            pageSize: 10">
-    <thead>
-        <tr>
-            <th data-options="field:'id',width:40">ID</th>
-            <th data-options="field:'name',width:200">名称</th>
-            <th data-options="field:'product_id',width:200" hidden>产品ID</th>
-            <th data-options="field:'product_name',width:200">所属产品</th>
-            <th data-options="field:'category',width:200">分类</th>
-            <th data-options="field:'desc',width:200">描述</th>
-            <th data-options="field:'cron'">CronTrigger</th>
-            <th data-options="field:'run',width: 80, align:'center' , halign: 'center',formatter:run_project_manage">运行管理</th>
-{#            <!--<th data-options="field:'状态'">状态</th>-->#}
-            <th data-options="field:'create_user'">创建人</th>
-            <th data-options="field:'create_timestamp'">创建时间</th>
-            <th data-options="field:'update_user'">修改人</th>
-            <th data-options="field:'update_timestamp'">修改时间</th>
-        </tr>
-    </thead>
-</table>
-<div id="create_project_win" class="easyui-window" title="创建项目"
-     data-options="modal:true,closed:true,iconCls:'icon-add'"
-     style="width:500px;height:230px;padding:10px;">
-    <form id="create_project_fm" action="/api/v1/project/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="category" name="category"
-                    class="easyui-combobox" label="项目类型:" labelPosition="left"
-                    style="width:100%;height:32px;" data-options="editable:false, required:true">
-                <option value="web">Web</option>
-                <option value="app">App</option>
-                <option value="http">http</option>
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
-                    labelPosition="left" style="width:100%;height:32px;"
-                    data-options="valueField:'id', textField:'name',editable:false,required:true">
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;" required>
-        </div>
-        <div style="margin-bottom:10px;margin-top: 5px;">
-            cron格式:  分 时 天 月 星期  | 示例：每半小时调度一次: */30 * * * *
-        </div>
-        <input hidden name="method" value="create">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('create_project_win', 'create_project_fm');">创建</a>
-        </div>
-    </form>
-</div>
-<div id="edit_project_win" class="easyui-window" title="编辑项目"
-     data-options="modal:true,closed:true,iconCls:'icon-edit'"
-     style="width:500px;height:230px;padding:10px;">
-    <form id="edit_project_fm" action="/api/v1/project/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="category" name="category"
-                    class="easyui-combobox" label="项目类型:" labelPosition="left"
-                    style="width:100%;height:32px;" data-options="editable:false, required:true">
-                <option value="web">Web</option>
-                <option value="app">App</option>
-                <option value="http">http</option>
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
-                    labelPosition="left" style="width:100%;height:32px;"
-                    data-options="valueField:'id', textField:'name',editable:false,required:true">
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="name" name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="desc" name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="cron" name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;">
-        </div>
-        <input hidden name="id" value="">
-        <input hidden name="method" value="edit">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('edit_project_win', 'edit_project_fm');">更新</a>
-        </div>
-    </form>
-</div>
-<div id="delete_project_win" class="easyui-window" title="删除项目"
-     data-options="modal:true,closed:true,iconCls:'icon-remove'"
-     style="width:500px;height:230px;padding:10px;">
-    <form id="delete_project_fm" action="/api/v1/project/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="category" name="category"
-                    class="easyui-combobox" label="项目类型:" labelPosition="left"
-                    style="width:100%;height:32px;" data-options="editable:false">
-                <option value="web">Web</option>
-                <option value="app">App</option>
-                <option value="http">http</option>
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
-                    labelPosition="left" style="width:100%;height:32px;"
-                    data-options="valueField:'id', textField:'name',editable:false">
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="name" name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="desc" name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="cron" name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;">
-        </div>
-        <input hidden name="id" value="">
-        <input hidden name="method" value="delete">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('delete_project_win', 'delete_project_fm');">删除</a>
-        </div>
-    </form>
-</div>
+{% block center %}
+    <div style="margin: 0;"></div>
+    <table id="project_list" class="easyui-datagrid" title="产品列表" style="width:100%;height:auto;"
+            data-options="rownumbers: true,
+                singleSelect: true,
+                url: '/api/v1/project/',
+                method: 'get',
+                toolbar: '#toolbar',
+                pagination: true,
+                pageList: [10,20,30],
+                pageSize: 10">
+        <thead>
+            <tr>
+                <th data-options="field:'id',width:40">ID</th>
+                <th data-options="field:'name',width:200">名称</th>
+                <th data-options="field:'product_id',width:200" hidden>产品ID</th>
+                <th data-options="field:'product_name',width:200">所属产品</th>
+                <th data-options="field:'category',width:200">分类</th>
+                <th data-options="field:'desc',width:200">描述</th>
+                <th data-options="field:'cron'">CronTrigger</th>
+                <th data-options="field:'run',width: 80, align:'center' , halign: 'center',formatter:run_project_manage">运行管理</th>
+    {#            <!--<th data-options="field:'状态'">状态</th>-->#}
+                <th data-options="field:'create_user'">创建人</th>
+                <th data-options="field:'create_timestamp'">创建时间</th>
+                <th data-options="field:'update_user'">修改人</th>
+                <th data-options="field:'update_timestamp'">修改时间</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="create_project_win" class="easyui-window" title="创建项目"
+         data-options="modal:true,closed:true,iconCls:'icon-add'"
+         style="width:500px;height:230px;padding:10px;">
+        <form id="create_project_fm" action="/api/v1/project/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="category" name="category"
+                        class="easyui-combobox" label="项目类型:" labelPosition="left"
+                        style="width:100%;height:32px;" data-options="editable:false, required:true">
+                    <option value="web">Web</option>
+                    <option value="app">App</option>
+                    <option value="http">http</option>
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
+                        labelPosition="left" style="width:100%;height:32px;"
+                        data-options="valueField:'id', textField:'name',editable:false,required:true">
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;" required>
+            </div>
+            <div style="margin-bottom:10px;margin-top: 5px;">
+                cron格式:  分 时 天 月 星期  | 示例：每半小时调度一次: */30 * * * *
+            </div>
+            <input hidden name="method" value="create">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('create_project_win', 'create_project_fm');">创建</a>
+            </div>
+        </form>
+    </div>
+    <div id="edit_project_win" class="easyui-window" title="编辑项目"
+         data-options="modal:true,closed:true,iconCls:'icon-edit'"
+         style="width:500px;height:230px;padding:10px;">
+        <form id="edit_project_fm" action="/api/v1/project/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="category" name="category"
+                        class="easyui-combobox" label="项目类型:" labelPosition="left"
+                        style="width:100%;height:32px;" data-options="editable:false, required:true">
+                    <option value="web">Web</option>
+                    <option value="app">App</option>
+                    <option value="http">http</option>
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
+                        labelPosition="left" style="width:100%;height:32px;"
+                        data-options="valueField:'id', textField:'name',editable:false,required:true">
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="name" name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="desc" name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="cron" name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <input hidden name="id" value="">
+            <input hidden name="method" value="edit">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('edit_project_win', 'edit_project_fm');">更新</a>
+            </div>
+        </form>
+    </div>
+    <div id="delete_project_win" class="easyui-window" title="删除项目"
+         data-options="modal:true,closed:true,iconCls:'icon-remove'"
+         style="width:500px;height:230px;padding:10px;">
+        <form id="delete_project_fm" action="/api/v1/project/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="category" name="category"
+                        class="easyui-combobox" label="项目类型:" labelPosition="left"
+                        style="width:100%;height:32px;" data-options="editable:false">
+                    <option value="web">Web</option>
+                    <option value="app">App</option>
+                    <option value="http">http</option>
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <select id="product_id" name="product_id" class="easyui-combobox" label="所属产品:"
+                        labelPosition="left" style="width:100%;height:32px;"
+                        data-options="valueField:'id', textField:'name',editable:false">
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="name" name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="desc" name="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:48px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="cron" name="cron" class="easyui-textbox" label="cron:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <input hidden name="id" value="">
+            <input hidden name="method" value="delete">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_project('delete_project_win', 'delete_project_fm');">删除</a>
+            </div>
+        </form>
+    </div>
 
-<div id="toolbar">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:open_win('create_project_win')">创建</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:edit_project()">编辑</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:delete_project()">删除</a>
-</div>
-<script>
-    init_product_list();
-</script>
-{#<script type="text/javascript">#}
-{#    var toolbar = [{#}
-{#        text:'创建',#}
-{#        iconCls:'icon-add',#}
-{#        handler:function(){#}
-{#            open_win('create_project_win');#}
-{#        }#}
-{#    },{#}
-{#        text:'编辑',#}
-{#        iconCls:'icon-edit',#}
-{#        handler:function(){#}
-{#            edit_project();#}
-{#        }#}
-{#    },'-',{#}
-{#        text:'删除',#}
-{#        iconCls:'icon-remove',#}
-{#        handler:function(){#}
-{#            delete_project();#}
-{#        }#}
-{#    }];#}
-{#</script>#}
-</body>
-</html>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:open_win('create_project_win')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:edit_project()">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:delete_project()">删除</a>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        init_product_list();
+    </script>
+{% endblock %}

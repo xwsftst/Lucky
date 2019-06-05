@@ -1,133 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}用户管理{% endblock %}</title>
-{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/default/easyui.css') }}">#}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/bootstrap/easyui.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='easyui/themes/icon.css') }}">
-{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">#}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lucky_icon.css') }}">
-{#    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.1.js') }}"></script>#}
-    <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='easyui/jquery.easyui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/lucky.js') }}"></script>
+{% extends "base.html" %}
+
+{% block title %}用户管理{% endblock %}
+
+{% block resource %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/user.js') }}"></script>
-    <style>
-        .panel-header{
-            border-top: 0;
-        }
-    </style>
-</head>
-<body class="easyui-layout">
+{% endblock %}
 
-<div style="margin: 0;"></div>
-<table id="user_list" class="easyui-datagrid" title="用户列表" style="width:100%;height:auto;"
-        data-options="rownumbers: true,
-            singleSelect: true,
-            url: '/api/v1/user/',
-            method: 'get',
-            toolbar: '#toolbar',
-            pagination: true,
-            pageList: [10,20,30],
-            pageSize: 10">
-    <thead>
-        <tr>
-            <th data-options="field:'id',width:40">ID</th>
-            <th data-options="field:'username'">用户名</th>
-            <th data-options="field:'role_id'">角色ID</th>
-            <th data-options="field:'role_name',width:160">角色</th>
-            <th data-options="field:'email'">邮件</th>
-{#            <th data-options="field:'password'">密码</th>#}
-            <!--<th data-options="field:'昵称'">昵称</th>-->
-            <th data-options="field:'last_seen'">最后在线时间</th>
-        </tr>
-    </thead>
-</table>
-<div id="create_user_win" class="easyui-window" title="新增用户"
-     data-options="modal:true,closed:true,iconCls:'icon-add'"
-     style="width:500px;height:230px;padding:10px;">
-    <form id="create_user_fm" action="/api/v1/user/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="role_id" name="role_id"
-                class="easyui-combobox" label="角色:" labelPosition="left"
-                style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true">
-            </select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <input hidden name="method" value="create">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('create_user_win',
-            'create_user_fm');">创建</a>
-        </div>
-    </form>
-</div>
-<div id="edit_user_win" class="easyui-window" title="编辑用户" data-options="modal:true,closed:true,iconCls:'icon-edit'"
-     style="width:500px;height:320px;padding:10px;">
-    <form id="edit_user_fm" action="/api/v1/user/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="role_id" name="role_id"
+{% block center %}
+    <div style="margin: 0;"></div>
+    <table id="user_list" class="easyui-datagrid" title="用户列表" style="width:100%;height:auto;"
+            data-options="rownumbers: true,
+                singleSelect: true,
+                url: '/api/v1/user/',
+                method: 'get',
+                toolbar: '#toolbar',
+                pagination: true,
+                pageList: [10,20,30],
+                pageSize: 10">
+        <thead>
+            <tr>
+                <th data-options="field:'id',width:40">ID</th>
+                <th data-options="field:'username'">用户名</th>
+                <th data-options="field:'role_id'">角色ID</th>
+                <th data-options="field:'role_name',width:160">角色</th>
+                <th data-options="field:'email'">邮件</th>
+    {#            <th data-options="field:'password'">密码</th>#}
+                <!--<th data-options="field:'昵称'">昵称</th>-->
+                <th data-options="field:'last_seen'">最后在线时间</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="create_user_win" class="easyui-window" title="新增用户"
+         data-options="modal:true,closed:true,iconCls:'icon-add'"
+         style="width:500px;height:230px;padding:10px;">
+        <form id="create_user_fm" action="/api/v1/user/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="create_role_id" name="role_id"
                     class="easyui-combobox" label="角色:" labelPosition="left"
-                    style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true"></select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <input hidden name="id" value="">
-        <input hidden name="method" value="edit">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('edit_user_win', 'edit_user_fm');">更新</a>
-        </div>
-    </form>
-</div>
-<div id="delete_user_win" class="easyui-window" title="删除用户"
-     data-options="modal:true,closed:true,iconCls:'icon-remove'"
-     style="width:500px;height:320px;padding:10px;">
-    <form id="delete_user_fm" action="/api/v1/user/" method="post">
-        <div style="margin-bottom:20px">
-            <select id="role_id" name="role_id"
-                    class="easyui-combobox" label="角色:" labelPosition="left"
-                    style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true"></select>
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input id="password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
-        </div>
-        <input hidden name="id" value="">
-        <input hidden name="method" value="delete">
-        <div style="text-align:center;margin-bottom:20px">
-            <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('delete_user_win', 'delete_user_fm');">删除</a>
-        </div>
-    </form>
-</div>
+                    style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true">
+                </select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="create_username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="create_email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="create_password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <input hidden name="method" value="create">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('create_user_win',
+                'create_user_fm');">创建</a>
+            </div>
+        </form>
+    </div>
+    <div id="edit_user_win" class="easyui-window" title="编辑用户" data-options="modal:true,closed:true,iconCls:'icon-edit'"
+         style="width:500px;height:320px;padding:10px;">
+        <form id="edit_user_fm" action="/api/v1/user/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="edit_role_id" name="role_id"
+                        class="easyui-combobox" label="角色:" labelPosition="left"
+                        style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true"></select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="edit_username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="edit_email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="edit_password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <input hidden name="id" value="">
+            <input hidden name="method" value="edit">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('edit_user_win', 'edit_user_fm');">更新</a>
+            </div>
+        </form>
+    </div>
+    <div id="delete_user_win" class="easyui-window" title="删除用户"
+         data-options="modal:true,closed:true,iconCls:'icon-remove'"
+         style="width:500px;height:320px;padding:10px;">
+        <form id="delete_user_fm" action="/api/v1/user/" method="post">
+            <div style="margin-bottom:20px">
+                <select id="delete_role_id" name="role_id"
+                        class="easyui-combobox" label="角色:" labelPosition="left"
+                        style="width:100%;height:32px;" data-options="valueField:'id', textField:'name',editable:false,required:true"></select>
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="delete_username" name="username" class="easyui-textbox" label="用户名:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="delete_email" name="email" class="easyui-textbox" label="email:" labelPosition="left" style="width:100%;height:32px;" data-options="validType:'email',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="delete_password" name="password" class="easyui-textbox" type="password" label="密码:" labelPosition="left" style="width:100%;height:32px;" data-options="required:true">
+            </div>
+            <input hidden name="id" value="">
+            <input hidden name="method" value="delete">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user('delete_user_win', 'delete_user_fm');">删除</a>
+            </div>
+        </form>
+    </div>
 
-<div id="toolbar">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:open_win('create_user_win')">创建</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:edit_user()">编辑</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:delete_user()">删除</a>
-</div>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:open_win('create_user_win')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:edit_user()">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:delete_user()">删除</a>
+    </div>
+{% endblock %}
 
-<script>
-    init_role_list();
-</script>
-</body>
-</html>
+{% block js %}
+    <script>
+        init_role_list();
+    </script>
+{% endblock %}
