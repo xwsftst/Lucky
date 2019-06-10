@@ -58,7 +58,7 @@ function init_project_list(){
 	onSelect: function(record){
 	    load_project_tree(record["id"]);
 	    var tabs = $("#editor_tabs").tabs('tabs');
-	    var titles = new Array("开始", "产品管理", "项目管理", "调度管理","系统设置");
+	    var titles = new Array("欢迎页", "产品管理", "项目管理", "调度管理", "用户管理", "关键字");
 	    for(var index=0;index<tabs.length; index++){
 	        var title = $("#editor_tabs").tabs('getTab', index).panel('options').title;
 	        var flag = false;
@@ -110,6 +110,15 @@ function show_msg(title, msg){
     });
 }
 
+function collapse(){
+    var node = $('#project_tree').tree('getSelected');
+    $('#project_tree').tree('collapse',node.target);
+}
+
+function expand(){
+    var node = $('#project_tree').tree('getSelected');
+    $('#project_tree').tree('expand',node.target);
+}
 function onContextMenu(e, node){
     e.preventDefault();
     // select the node
@@ -160,5 +169,16 @@ function addManageTab(title, url, icon){
             content: content,
             iconCls: icon||'icon-default'
         });
+    }
+}
+
+function onShowKeywordPanel(){
+    var root = $('#project_tree').tree("getRoot");
+    var keyword=[];
+    for(var i in G_SYS_KEYWORD_LIST){
+        keyword.push(G_SYS_KEYWORD_LIST[i]);
+    }
+    if(root){
+        $(this).combotree('reload', "/api/v1/keyword/?project_id={0}".lym_format(root.id));
     }
 }

@@ -1,17 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}自定义关键字集列表{% endblock %}
-
-{% block resource %}
-{#    <script type="text/javascript" src="{{ url_for('static', filename='js/keyword.js') }}"></script>#}
-{% endblock %}
-
 {% block center %}
     <div style="margin: 8px 0;"></div>
-	<table id="object_list" class="easyui-datagrid" title="自定义关键字集列表" style="width:100%;height:auto;"
+	<table id="user_keyword_suite_list" class="easyui-datagrid" title="自定义关键字集列表" style="width:100%;height:auto;"
 			data-options="rownumbers: true,
 			    singleSelect: true,
-			    url: '/api/v1/object/?project_id={{ id }}',
+			    url: '/api/v1/user_keyword_suite/?project_id={{ id }}',
 			    method: 'get',
 			    toolbar: '#toolbar',
 			    pagination: true,
@@ -30,10 +24,10 @@
 			</tr>
 		</thead>
 	</table>
-    <div id="object_win" class="easyui-window" title=""
+    <div id="user_keyword_suite_win" class="easyui-window" title=""
          data-options="modal:true,closed:true,iconCls:'icon-object'"
          style="width:500px;height:230px;padding:10px;">
-        <form id="object_fm" action="/api/v1/object/" method="post">
+        <form id="user_keyword_suite_fm" action="/api/v1/user_keyword_suite/" method="post">
             <div style="margin-bottom:20px">
                 <input name="name" id="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
             </div>
@@ -45,13 +39,13 @@
             <input hidden name="id" id="id" value="-1">
             <input hidden name="project_id" id="project_id" value="{{ id }}">
             <div style="text-align:center;margin-bottom:20px">
-                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_frame_object('object_win', 'object_fm');">创建</a>
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user_keyword_suite('user_keyword_suite_win', 'user_keyword_suite_fm');">创建</a>
             </div>
         </form>
     </div>
     <div id="toolbar">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'create')">创建</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'edit')">编辑</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_object_table('object_win', 'object_fm', 'delete')">删除</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'create', '自定义关键字集')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'edit', '自定义关键字集')">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'delete', '自定义关键字集')">删除</a>
     </div>
 {% endblock %}

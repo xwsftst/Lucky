@@ -2,6 +2,10 @@
 
 {% block title %}home_title{% endblock %}
 
+{% block resource %}
+
+{% endblock %}
+
 {% block top %}
     <div data-options="region:'north'" class="top">
         <img class="logo" href="#" src="{{ url_for('static', filename='img/logo4.png') }}">
@@ -86,6 +90,9 @@
             </div>
         </div>
     </div>
+
+    {% include "menu.html" %}
+    {% include "win.html" %}
 {% endblock %}
 
 {% block right %}
@@ -99,5 +106,33 @@
 {% endblock %}
 
 {% block js %}
-    init_project_list();
+    <script>
+        init_project_list();
+        project_stats('project_stats');
+        //task_stats('task_stats');
+        exec_stats('exec_stats');
+        $.extend($.fn.textbox.defaults.rules, {
+            var_object : {// 验证变量输入
+                  validator : function(value) {
+                      return /^[\$|&|@]\{[A-Za-z0-9_]+\}$/.test(value);
+                  },
+                  message : '变量创建规则<br/>单个变量:${变量名}<br/>列表变量:@{变量名}<br/>字典变量:&{变量名}<br/>变量名只允许：大小写字母、数字或下划线'
+            }
+        });
+        var ii=-1;
+        $('#keyword_params').datagrid({
+            onClickCell: function(index,field,value){
+                if(ii != -1){
+                    $(this).datagrid('endEdit', ii);
+                    ii=-1;
+                }
+                else{
+                    ii = index;
+                    $(this).datagrid('beginEdit', index);
+                    //var ed = $(this).datagrid('getEditor', {index:index,field:field});
+                    //$(ed.target).focus();
+                }
+            }
+        });
+    </script>
 {% endblock %}
