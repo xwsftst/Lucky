@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block resource %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/user_keyword.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/suite.js') }}"></script>
 {% endblock %}
 
 {% block center %}
-    <div style="margin: 8px 0;"></div>
-	<table id="user_keyword_suite_list" class="easyui-datagrid" title="自定义关键字集列表" style="width:100%;height:auto;"
+    <div style="margin: 0;"></div>
+	<table id="suite_list" class="easyui-datagrid" title="套件列表" style="width:100%;height:auto;"
 			data-options="rownumbers: true,
 			    singleSelect: true,
-			    url: '/api/v1/user_keyword_suite/?project_id={{ id }}',
+			    url: '/api/v1/suite/?project_id={{ id }}',
 			    method: 'get',
 			    toolbar: '#toolbar',
 			    pagination: true,
@@ -28,10 +28,10 @@
 			</tr>
 		</thead>
 	</table>
-    <div id="user_keyword_suite_win" class="easyui-window" title=""
-         data-options="modal:true,closed:true,iconCls:'icon-object'"
+    <div id="suite_win" class="easyui-window" title=""
+         data-options="modal:true,closed:true,iconCls:'icon-suite'"
          style="width:500px;height:230px;padding:10px;">
-        <form id="user_keyword_suite_fm" action="/api/v1/user_keyword_suite/" method="post">
+        <form id="suite_fm" action="/api/v1/suite/" method="post">
             <div style="margin-bottom:20px">
                 <input name="name" id="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
             </div>
@@ -39,18 +39,18 @@
                 <input name="desc" id="desc" class="easyui-textbox" label="描述:" labelPosition="left" multiline="true" style="width:100%;height:64px;">
             </div>
             <input hidden name="method" id="method" value="create">
-{#            <input hidden name="category" id="category" value="object">#}
-            <input hidden name="category" id="category" value="keyword">
+            <input hidden name="category" id="category" value="suite">
             <input hidden name="id" id="id" value="-1">
             <input hidden name="project_id" id="project_id" value="{{ id }}">
             <div style="text-align:center;margin-bottom:20px">
-                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_user_keyword_suite('user_keyword_suite_win', 'user_keyword_suite_fm');">创建</a>
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_suite('suite_win', 'suite_fm');">创建</a>
             </div>
         </form>
     </div>
+
     <div id="toolbar">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'create', '自定义关键字集')">创建</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'edit', '自定义关键字集')">编辑</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_user_keyword_suite_table('user_keyword_suite_win', 'user_keyword_suite_fm', 'delete', '自定义关键字集')">删除</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_suite_table('suite_win', 'suite_fm', 'create', '套件')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_suite_table('suite_win', 'suite_fm', 'edit', '套件')">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_suite_table('suite_win', 'suite_fm', 'delete', '套件')">删除</a>
     </div>
 {% endblock %}

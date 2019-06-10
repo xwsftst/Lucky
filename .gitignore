@@ -1,0 +1,6 @@
+##ignore these file##
+.idea
+.gitignore.swp
+*.pyc
+migrations
+__pycache__

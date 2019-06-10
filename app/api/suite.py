@@ -1,17 +1,20 @@
-# uncompyle6 version 3.3.3
-# Python bytecode 3.7 (3394)
-# Decompiled from: Python 3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 23:09:28) [MSC v.1916 64 bit (AMD64)]
-# Embedded file name: E:\WorkSpace\Lucky\app\api\suite.py
-# Size of source mod 2**32: 5432 bytes
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+#@Time  : 2019/6/10 9:39
+#@user: xws
+#@File  : suite.py
+
 from datetime import datetime
-from flask_login import current_user
+from flask import url_for
 from flask_restful import Resource, reqparse
+from flask_login import current_user
 from sqlalchemy import and_
+
 from app.ext import db
-from app.models import Suite, User
+from app.models import User, Project, Suite
+
 
 class SuiteApi(Resource):
-
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('id', type=int)
@@ -29,117 +32,152 @@ class SuiteApi(Resource):
 
     def get(self):
         args = self.parser.parse_args()
-        pagination = Suite.query.filter_by(project_id=(args['project_id'])).order_by(Suite.id.asc()).paginate((args['page']),
-          per_page=(args['rows']), error_out=False)
-        suites = pagination.items
-        data = {'total':pagination.total,  'rows':[]}
-        for s in suites:
-            data['rows'].append({'id':s.id, 
-             'project_id':s.project_id, 
-             'name':s.name, 
-             'desc':s.desc, 
-             'create_user':User.query.filter_by(id=(s.create_user_id)).first().username, 
-             'create_timestamp':s.create_timestamp.strftime('%Y-%m-%d %H:%M:%S'), 
-             'update_user':User.query.filter_by(id=(s.update_user_id)).first().username, 
-             'update_timestamp':s.update_timestamp.strftime('%Y-%m-%d %H:%M:%S')})
+
+        pagination = Suite.query.filter_by(project_id=args["project_id"]).order_by(Suite.id.asc()).paginate(
+            args["page"], per_page=args["rows"],
+            error_out=False
+        )
+
+        objects = pagination.items
+        data = {"total": pagination.total, "rows": []}
+        for o in objects:
+            data["rows"].append({
+                "id": o.id,
+                "project_id": o.project_id,
+                "name": o.name,
+                "desc": o.desc,
+                "create_user": User.query.filter_by(id=o.create_user_id).first().username,
+                "create_timestamp": o.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                "update_user": User.query.filter_by(id=o.update_user_id).first().username,
+                "update_timestamp": o.update_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            })
 
         return data
 
     def post(self):
         args = self.parser.parse_args()
-        method = args['method'].lower()
-        if method == 'create':
-            return (
-             self._SuiteApi__create(args), 201)
-        elif method == 'edit':
-            return (self._SuiteApi__edit(args), 201)
-        elif method == 'delete':
-            return (self._SuiteApi__delete(args), 201)
-        elif method == 'query':
-            return (self._SuiteApi__query(args), 201)
-        else:
-            return (
-             {'status':'fail', 
-              'msg':'·½·¨: %s ²»Ö§³Ö' % method}, 201)
+
+        method = args["method"].lower()
+        if method == "create":
+            return self.__create(args), 201
+        elif method == "edit":
+            return self.__edit(args), 201
+        elif method == "delete":
+            return self.__delete(args), 201
+        elif method == "query":
+            return self.__query(args), 201
+
+        return {"status": "fail", "msg": "æ–¹æ³•: %s ä¸æ”¯æŒ" % method}, 201
 
     def __create(self, args):
-        result = {'status':'success', 
-         'msg':'²Ù×÷³É¹¦'}
-        suite = Suite.query.filter(and_(Suite.name == args['name'], Suite.project_id == args['project_id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+
+        suite = Suite.query.filter(and_(Suite.name == args["name"],
+                                            Suite.project_id == args["project_id"])).first()
         if suite is None:
             try:
-                suite = Suite(name=(args['name']), desc=(args['desc']),
-                  project_id=(args['project_id']),
-                  tags=(args['tags']),
-                  enable=(args['enable']),
-                  setup=(args['setup']),
-                  teardown=(args['teardown']),
-                  create_user_id=(current_user.get_id()),
-                  update_user_id=(current_user.get_id()))
+                suite = Suite(name=args["name"],
+                                  desc=args["desc"],
+                                  project_id=args["project_id"],
+                                  tags=args["tags"],
+                                  enable=args["enable"],
+                                  setup=args["setup"],
+                                  teardown=args["teardown"],
+                                  create_user_id=current_user.get_id(),
+                                  update_user_id=current_user.get_id())
+
                 db.session.add(suite)
                 db.session.commit()
-                result['project_id'] = suite.project_id
+                result["project_id"] = suite.project_id
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = 'Òì³££º%s' % str(e)
-                finally:
-                    e = None
-                    del e
-
+                result["status"] = "fail"
+                result["msg"] = "å¼‚å¸¸ï¼š%s" % str(e)
         else:
-            result['status'] = 'fail'
-            result['msg'] = 'Ì×¼şÃû³Æ[%s]ÖØ¸´' % args['name']
+            result["status"] = "fail"
+            result["msg"] = "å¥—ä»¶åç§°[%s]é‡å¤" % args["name"]
+
         return result
 
     def __edit(self, args):
-        result = {'status':'success', 
-         'msg':'²Ù×÷³É¹¦'}
-        suite = Suite.query.filter_by(id=(args['id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+        suite = Suite.query.filter_by(id=args["id"]).first()
         if suite is None:
-            result['status'] = 'fail'
-            result['msg'] = 'Î´ÕÒµ½ÒªĞŞ¸ÄµÄÌ×¼şid'
+            result["status"] = "fail"
+            result["msg"] = "æœªæ‰¾åˆ°è¦ä¿®æ”¹çš„å¥—ä»¶id"
         else:
             try:
-                suite.name = args['name']
-                suite.desc = args['desc']
-                suite.tags = args['tags']
-                suite.enable = args['enable']
-                suite.setup = args['setup']
-                suite.teardown = args['teardown']
+                suite.name = args["name"]
+                suite.desc = args["desc"]
+                suite.tags = args["tags"]
+                suite.enable = args["enable"]
+                suite.setup = args["setup"]
+                suite.teardown = args["teardown"]
+
                 suite.update_user_id = current_user.get_id()
                 suite.update_timestamp = datetime.now()
+
                 db.session.merge(suite)
                 db.session.commit()
-                result['project_id'] = suite.project_id
+                result["project_id"] = suite.project_id
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = '±à¼­Ì×¼ş[id-%s]Ê§°Ü£º%s' % (args['id'], str(e))
-                finally:
-                    e = None
-                    del e
+                result["status"] = "fail"
+                result["msg"] = "ç¼–è¾‘å¥—ä»¶[id-%s]å¤±è´¥ï¼š%s" % (args["id"], str(e))
 
-            return result
+        return result
+
+    def __query(self, args):
+        data = {"data": []}
+        if args["id"] == -1:
+            status = {True: "æ¿€æ´»", False: "ä¸å¯ç”¨"}
+            projects = Project.query.all()
+            for p in projects:
+                data["data"].append({
+                    "id": p.id,
+                    "name": p.name,
+                    #"æ‰€å±äº§å“": Product.query.filter_by(id=p.product_id).first().name,
+                    "desc": p.desc,
+                    "enable": status[p.enable],
+                    "create_user": User.query.filter_by(id=p.create_user_id).first().username,
+                    "create_timestamp": p.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                    "update_user": User.query.filter_by(id=p.update_user_id).first().username,
+                    "update_timestamp": p.update_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+                })
+        else:
+            project = Project.query.filter_by(id=args["id"]).first()
+
+            return [{
+                "name": project.name,
+                "open": False,
+                "icon": url_for("static", filename="images/project.png"),
+                "attr": {
+                    "category": "project",
+                    "id": project.id,
+                    "name": project.name
+                    },
+                "children": []
+            }
+            ]
+
+
+        return data
 
     def __delete(self, args):
-        result = {'status':'success',  'msg':'²Ù×÷³É¹¦'}
-        suite = Suite.query.filter_by(id=(args['id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+
+        suite = Suite.query.filter_by(id=args["id"]).first()
         if suite is None:
-            result['status'] = 'fail'
-            result['msg'] = 'Î´ÕÒµ½ÒªÉ¾³ıµÄÌ×¼şid'
+            result["status"] = "fail"
+            result["msg"] = "æœªæ‰¾åˆ°è¦åˆ é™¤çš„å¥—ä»¶id"
         else:
             try:
-                result['project_id'] = suite.project_id
+                result["project_id"] = suite.project_id
                 db.session.delete(suite)
                 db.session.commit()
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = 'É¾³ıÌ×¼ş[id-%s]Ê§°Ü£º%s' % (args['id'], str(e))
-                finally:
-                    e = None
-                    del e
+                result["status"] = "fail"
+                result["msg"] = "åˆ é™¤å¥—ä»¶[id-%s]å¤±è´¥ï¼š%s" % (args["id"], str(e))
 
-            return result
-# okay decompiling E:\WorkSpace\Lucky\app\api\__pycache__\suite.cpython-37.pyc
+        return result

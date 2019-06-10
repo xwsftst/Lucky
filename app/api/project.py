@@ -5,7 +5,7 @@ from flask_login import current_user
 from flask_restful import Resource, reqparse
 
 from app.ext import db
-from app.models import Project, Product, User
+from app.models import Project, Product, User, UserKeywordSuite, UserKeyword, Var, Object, Case, Suite
 
 
 class ProjectApi(Resource):
@@ -217,3 +217,130 @@ class ProjectApi(Resource):
                 result["msg"] = "删除项目[id-%s]失败：%s" % (args["id"], str(e))
 
         return result
+
+    def __get_suites_by_project_id(self, id):
+        children = []
+        suites = Suite.query.filter_by(project_id=id).order_by(Suite.id.asc()).all()
+        for suite in suites:
+            cases = self.__get_cases_by_suite_id(suite.id)
+            children.append({
+                "id": suite.id,
+                "text": suite.name,
+                "iconCls": "icon-suite",
+                "attributes": {
+                    "category": "suite",
+                    "id": suite.id,
+                    "project_id": suite.project_id,
+                    "name": suite.name,
+                    "desc": suite.desc
+                },
+                "children": cases
+
+            })
+
+        return children
+
+    def __get_cases_by_suite_id(self, id):
+        children = []
+        cases = Case.query.filter_by(suite_id=id).order_by(Case.id.asc()).all()
+        for case in cases:
+            # steps = self.__get_steps_by_case_id(case.id)
+            children.append({
+                "id": case.id,
+                "text": case.name,
+                "iconCls": "icon-case",
+                "attributes": {
+                    "category": "case",
+                    "id": case.id,
+                    "suite_id": case.suite_id,
+                    "name": case.name,
+                    "desc": case.desc
+                },
+                # "children": steps
+            })
+
+        return children
+
+    def __get_object_suites_by_project_id(self, id):
+        children = []
+        objects = Object.query.filter_by(project_id=id).order_by(Object.id.asc()).all()
+
+        for obj in objects:
+            vars = self.__get_var_by_object_id(obj.id)
+            children.append({
+                "id": obj.id,
+                "text": obj.name,
+                "iconCls": "icon-object",
+                "attributes": {
+                    "category": obj.category,
+                    "id": obj.id,
+                    "project_id": obj.project_id,
+                    "name": obj.name,
+                    "desc": obj.desc
+                },
+                "children": vars
+
+            })
+
+        return children
+
+    def __get_keyword_suites_by_project_id(self, id):
+        children = []
+        suites = UserKeywordSuite.query.filter_by(project_id=id).order_by(UserKeywordSuite.id.asc()).all()
+
+        for suite in suites:
+            keys = self.__get_keyword_by_suite_id(suite.id)
+            children.append({
+                "id": suite.id,
+                "text": suite.name,
+                "iconCls": "icon-user_keyword",
+                "attributes": {
+                    "category": suite.category,
+                    "id": suite.id,
+                    "project_id": suite.project_id,
+                    "name": suite.name,
+                    "desc": suite.desc
+                },
+                "children": keys
+
+            })
+
+        return children
+
+    def __get_keyword_by_suite_id(self, id):
+        print(id)
+        children = []
+        keys = UserKeyword.query.filter_by(keyword_suite_id=id).order_by(UserKeyword.id.asc()).all()
+        for k in keys:
+            children.append({
+                "id": k.id,
+                "text": k.keyword,
+                "iconCls": "icon-keyword",
+                "attributes": {
+                    "category": "user-keyword",
+                    "id": k.id,
+                    "suite_id": k.keyword_suite_id,
+                    "keyword": k.keyword,
+                    "params": k.params
+                }})
+
+        return children
+
+    def __get_var_by_object_id(self, id):
+        children = []
+        vars = Var.query.filter_by(object_id=id).order_by(Var.id.asc()).all()
+        for var in vars:
+            children.append({
+                "id": var.id,
+                "text": var.name,
+                "iconCls": "icon-var",
+                "attributes": {
+                    "category": var.category,
+                    "id": var.id,
+                    "object_id": var.object_id,
+                    "name": var.name,
+                    "value": var.value,
+                    "desc": var.desc
+                }})
+
+        return children

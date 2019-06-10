@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block resource %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/var.js') }}"></script>
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 0;"></div>
+	<table id="var_list" class="easyui-datagrid" title="对象列表" style="width:100%;height:auto;"
+			data-options="rownumbers: true,
+			    singleSelect: true,
+			    url: '/api/v1/var/?object_id={{ id }}',
+			    method: 'get',
+			    toolbar: '#toolbar',
+			    pagination: true,
+			    pageList: [10,20,30],
+				pageSize: 10">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:40">ID</th>
+				<th data-options="field:'name',width:160">名称</th>
+				<th data-options="field:'object_id'" hidden>对象集ID</th>
+                <th data-options="field:'value',width:200">值</th>
+                <th data-options="field:'desc',width:200">描述</th>
+				<th data-options="field:'create_user'">创建人</th>
+				<th data-options="field:'create_timestamp'">创建日期</th>
+                <th data-options="field:'update_user'">修改人</th>
+				<th data-options="field:'update_timestamp'">修改日期</th>
+			</tr>
+		</thead>
+	</table>
+    <div id="var_win" class="easyui-window" title=""
+         data-options="modal:true,closed:true,iconCls:'icon-var'"
+         style="width:500px;height:330px;padding:10px;">
+        <form id="var_fm" action="/api/v1/object/" method="post">
+
+            <div style="margin-bottom:20px">
+                <input name="name" id="name" class="easyui-textbox" label="对象名:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="value" id="value" class="easyui-textbox" label="对象值:" labelPosition="left" multiline="true"  style="width:100%;height:118px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="desc" id="desc" class="easyui-textbox" label="备注:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <input hidden name="method" id="method" value="create">
+            <input hidden name="id" id="id" value="-1">
+            <input hidden name="category" id="category" value="var">
+            <input hidden name="object_id" id="object_id" value="{{ id }}">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_var('var_win', 'var_fm');">创建</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_var_table('var_win', 'var_fm', 'create', '对象')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_var_table('var_win', 'var_fm', 'edit', '对象')">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_var_table('var_win', 'var_fm', 'delete', '对象')">删除</a>
+    </div>
+{% endblock %}

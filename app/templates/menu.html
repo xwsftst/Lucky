@@ -1,0 +1,80 @@
+<div id="project_menu" class="easyui-menu" style="width:160px;">
+    <div onclick="addManageTab('查看任务', '/task', 'icon-task');" data-options="iconCls:'icon-task'">查看任务</div>
+    <div class="menu-sep"></div>
+    <div onclick="debug_run();" data-options="iconCls:'icon-debug'">调试</div>
+    <div onclick="test_run('web');" data-options="iconCls:'icon-run-test'">运行</div>
+    <!--<div onclick="test_run('web');" data-options="iconCls:'icon-web-run'">运行web项目</div>
+    <div onclick="test_run('app');" data-options="iconCls:'icon-app-run'">运行App项目</div>
+    <div onclick="test_run('http');" data-options="iconCls:'icon-http-run'">运行接口项目</div>-->
+    <div class="menu-sep"></div>
+    <div onclick="show_obj_win('object_win', 'object_fm', 'create', '对象集');" data-options="iconCls:'icon-object'">创建对象集</div>
+    <div onclick="addManageTab('对象集管理', '/manage/object', 'icon-object');" data-options="iconCls:'icon-object'">管理对象集</div>
+    <div class="menu-sep"></div>
+    <div onclick="show_user_keyword_suite_win('user_keyword_win', 'user_keyword_fm', 'create', '自定义关键字集');" data-options="iconCls:'icon-user_keyword'">创建自定义关键字集</div>
+    <div onclick="addManageTab('自定义关键字集管理', '/manage/keyword', 'icon-user_keyword');" data-options="iconCls:'icon-user_keyword'">管理自定义关键字集</div>
+    <div class="menu-sep"></div>
+    <div onclick="show_suite_win('suite_win', 'suite_fm', 'create', '套件');" data-options="iconCls:'icon-suite'">创建套件</div>
+    <div onclick="addManageTab('套件管理', '/manage/suite', 'icon-suite');" data-options="iconCls:'icon-suite'">管理套件</div>
+    <div class="menu-sep"></div>
+    <div onclick="expand()">展开</div>
+    <div onclick="collapse()">折叠</div>
+</div>
+
+<div id="object_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_var_win('var_win', 'var_fm', 'create', '对象');" data-options="iconCls:'icon-var'">创建对象</div>
+    <div onclick="addManageTab('对象管理', '/manage/var', 'icon-var');" data-options="iconCls:'icon-var'">管理对象</div>
+    <div class="menu-sep"></div>
+    <div onclick="show_obj_win('object_win', 'object_fm', 'edit', '对象集');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_obj_win('object_win', 'object_fm', 'delete', '对象集');" data-options="iconCls:'icon-remove'">删除</div>
+    <div class="menu-sep"></div>
+    <div onclick="expand()">展开</div>
+    <div onclick="collapse()">折叠</div>
+</div>
+
+<div id="var_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_var_win('var_win', 'var_fm', 'edit', '对象');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_var_win('var_win', 'var_fm', 'delete', '对象');" data-options="iconCls:'icon-remove'">删除</div>
+</div>
+
+<div id="keyword_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_keyword_win('keyword_win', 'keyword_fm', 'create', '自定义关键字');" data-options="iconCls:'icon-keyword'">创建关键字</div>
+    <!--<div onclick="addManageTab('关键字管理', '/manage/keyword', 'icon-keyword');" data-options="iconCls:'icon-keyword'">管理关键字</div>-->
+    <div class="menu-sep"></div>
+    <div onclick="show_user_keyword_suite_win('user_keyword_win', 'user_keyword_fm', 'edit', '自定义关键字集');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_user_keyword_suite_win('user_keyword_win', 'user_keyword_fm', 'delete', '自定义关键字集');" data-options="iconCls:'icon-remove'">删除</div>
+    <div class="menu-sep"></div>
+    <div onclick="expand()">展开</div>
+    <div onclick="collapse()">折叠</div>
+</div>
+
+<div id="user-keyword_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_keyword_win('keyword_win', 'keyword_fm', 'edit', '自定义关键字');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_keyword_win('keyword_win', 'keyword_fm', 'delete', '自定义关键字');" data-options="iconCls:'icon-remove'">删除</div>
+</div>
+
+<div id="suite_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_case_win('case_win', 'case_fm', 'create', '用例');" data-options="iconCls:'icon-case'">新增用例</div>
+    <div onclick="addManageTab('用例管理', '/manage/case', 'icon-case');" data-options="iconCls:'icon-case'">管理用例</div>
+    <div class="menu-sep"></div>
+    <div onclick="show_suite_win('suite_win', 'suite_fm', 'edit', '套件');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_suite_win('suite_win', 'suite_fm', 'delete', '套件');" data-options="iconCls:'icon-remove'">删除</div>
+    <div class="menu-sep"></div>
+    <div onclick="expand()">展开</div>
+    <div onclick="collapse()">折叠</div>
+</div>
+
+<div id="case_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_ui_step_win('ui_step_win', 'ui_step_fm', 'create', '步骤');" data-options="iconCls:'icon-step'">新增步骤</div>
+    <div onclick="addManageTab('用例步骤', '/manage/step', 'icon-step');" data-options="iconCls:'icon-step'">管理步骤</div>
+    <div class="menu-sep"></div>
+    <div onclick="show_case_win('case_win', 'case_fm', 'edit', '用例');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_case_win('case_win', 'case_fm', 'delete', '用例');" data-options="iconCls:'icon-remove'">删除</div>
+    <div class="menu-sep"></div>
+    <div onclick="expand()">展开</div>
+    <div onclick="collapse()">折叠</div>
+</div>
+
+<div id="step_menu" class="easyui-menu" style="width:120px;">
+    <div onclick="show_ui_step_win('ui_step_win', 'ui_step_fm', 'edit', '步骤');" data-options="iconCls:'icon-edit'">编辑</div>
+    <div onclick="show_ui_step_win('ui_step_win', 'ui_step_fm', 'delete', '步骤');" data-options="iconCls:'icon-remove'">删除</div>
+</div>

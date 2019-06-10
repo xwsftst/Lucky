@@ -1,19 +1,3 @@
-// function open_win(id){
-//     $('#{0}'.lym_format(id)).window('open');
-// }
-//
-// function close_win(id){
-//     $('#{0}'.lym_format(id)).window('close');
-// }
-function show_msg(title, msg){
-    $.messager.show({
-        title: title,
-        msg: msg,
-        timeout: 3000,
-        showType: 'slide'
-    });
-}
-
 function manage_product(win_id, fm_id){
     $('#{0}'.lym_format(fm_id)).form('submit',{
         url: "/api/v1/product/",

@@ -12,11 +12,23 @@ def init_api(app):
 from .login import Login
 from .product import ProductApi
 from .project import ProjectApi
+from .object import ObjectApi
 from .user import UserApi
 from .role import RoleApi
+from .suite import SuiteApi
+from .case import CaseApi
+from .user_keyword import UserKeywordSuiteApi, UserKeywordApi
+from .var import VarApi
+
 
 api.add_resource(Login, '/login/')
 api.add_resource(ProductApi, '/product/')
 api.add_resource(ProjectApi, '/project/')
+api.add_resource(ObjectApi, "/object/")
 api.add_resource(UserApi, '/user/')
 api.add_resource(RoleApi, '/role/')
+api.add_resource(CaseApi, '/case/')
+api.add_resource(SuiteApi, '/suite/')
+api.add_resource(UserKeywordSuiteApi, '/user_keyword_suite/')
+api.add_resource(UserKeywordApi, '/user_keyword/')
+api.add_resource(VarApi, '/var/')

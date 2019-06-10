@@ -42,6 +42,12 @@ def project():
 def user():
     return render_template('user.html')
 
+
+@home_blue.route('/manage/<category>/<id>', methods=['GET'])
+@login_required
+def manage(category, id):
+    return render_template('%s.html' % category, id=id)
+
 #
 # @home_blue.route('/help/', methods=['GET'])
 # @login_required

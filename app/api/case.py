@@ -1,17 +1,20 @@
-# uncompyle6 version 3.3.3
-# Python bytecode 3.7 (3394)
-# Decompiled from: Python 3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 23:09:28) [MSC v.1916 64 bit (AMD64)]
-# Embedded file name: E:\WorkSpace\Lucky\app\api\case.py
-# Size of source mod 2**32: 5333 bytes
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+#@Time  : 2019/6/10 9:32
+#@user: xws
+#@File  : case.py
 from datetime import datetime
+
+from flask import url_for
 from flask_login import current_user
 from flask_restful import Resource, reqparse
 from sqlalchemy import and_
+
 from app.ext import db
-from app.models import Case, User
+from app.models import Case, User, Project
+
 
 class CaseApi(Resource):
-
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('id', type=int)
@@ -29,117 +32,151 @@ class CaseApi(Resource):
 
     def get(self):
         args = self.parser.parse_args()
-        pagination = Case.query.filter_by(suite_id=(args['suite_id'])).order_by(Case.id.asc()).paginate((args['page']),
-          per_page=(args['rows']), error_out=False)
+
+        pagination = Case.query.filter_by(suite_id=args["suite_id"]).order_by(Case.id.asc()).paginate(
+            args["page"], per_page=args["rows"],
+            error_out=False
+        )
+
         cases = pagination.items
-        data = {'total':pagination.total,  'rows':[]}
+        data = {"total": pagination.total, "rows": []}
         for v in cases:
-            data['rows'].append({'id':v.id, 
-             'suite_id':v.suite_id, 
-             'name':v.name, 
-             'desc':v.desc, 
-             'create_user':User.query.filter_by(id=(v.create_user_id)).first().username, 
-             'create_timestamp':v.create_timestamp.strftime('%Y-%m-%d %H:%M:%S'), 
-             'update_user':User.query.filter_by(id=(v.update_user_id)).first().username, 
-             'update_timestamp':v.update_timestamp.strftime('%Y-%m-%d %H:%M:%S')})
+            data["rows"].append({
+                "id": v.id,
+                "suite_id": v.suite_id,
+                "name": v.name,
+                "desc": v.desc,
+                "create_user": User.query.filter_by(id=v.create_user_id).first().username,
+                "create_timestamp": v.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                "update_user": User.query.filter_by(id=v.update_user_id).first().username,
+                "update_timestamp": v.update_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            })
 
         return data
 
     def post(self):
         args = self.parser.parse_args()
-        method = args['method'].lower()
-        if method == 'create':
-            return (
-             self._CaseApi__create(args), 201)
-        elif method == 'edit':
-            return (self._CaseApi__edit(args), 201)
-        elif method == 'delete':
-            return (self._CaseApi__delete(args), 201)
-        elif method == 'query':
-            return (self._CaseApi__query(args), 201)
-        else:
-            return (
-             {'status':'fail', 
-              'msg':'·½·¨: %s ²»Ö§³Ö' % method}, 201)
+        method = args["method"].lower()
+        if method == "create":
+            return self.__create(args), 201
+        elif method == "edit":
+            return self.__edit(args), 201
+        elif method == "delete":
+            return self.__delete(args), 201
+        elif method == "query":
+            return self.__query(args), 201
+
+        return {"status": "fail", "msg": "æ–¹æ³•: %s ä¸æ”¯æŒ" % method}, 201
 
     def __create(self, args):
-        result = {'status':'success', 
-         'msg':'²Ù×÷³É¹¦'}
-        case = Case.query.filter(and_(Case.name == args['name'], Case.suite_id == args['suite_id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+
+        case = Case.query.filter(and_(Case.name == args["name"],
+                                          Case.suite_id == args["suite_id"])).first()
         if case is None:
             try:
-                case = Case(name=(args['name']), desc=(args['desc']),
-                  suite_id=(args['suite_id']),
-                  tags=(args['tags']),
-                  enable=(args['enable']),
-                  setup=(args['setup']),
-                  teardown=(args['teardown']),
-                  create_user_id=(current_user.get_id()),
-                  update_user_id=(current_user.get_id()))
+                case = Case(name=args["name"],
+                                desc=args["desc"],
+                                suite_id=args["suite_id"],
+                                tags=args["tags"],
+                                enable=args["enable"],
+                                setup=args["setup"],
+                                teardown=args["teardown"],
+                                create_user_id=current_user.get_id(),
+                                update_user_id=current_user.get_id())
+
                 db.session.add(case)
                 db.session.commit()
-                result['suite_id'] = case.suite_id
+                result["suite_id"] = case.suite_id
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = 'Òì³££º%s' % str(e)
-                finally:
-                    e = None
-                    del e
-
+                result["status"] = "fail"
+                result["msg"] = "å¼‚å¸¸ï¼š%s" % str(e)
         else:
-            result['status'] = 'fail'
-            result['msg'] = 'ÓÃÀıÃû³Æ[%s]ÖØ¸´' % args['name']
+            result["status"] = "fail"
+            result["msg"] = "ç”¨ä¾‹åç§°[%s]é‡å¤" % args["name"]
+
         return result
 
     def __edit(self, args):
-        result = {'status':'success', 
-         'msg':'²Ù×÷³É¹¦'}
-        case = Case.query.filter_by(id=(args['id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+        case = Case.query.filter_by(id=args["id"]).first()
         if case is None:
-            result['status'] = 'fail'
-            result['msg'] = 'Î´ÕÒµ½ÒªĞŞ¸ÄµÄÓÃÀıid'
+            result["status"] = "fail"
+            result["msg"] = "æœªæ‰¾åˆ°è¦ä¿®æ”¹çš„ç”¨ä¾‹id"
         else:
             try:
-                case.name = args['name']
-                case.desc = args['desc']
-                case.tags = args['tags']
-                case.enable = args['enable']
-                case.setup = args['setup']
-                case.teardown = args['teardown']
+                case.name = args["name"]
+                case.desc = args["desc"]
+                case.tags = args["tags"]
+                case.enable = args["enable"]
+                case.setup = args["setup"]
+                case.teardown = args["teardown"]
+
                 case.update_user_id = current_user.get_id()
                 case.update_timestamp = datetime.now()
+
                 db.session.merge(case)
                 db.session.commit()
-                result['suite_id'] = case.suite_id
+                result["suite_id"] = case.suite_id
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = '±à¼­ÓÃÀı[id-%s]Ê§°Ü£º%s' % (args['id'], str(e))
-                finally:
-                    e = None
-                    del e
+                result["status"] = "fail"
+                result["msg"] = "ç¼–è¾‘ç”¨ä¾‹[id-%s]å¤±è´¥ï¼š%s" % (args["id"], str(e))
 
-            return result
+        return result
+
+    def __query(self, args):
+        data = {"data": []}
+        if args["id"] == -1:
+            status = {True: "æ¿€æ´»", False: "ä¸å¯ç”¨"}
+            projects = Project.query.all()
+            for p in projects:
+                data["data"].append({
+                    "id": p.id,
+                    "name": p.name,
+                    #"æ‰€å±äº§å“": Product.query.filter_by(id=p.product_id).first().name,
+                    "desc": p.desc,
+                    "enable": status[p.enable],
+                    "create_user": User.query.filter_by(id=p.create_user_id).first().username,
+                    "create_timestamp": p.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                    "update_user": User.query.filter_by(id=p.update_user_id).first().username,
+                    "update_timestamp": p.update_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+                })
+        else:
+            project = Project.query.filter_by(id=args["id"]).first()
+
+            return [{
+                "name": project.name,
+                "open": False,
+                "icon": url_for("static", filename="images/project.png"),
+                "attr": {
+                    "category": "project",
+                    "id": project.id,
+                    "name": project.name
+                    },
+                "children": []
+            }
+            ]
+
+
+        return data
 
     def __delete(self, args):
-        result = {'status':'success',  'msg':'²Ù×÷³É¹¦'}
-        case = Case.query.filter_by(id=(args['id'])).first()
+        result = {"status": "success",
+                  "msg": "æ“ä½œæˆåŠŸ"}
+
+        case = Case.query.filter_by(id=args["id"]).first()
         if case is None:
-            result['status'] = 'fail'
-            result['msg'] = 'Î´ÕÒµ½ÒªÉ¾³ıµÄÓÃÀıid'
+            result["status"] = "fail"
+            result["msg"] = "æœªæ‰¾åˆ°è¦åˆ é™¤çš„ç”¨ä¾‹id"
         else:
             try:
-                result['suite_id'] = case.suite_id
+                result["suite_id"] = case.suite_id
                 db.session.delete(case)
                 db.session.commit()
             except Exception as e:
-                try:
-                    result['status'] = 'fail'
-                    result['msg'] = 'É¾³ıÓÃÀı[id-%s]Ê§°Ü£º%s' % (args['id'], str(e))
-                finally:
-                    e = None
-                    del e
+                result["status"] = "fail"
+                result["msg"] = "åˆ é™¤ç”¨ä¾‹[id-%s]å¤±è´¥ï¼š%s" % (args["id"], str(e))
 
-            return result
-# okay decompiling E:\WorkSpace\Lucky\app\api\__pycache__\case.cpython-37.pyc
+        return result
