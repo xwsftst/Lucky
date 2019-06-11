@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Screenshot</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Screenshot Directory" href="#Set%20Screenshot%20Directory"
+                              title="Link to this keyword">Set Screenshot Directory</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Sets the directory where screenshots are saved.</p>
+                <p>It is possible to use <code>/</code> as a path separator in all operating systems. Path to the old
+                    directory is returned.</p>
+                <p>The directory can also be set in <a href="#Importing" class="name">importing</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Take Screenshot" href="#Take%20Screenshot" title="Link to this keyword">Take
+                Screenshot</a></td>
+            <td class="args"><span>name=screenshot</span>, <span>width=800px</span></td>
+            <td class="doc"><p>Takes a screenshot in JPEG format and embeds it into the log file.</p>
+                <p>Name of the file where the screenshot is stored is derived from the given <code>name</code>. If the
+                    <code>name</code> ends with extension <code>.jpg</code> or <code>.jpeg</code>, the screenshot will
+                    be stored with that exact name. Otherwise a unique name is created by adding an underscore, a
+                    running index and an extension to the <code>name</code>.</p>
+                <p>The name will be interpreted to be relative to the directory where the log file is written. It is
+                    also possible to use absolute paths. Using <code>/</code> as a path separator works in all operating
+                    systems.</p>
+                <p><code>width</code> specifies the size of the screenshot in the log file.</p>
+                <p>Examples: (LOGDIR is determined automatically by the library)</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td></td>
+                        <td></td>
+                        <td># LOGDIR/screenshot_1.jpg (index automatically incremented)</td>
+                    </tr>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td>mypic</td>
+                        <td></td>
+                        <td># LOGDIR/mypic_1.jpg (index automatically incremented)</td>
+                    </tr>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td>${TEMPDIR}/mypic</td>
+                        <td></td>
+                        <td># /tmp/mypic_1.jpg (index automatically incremented)</td>
+                    </tr>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td>pic.jpg</td>
+                        <td></td>
+                        <td># LOGDIR/pic.jpg (always uses this file)</td>
+                    </tr>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td>images/login.jpg</td>
+                        <td>80%</td>
+                        <td># Specify both name and width.</td>
+                    </tr>
+                    <tr>
+                        <td>Take Screenshot</td>
+                        <td>width=550px</td>
+                        <td></td>
+                        <td># Specify only width.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>The path where the screenshot is saved is returned.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Take Screenshot Without Embedding" href="#Take%20Screenshot%20Without%20Embedding"
+                              title="Link to this keyword">Take Screenshot Without Embedding</a></td>
+            <td class="args"><span>name=screenshot</span></td>
+            <td class="doc"><p>Takes a screenshot and links it from the log file.</p>
+                <p>This keyword is otherwise identical to <a href="#Take%20Screenshot" class="name">Take Screenshot</a>
+                    but the saved screenshot is not embedded into the log file. The screenshot is linked so it is
+                    nevertheless easily available.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

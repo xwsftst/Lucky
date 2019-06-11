@@ -18,6 +18,7 @@ from .role import RoleApi
 from .suite import SuiteApi
 from .case import CaseApi
 from .user_keyword import UserKeywordSuiteApi, UserKeywordApi
+from .keyword import KeywordApi
 from .var import VarApi
 
 
@@ -31,4 +32,5 @@ api.add_resource(CaseApi, '/case/')
 api.add_resource(SuiteApi, '/suite/')
 api.add_resource(UserKeywordSuiteApi, '/user_keyword_suite/')
 api.add_resource(UserKeywordApi, '/user_keyword/')
+api.add_resource(KeywordApi, '/keyword/')
 api.add_resource(VarApi, '/var/')

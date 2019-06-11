@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Convert To Lowercase" href="#Convert%20To%20Lowercase" title="Link to this keyword">Convert
+                To Lowercase</a></td>
+            <td class="args"><span>string</span></td>
+            <td class="doc"><p>Converts string to lowercase.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${str1} =</td>
+                        <td>Convert To Lowercase</td>
+                        <td>ABC</td>
+                    </tr>
+                    <tr>
+                        <td>${str2} =</td>
+                        <td>Convert To Lowercase</td>
+                        <td>1A2c3D</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str1}</td>
+                        <td>abc</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str2}</td>
+                        <td>1a2c3d</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Convert To Uppercase" href="#Convert%20To%20Uppercase" title="Link to this keyword">Convert
+                To Uppercase</a></td>
+            <td class="args"><span>string</span></td>
+            <td class="doc"><p>Converts string to uppercase.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${str1} =</td>
+                        <td>Convert To Uppercase</td>
+                        <td>abc</td>
+                    </tr>
+                    <tr>
+                        <td>${str2} =</td>
+                        <td>Convert To Uppercase</td>
+                        <td>1a2C3d</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str1}</td>
+                        <td>ABC</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str2}</td>
+                        <td>1A2C3D</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Decode Bytes To String" href="#Decode%20Bytes%20To%20String"
+                              title="Link to this keyword">Decode Bytes To String</a></td>
+            <td class="args"><span>bytes</span>, <span>encoding</span>, <span>errors=strict</span></td>
+            <td class="doc"><p>Decodes the given <code>bytes</code> to a Unicode string using the given
+                <code>encoding</code>.</p>
+                <p><code>errors</code> argument controls what to do if decoding some bytes fails. All values accepted by
+                    <code>decode</code> method in Python are valid, but in practice the following values are most
+                    useful:</p>
+                <ul>
+                    <li><code>strict</code>: fail if characters cannot be decoded (default)</li>
+                    <li><code>ignore</code>: ignore characters that cannot be decoded</li>
+                    <li><code>replace</code>: replace characters that cannot be decoded with a replacement character
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${string} =</td>
+                        <td>Decode Bytes To String</td>
+                        <td>${bytes}</td>
+                        <td>UTF-8</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${string} =</td>
+                        <td>Decode Bytes To String</td>
+                        <td>${bytes}</td>
+                        <td>ASCII</td>
+                        <td>errors=ignore</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <a href="#Encode%20String%20To%20Bytes" class="name">Encode String To Bytes</a> if you need to
+                    convert Unicode strings to byte strings, and <span class="name">Convert To String</span> in <code>BuiltIn</code>
+                    if you need to convert arbitrary objects to Unicode strings.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Encode String To Bytes" href="#Encode%20String%20To%20Bytes"
+                              title="Link to this keyword">Encode String To Bytes</a></td>
+            <td class="args"><span>string</span>, <span>encoding</span>, <span>errors=strict</span></td>
+            <td class="doc"><p>Encodes the given Unicode <code>string</code> to bytes using the given
+                <code>encoding</code>.</p>
+                <p><code>errors</code> argument controls what to do if encoding some characters fails. All values
+                    accepted by <code>encode</code> method in Python are valid, but in practice the following values are
+                    most useful:</p>
+                <ul>
+                    <li><code>strict</code>: fail if characters cannot be encoded (default)</li>
+                    <li><code>ignore</code>: ignore characters that cannot be encoded</li>
+                    <li><code>replace</code>: replace characters that cannot be encoded with a replacement character
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${bytes} =</td>
+                        <td>Encode String To Bytes</td>
+                        <td>${string}</td>
+                        <td>UTF-8</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${bytes} =</td>
+                        <td>Encode String To Bytes</td>
+                        <td>${string}</td>
+                        <td>ASCII</td>
+                        <td>errors=ignore</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <span class="name">Convert To Bytes</span> in <code>BuiltIn</code> if you want to create bytes
+                    based on character or integer sequences. Use <a href="#Decode%20Bytes%20To%20String" class="name">Decode
+                        Bytes To String</a> if you need to convert byte strings to Unicode strings and <span
+                            class="name">Convert To String</span> in <code>BuiltIn</code> if you need to convert
+                    arbitrary objects to Unicode.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Fetch From Left" href="#Fetch%20From%20Left" title="Link to this keyword">Fetch From
+                Left</a></td>
+            <td class="args"><span>string</span>, <span>marker</span></td>
+            <td class="doc"><p>Returns contents of the <code>string</code> before the first occurrence of
+                <code>marker</code>.</p>
+                <p>If the <code>marker</code> is not found, whole string is returned.</p>
+                <p>See also <a href="#Fetch%20From%20Right" class="name">Fetch From Right</a>, <a href="#Split%20String"
+                                                                                                  class="name">Split
+                    String</a> and <a href="#Split%20String%20From%20Right" class="name">Split String From Right</a>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Fetch From Right" href="#Fetch%20From%20Right" title="Link to this keyword">Fetch
+                From Right</a></td>
+            <td class="args"><span>string</span>, <span>marker</span></td>
+            <td class="doc"><p>Returns contents of the <code>string</code> after the last occurrence of
+                <code>marker</code>.</p>
+                <p>If the <code>marker</code> is not found, whole string is returned.</p>
+                <p>See also <a href="#Fetch%20From%20Left" class="name">Fetch From Left</a>, <a href="#Split%20String"
+                                                                                                class="name">Split
+                    String</a> and <a href="#Split%20String%20From%20Right" class="name">Split String From Right</a>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Format String" href="#Format%20String" title="Link to this keyword">Format
+                String</a></td>
+            <td class="args"><span>template</span>, <span>*positional</span>, <span>**named</span></td>
+            <td class="doc"><p>Formats a <code>template</code> using the given <code>positional</code> and
+                <code>named</code> arguments.</p>
+                <p>The template can be either be a string or an absolute path to an existing file. In the latter case
+                    the file is read and its contents are used as the template. If the template file contains non-ASCII
+                    characters, it must be encoded using UTF-8.</p>
+                <p>The template is formatted using Python's <a
+                        href="https://docs.python.org/library/string.html#format-string-syntax">format string syntax</a>.
+                    Placeholders are marked using <code>{}</code> with possible field name and format specification
+                    inside. Literal curly braces can be inserted by doubling them like <span
+                            class="name">{{</span> and <span class="name">}}</span>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${to} =</td>
+                        <td>Format String</td>
+                        <td>To: {} &lt;{}&gt;</td>
+                        <td>${user}</td>
+                        <td>${email}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${to} =</td>
+                        <td>Format String</td>
+                        <td>To: {name} &lt;{email}&gt;</td>
+                        <td>name=${name}</td>
+                        <td>email=${email}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${to} =</td>
+                        <td>Format String</td>
+                        <td>To: {user.name} &lt;{user.email}&gt;</td>
+                        <td>user=${user}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${xx} =</td>
+                        <td>Format String</td>
+                        <td>{:*^30}</td>
+                        <td>centered</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${yy} =</td>
+                        <td>Format String</td>
+                        <td>{0:{width}{base}}</td>
+                        <td>${42}</td>
+                        <td>base=X</td>
+                        <td>width=10</td>
+                    </tr>
+                    <tr>
+                        <td>${zz} =</td>
+                        <td>Format String</td>
+                        <td>${CURDIR}/template.txt</td>
+                        <td>positional</td>
+                        <td>named=value</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in Robot Framework 3.1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Generate Random String" href="#Generate%20Random%20String"
+                              title="Link to this keyword">Generate Random String</a></td>
+            <td class="args"><span>length=8</span>, <span>chars=[LETTERS][NUMBERS]</span></td>
+            <td class="doc"><p>Generates a string with a desired <code>length</code> from the given <code>chars</code>.
+            </p>
+                <p>The population sequence <code>chars</code> contains the characters to use when generating the random
+                    string. It can contain any characters, and it is possible to use special markers explained in the
+                    table below:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <th>Marker</th>
+                        <th>Explanation</th>
+                    </tr>
+                    <tr>
+                        <td><code>[LOWER]</code></td>
+                        <td>Lowercase ASCII characters from <code>a</code> to <code>z</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[UPPER]</code></td>
+                        <td>Uppercase ASCII characters from <code>A</code> to <code>Z</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[LETTERS]</code></td>
+                        <td>Lowercase and uppercase ASCII characters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[NUMBERS]</code></td>
+                        <td>Numbers from 0 to 9.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${ret} =</td>
+                        <td>Generate Random String</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${low} =</td>
+                        <td>Generate Random String</td>
+                        <td>12</td>
+                        <td>[LOWER]</td>
+                    </tr>
+                    <tr>
+                        <td>${bin} =</td>
+                        <td>Generate Random String</td>
+                        <td>8</td>
+                        <td>01</td>
+                    </tr>
+                    <tr>
+                        <td>${hex} =</td>
+                        <td>Generate Random String</td>
+                        <td>4</td>
+                        <td>[NUMBERS]abcdef</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Line" href="#Get%20Line" title="Link to this keyword">Get Line</a></td>
+            <td class="args"><span>string</span>, <span>line_number</span></td>
+            <td class="doc"><p>Returns the specified line from the given <code>string</code>.</p>
+                <p>Line numbering starts from 0 and it is possible to use negative indices to refer to lines from the
+                    end. The line is returned without the newline character.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${first} =</td>
+                        <td>Get Line</td>
+                        <td>${string}</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>${2nd last} =</td>
+                        <td>Get Line</td>
+                        <td>${string}</td>
+                        <td>-2</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <a href="#Split%20To%20Lines" class="name">Split To Lines</a> if all lines are needed.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Line Count" href="#Get%20Line%20Count" title="Link to this keyword">Get Line
+                Count</a></td>
+            <td class="args"><span>string</span></td>
+            <td class="doc"><p>Returns and logs the number of lines in the given string.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Lines Containing String" href="#Get%20Lines%20Containing%20String"
+                              title="Link to this keyword">Get Lines Containing String</a></td>
+            <td class="args"><span>string</span>, <span>pattern</span>, <span>case_insensitive=False</span></td>
+            <td class="doc"><p>Returns lines of the given <code>string</code> that contain the <code>pattern</code>.</p>
+                <p>The <code>pattern</code> is always considered to be a normal string, not a glob or regexp pattern. A
+                    line matches if the <code>pattern</code> is found anywhere on it.</p>
+                <p>The match is case-sensitive by default, but giving <code>case_insensitive</code> a true value makes
+                    it case-insensitive. The value is considered true if it is a non-empty string that is not equal to
+                    <code>false</code>, <code>none</code> or <code>no</code>. If the value is not a string, its truth
+                    value is got directly in Python. Considering <code>none</code> false is new in RF 3.0.3.</p>
+                <p>Lines are returned as one string catenated back together with newlines. Possible trailing newline is
+                    never returned. The number of matching lines is automatically logged.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${lines} =</td>
+                        <td>Get Lines Containing String</td>
+                        <td>${result}</td>
+                        <td>An example</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${ret} =</td>
+                        <td>Get Lines Containing String</td>
+                        <td>${ret}</td>
+                        <td>FAIL</td>
+                        <td>case-insensitive</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Get%20Lines%20Matching%20Pattern" class="name">Get Lines Matching Pattern</a> and <a
+                        href="#Get%20Lines%20Matching%20Regexp" class="name">Get Lines Matching Regexp</a> if you need
+                    more complex pattern matching.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Lines Matching Pattern" href="#Get%20Lines%20Matching%20Pattern"
+                              title="Link to this keyword">Get Lines Matching Pattern</a></td>
+            <td class="args"><span>string</span>, <span>pattern</span>, <span>case_insensitive=False</span></td>
+            <td class="doc"><p>Returns lines of the given <code>string</code> that match the <code>pattern</code>.</p>
+                <p>The <code>pattern</code> is a <i>glob pattern</i> where:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><code>*</code></td>
+                        <td>matches everything</td>
+                    </tr>
+                    <tr>
+                        <td><code>?</code></td>
+                        <td>matches any single character</td>
+                    </tr>
+                    <tr>
+                        <td><code>[chars]</code></td>
+                        <td>matches any character inside square brackets (e.g. <code>[abc]</code> matches either
+                            <code>a</code>, <code>b</code> or <code>c</code>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>[!chars]</code></td>
+                        <td>matches any character not inside square brackets</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>A line matches only if it matches the <code>pattern</code> fully.</p>
+                <p>The match is case-sensitive by default, but giving <code>case_insensitive</code> a true value makes
+                    it case-insensitive. The value is considered true if it is a non-empty string that is not equal to
+                    <code>false</code>, <code>none</code> or <code>no</code>. If the value is not a string, its truth
+                    value is got directly in Python. Considering <code>none</code> false is new in RF 3.0.3.</p>
+                <p>Lines are returned as one string catenated back together with newlines. Possible trailing newline is
+                    never returned. The number of matching lines is automatically logged.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${lines} =</td>
+                        <td>Get Lines Matching Pattern</td>
+                        <td>${result}</td>
+                        <td>Wild???? example</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${ret} =</td>
+                        <td>Get Lines Matching Pattern</td>
+                        <td>${ret}</td>
+                        <td>FAIL: *</td>
+                        <td>case_insensitive=true</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Get%20Lines%20Matching%20Regexp" class="name">Get Lines Matching Regexp</a> if you need
+                    more complex patterns and <a href="#Get%20Lines%20Containing%20String" class="name">Get Lines
+                        Containing String</a> if searching literal strings is enough.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Lines Matching Regexp" href="#Get%20Lines%20Matching%20Regexp"
+                              title="Link to this keyword">Get Lines Matching Regexp</a></td>
+            <td class="args"><span>string</span>, <span>pattern</span>, <span>partial_match=False</span></td>
+            <td class="doc"><p>Returns lines of the given <code>string</code> that match the regexp <code>pattern</code>.
+            </p>
+                <p>See <span class="name">BuiltIn.Should Match Regexp</span> for more information about Python regular
+                    expression syntax in general and how to use it in Robot Framework test data in particular.</p>
+                <p>By default lines match only if they match the pattern fully, but partial matching can be enabled by
+                    giving the <code>partial_match</code> argument a true value. The value is considered true if it is a
+                    non-empty string that is not equal to <code>false</code>, <code>none</code> or <code>no</code>. If
+                    the value is not a string, its truth value is got directly in Python. Considering <code>none</code>
+                    false is new in RF 3.0.3.</p>
+                <p>If the pattern is empty, it matches only empty lines by default. When partial matching is enabled,
+                    empty pattern matches all lines.</p>
+                <p>Notice that to make the match case-insensitive, you need to prefix the pattern with case-insensitive
+                    flag <code>(?i)</code>.</p>
+                <p>Lines are returned as one string concatenated back together with newlines. Possible trailing newline
+                    is never returned. The number of matching lines is automatically logged.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${lines} =</td>
+                        <td>Get Lines Matching Regexp</td>
+                        <td>${result}</td>
+                        <td>Reg\\w{3} example</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${lines} =</td>
+                        <td>Get Lines Matching Regexp</td>
+                        <td>${result}</td>
+                        <td>Reg\\w{3} example</td>
+                        <td>partial_match=true</td>
+                    </tr>
+                    <tr>
+                        <td>${ret} =</td>
+                        <td>Get Lines Matching Regexp</td>
+                        <td>${ret}</td>
+                        <td>(?i)FAIL: .*</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Get%20Lines%20Matching%20Pattern" class="name">Get Lines Matching Pattern</a> and <a
+                        href="#Get%20Lines%20Containing%20String" class="name">Get Lines Containing String</a> if you do
+                    not need full regular expression powers (and complexity).</p>
+                <p><code>partial_match</code> argument is new in Robot Framework 2.9. In earlier versions exact match
+                    was always required.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Regexp Matches" href="#Get%20Regexp%20Matches" title="Link to this keyword">Get
+                Regexp Matches</a></td>
+            <td class="args"><span>string</span>, <span>pattern</span>, <span>*groups</span></td>
+            <td class="doc"><p>Returns a list of all non-overlapping matches in the given string.</p>
+                <p><code>string</code> is the string to find matches from and <code>pattern</code> is the regular
+                    expression. See <span class="name">BuiltIn.Should Match Regexp</span> for more information about
+                    Python regular expression syntax in general and how to use it in Robot Framework test data in
+                    particular.</p>
+                <p>If no groups are used, the returned list contains full matches. If one group is used, the list
+                    contains only contents of that group. If multiple groups are used, the list contains tuples that
+                    contain individual group contents. All groups can be given as indexes (starting from 1) and named
+                    groups also as names.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${no match} =</td>
+                        <td>Get Regexp Matches</td>
+                        <td>the string</td>
+                        <td>xxx</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${matches} =</td>
+                        <td>Get Regexp Matches</td>
+                        <td>the string</td>
+                        <td>t..</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${one group} =</td>
+                        <td>Get Regexp Matches</td>
+                        <td>the string</td>
+                        <td>t(..)</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${named group} =</td>
+                        <td>Get Regexp Matches</td>
+                        <td>the string</td>
+                        <td>t(?P&lt;name&gt;..)</td>
+                        <td>name</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${two groups} =</td>
+                        <td>Get Regexp Matches</td>
+                        <td>the string</td>
+                        <td>t(.)(.)</td>
+                        <td>1</td>
+                        <td>2</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <pre>${no match} = []
+${matches} = ['the', 'tri']
+${one group} = ['he', 'ri']
+${named group} = ['he', 'ri']
+${two groups} = [('h', 'e'), ('r', 'i')]
+</pre>
+                <p>New in Robot Framework 2.9.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Substring" href="#Get%20Substring" title="Link to this keyword">Get
+                Substring</a></td>
+            <td class="args"><span>string</span>, <span>start</span>, <span>end=None</span></td>
+            <td class="doc"><p>Returns a substring from <code>start</code> index to <code>end</code> index.</p>
+                <p>The <code>start</code> index is inclusive and <code>end</code> is exclusive. Indexing starts from 0,
+                    and it is possible to use negative indices to refer to characters from the end.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${ignore first} =</td>
+                        <td>Get Substring</td>
+                        <td>${string}</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${ignore last} =</td>
+                        <td>Get Substring</td>
+                        <td>${string}</td>
+                        <td></td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <td>${5th to 10th} =</td>
+                        <td>Get Substring</td>
+                        <td>${string}</td>
+                        <td>4</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>${first two} =</td>
+                        <td>Get Substring</td>
+                        <td>${string}</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>${last two} =</td>
+                        <td>Get Substring</td>
+                        <td>${string}</td>
+                        <td>-2</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove String" href="#Remove%20String" title="Link to this keyword">Remove
+                String</a></td>
+            <td class="args"><span>string</span>, <span>*removables</span></td>
+            <td class="doc"><p>Removes all <code>removables</code> from the given <code>string</code>.</p>
+                <p><code>removables</code> are used as literal strings. Each removable will be matched to a temporary
+                    string from which preceding removables have been already removed. See second example below.</p>
+                <p>Use <a href="#Remove%20String%20Using%20Regexp" class="name">Remove String Using Regexp</a> if more
+                    powerful pattern matching is needed. If only a certain number of matches should be removed, <a
+                            href="#Replace%20String" class="name">Replace String</a> or <a
+                            href="#Replace%20String%20Using%20Regexp" class="name">Replace String Using Regexp</a> can
+                    be used.</p>
+                <p>A modified version of the string is returned and the original string is not altered.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Remove String</td>
+                        <td>Robot Framework</td>
+                        <td>work</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str}</td>
+                        <td>Robot Frame</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Remove String</td>
+                        <td>Robot Framework</td>
+                        <td>o</td>
+                        <td>bt</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str}</td>
+                        <td>R Framewrk</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove String Using Regexp" href="#Remove%20String%20Using%20Regexp"
+                              title="Link to this keyword">Remove String Using Regexp</a></td>
+            <td class="args"><span>string</span>, <span>*patterns</span></td>
+            <td class="doc"><p>Removes <code>patterns</code> from the given <code>string</code>.</p>
+                <p>This keyword is otherwise identical to <a href="#Remove%20String" class="name">Remove String</a>, but
+                    the <code>patterns</code> to search for are considered to be a regular expression. See <a
+                            href="#Replace%20String%20Using%20Regexp" class="name">Replace String Using Regexp</a> for
+                    more information about the regular expression syntax. That keyword can also be used if there is a
+                    need to remove only a certain number of occurrences.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Replace String" href="#Replace%20String" title="Link to this keyword">Replace
+                String</a></td>
+            <td class="args"><span>string</span>, <span>search_for</span>, <span>replace_with</span>,
+                <span>count=-1</span></td>
+            <td class="doc"><p>Replaces <code>search_for</code> in the given <code>string</code> with
+                <code>replace_with</code>.</p>
+                <p><code>search_for</code> is used as a literal string. See <a href="#Replace%20String%20Using%20Regexp"
+                                                                               class="name">Replace String Using
+                    Regexp</a> if more powerful pattern matching is needed. If you need to just remove a string see <a
+                        href="#Remove%20String" class="name">Remove String</a>.</p>
+                <p>If the optional argument <code>count</code> is given, only that many occurrences from left are
+                    replaced. Negative <code>count</code> means that all occurrences are replaced (default behaviour)
+                    and zero means that nothing is done.</p>
+                <p>A modified version of the string is returned and the original string is not altered.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Replace String</td>
+                        <td>Hello, world!</td>
+                        <td>world</td>
+                        <td>tellus</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str}</td>
+                        <td>Hello, tellus!</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Replace String</td>
+                        <td>Hello, world!</td>
+                        <td>l</td>
+                        <td>${EMPTY}</td>
+                        <td>count=1</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${str}</td>
+                        <td>Helo, world!</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Replace String Using Regexp" href="#Replace%20String%20Using%20Regexp"
+                              title="Link to this keyword">Replace String Using Regexp</a></td>
+            <td class="args"><span>string</span>, <span>pattern</span>, <span>replace_with</span>, <span>count=-1</span>
+            </td>
+            <td class="doc"><p>Replaces <code>pattern</code> in the given <code>string</code> with
+                <code>replace_with</code>.</p>
+                <p>This keyword is otherwise identical to <a href="#Replace%20String" class="name">Replace String</a>,
+                    but the <code>pattern</code> to search for is considered to be a regular expression. See <span
+                            class="name">BuiltIn.Should Match Regexp</span> for more information about Python regular
+                    expression syntax in general and how to use it in Robot Framework test data in particular.</p>
+                <p>If you need to just remove a string see <a href="#Remove%20String%20Using%20Regexp" class="name">Remove
+                    String Using Regexp</a>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Replace String Using Regexp</td>
+                        <td>${str}</td>
+                        <td>20\\d\\d-\\d\\d-\\d\\d</td>
+                        <td>&lt;DATE&gt;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${str} =</td>
+                        <td>Replace String Using Regexp</td>
+                        <td>${str}</td>
+                        <td>(Hello|Hi)</td>
+                        <td>${EMPTY}</td>
+                        <td>count=1</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be Byte String" href="#Should%20Be%20Byte%20String"
+                              title="Link to this keyword">Should Be Byte String</a></td>
+            <td class="args"><span>item</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>item</code> is not a byte string.</p>
+                <p>Use <a href="#Should%20Be%20Unicode%20String" class="name">Should Be Unicode String</a> if you want
+                    to verify the <code>item</code> is a Unicode string, or <a href="#Should%20Be%20String"
+                                                                               class="name">Should Be String</a> if both
+                    Unicode and byte strings are fine. See <a href="#Should%20Be%20String" class="name">Should Be
+                        String</a> for more details about Unicode strings and byte strings.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be Lowercase" href="#Should%20Be%20Lowercase" title="Link to this keyword">Should
+                Be Lowercase</a></td>
+            <td class="args"><span>string</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>string</code> is not in lowercase.</p>
+                <p>For example, <code>'string'</code> and <code>'with specials!'</code> would pass, and
+                    <code>'String'</code>, <code>''</code> and <code>' '</code> would fail.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p>
+                <p>See also <a href="#Should%20Be%20Uppercase" class="name">Should Be Uppercase</a> and <a
+                        href="#Should%20Be%20Titlecase" class="name">Should Be Titlecase</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be String" href="#Should%20Be%20String" title="Link to this keyword">Should
+                Be String</a></td>
+            <td class="args"><span>item</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>item</code> is not a string.</p>
+                <p>With Python 2, except with IronPython, this keyword passes regardless is the <code>item</code> a
+                    Unicode string or a byte string. Use <a href="#Should%20Be%20Unicode%20String" class="name">Should
+                        Be Unicode String</a> or <a href="#Should%20Be%20Byte%20String" class="name">Should Be Byte
+                        String</a> if you want to restrict the string type. Notice that with Python 2, except with
+                    IronPython, <code>'string'</code> creates a byte string and <code>u'unicode'</code> must be used to
+                    create a Unicode string.</p>
+                <p>With Python 3 and IronPython, this keyword passes if the string is a Unicode string but fails if it
+                    is bytes. Notice that with both Python 3 and IronPython, <code>'string'</code> creates a Unicode
+                    string, and <code>b'bytes'</code> must be used to create a byte string.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be Titlecase" href="#Should%20Be%20Titlecase" title="Link to this keyword">Should
+                Be Titlecase</a></td>
+            <td class="args"><span>string</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if given <code>string</code> is not title.</p>
+                <p><code>string</code> is a titlecased string if there is at least one character in it, uppercase
+                    characters only follow uncased characters and lowercase characters only cased ones.</p>
+                <p>For example, <code>'This Is Title'</code> would pass, and <code>'Word In UPPER'</code>, <code>'Word
+                    In lower'</code>, <code>''</code> and <code>' '</code> would fail.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p>
+                <p>See also <a href="#Should%20Be%20Uppercase" class="name">Should Be Uppercase</a> and <a
+                        href="#Should%20Be%20Lowercase" class="name">Should Be Lowercase</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be Unicode String" href="#Should%20Be%20Unicode%20String"
+                              title="Link to this keyword">Should Be Unicode String</a></td>
+            <td class="args"><span>item</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>item</code> is not a Unicode string.</p>
+                <p>Use <a href="#Should%20Be%20Byte%20String" class="name">Should Be Byte String</a> if you want to
+                    verify the <code>item</code> is a byte string, or <a href="#Should%20Be%20String" class="name">Should
+                        Be String</a> if both Unicode and byte strings are fine. See <a href="#Should%20Be%20String"
+                                                                                        class="name">Should Be
+                        String</a> for more details about Unicode strings and byte strings.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Be Uppercase" href="#Should%20Be%20Uppercase" title="Link to this keyword">Should
+                Be Uppercase</a></td>
+            <td class="args"><span>string</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>string</code> is not in uppercase.</p>
+                <p>For example, <code>'STRING'</code> and <code>'WITH SPECIALS!'</code> would pass, and
+                    <code>'String'</code>, <code>''</code> and <code>' '</code> would fail.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p>
+                <p>See also <a href="#Should%20Be%20Titlecase" class="name">Should Be Titlecase</a> and <a
+                        href="#Should%20Be%20Lowercase" class="name">Should Be Lowercase</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Not Be String" href="#Should%20Not%20Be%20String"
+                              title="Link to this keyword">Should Not Be String</a></td>
+            <td class="args"><span>item</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given <code>item</code> is a string.</p>
+                <p>See <a href="#Should%20Be%20String" class="name">Should Be String</a> for more details about Unicode
+                    strings and byte strings.</p>
+                <p>The default error message can be overridden with the optional <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split String" href="#Split%20String" title="Link to this keyword">Split String</a>
+            </td>
+            <td class="args"><span>string</span>, <span>separator=None</span>, <span>max_split=-1</span></td>
+            <td class="doc"><p>Splits the <code>string</code> using <code>separator</code> as a delimiter string.</p>
+                <p>If a <code>separator</code> is not given, any whitespace string is a separator. In that case also
+                    possible consecutive whitespace as well as leading and trailing whitespace is ignored.</p>
+                <p>Split words are returned as a list. If the optional <code>max_split</code> is given, at most <code>max_split</code>
+                    splits are done, and the returned list will have maximum <code>max_split + 1</code> elements.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{words} =</td>
+                        <td>Split String</td>
+                        <td>${string}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{words} =</td>
+                        <td>Split String</td>
+                        <td>${string}</td>
+                        <td>,${SPACE}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${pre}</td>
+                        <td>${post} =</td>
+                        <td>Split String</td>
+                        <td>${string}</td>
+                        <td>::</td>
+                        <td>1</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Split%20String%20From%20Right" class="name">Split String From Right</a> if you want to
+                    start splitting from right, and <a href="#Fetch%20From%20Left" class="name">Fetch From Left</a> and
+                    <a href="#Fetch%20From%20Right" class="name">Fetch From Right</a> if you only want to get first/last
+                    part of the string.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split String From Right" href="#Split%20String%20From%20Right"
+                              title="Link to this keyword">Split String From Right</a></td>
+            <td class="args"><span>string</span>, <span>separator=None</span>, <span>max_split=-1</span></td>
+            <td class="doc"><p>Splits the <code>string</code> using <code>separator</code> starting from right.</p>
+                <p>Same as <a href="#Split%20String" class="name">Split String</a>, but splitting is started from right.
+                    This has an effect only when <code>max_split</code> is given.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${first}</td>
+                        <td>${rest} =</td>
+                        <td>Split String</td>
+                        <td>${string}</td>
+                        <td>-</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>${rest}</td>
+                        <td>${last} =</td>
+                        <td>Split String From Right</td>
+                        <td>${string}</td>
+                        <td>-</td>
+                        <td>1</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split String To Characters" href="#Split%20String%20To%20Characters"
+                              title="Link to this keyword">Split String To Characters</a></td>
+            <td class="args"><span>string</span></td>
+            <td class="doc"><p>Splits the given <code>string</code> to characters.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{characters} =</td>
+                        <td>Split String To Characters</td>
+                        <td>${string}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split To Lines" href="#Split%20To%20Lines" title="Link to this keyword">Split To
+                Lines</a></td>
+            <td class="args"><span>string</span>, <span>start=0</span>, <span>end=None</span></td>
+            <td class="doc"><p>Splits the given string to lines.</p>
+                <p>It is possible to get only a selection of lines from <code>start</code> to <code>end</code> so that
+                    <code>start</code> index is inclusive and <code>end</code> is exclusive. Line numbering starts from
+                    0, and it is possible to use negative indices to refer to lines from the end.</p>
+                <p>Lines are returned without the newlines. The number of returned lines is automatically logged.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{lines} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{ignore first} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{ignore last} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td></td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <td>@{5th to 10th} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td>4</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>@{first two} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>@{last two} =</td>
+                        <td>Split To Lines</td>
+                        <td>${manylines}</td>
+                        <td>-2</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <a href="#Get%20Line" class="name">Get Line</a> if you only need to get a single line.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Strip String" href="#Strip%20String" title="Link to this keyword">Strip String</a>
+            </td>
+            <td class="args"><span>string</span>, <span>mode=both</span>, <span>characters=None</span></td>
+            <td class="doc"><p>Remove leading and/or trailing whitespaces from the given string.</p>
+                <p><code>mode</code> is either <code>left</code> to remove leading characters, <code>right</code> to
+                    remove trailing characters, <code>both</code> (default) to remove the characters from both sides of
+                    the string or <code>none</code> to return the unmodified string.</p>
+                <p>If the optional <code>characters</code> is given, it must be a string and the characters in the
+                    string will be stripped in the string. Please note, that this is not a substring to be removed but a
+                    list of characters, see the example below.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${stripped}=</td>
+                        <td>Strip String</td>
+                        <td>${SPACE}Hello${SPACE}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stripped}</td>
+                        <td>Hello</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${stripped}=</td>
+                        <td>Strip String</td>
+                        <td>${SPACE}Hello${SPACE}</td>
+                        <td>mode=left</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stripped}</td>
+                        <td>Hello${SPACE}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${stripped}=</td>
+                        <td>Strip String</td>
+                        <td>aabaHelloeee</td>
+                        <td>characters=abe</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stripped}</td>
+                        <td>Hello</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in Robot Framework 3.0.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

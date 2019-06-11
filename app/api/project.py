@@ -308,7 +308,6 @@ class ProjectApi(Resource):
         return children
 
     def __get_keyword_by_suite_id(self, id):
-        print(id)
         children = []
         keys = UserKeyword.query.filter_by(keyword_suite_id=id).order_by(UserKeyword.id.asc()).all()
         for k in keys:

@@ -1,0 +1,2930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SeleniumLibrary</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Add Cookie" href="#Add%20Cookie" title="Link to this keyword">Add Cookie</a></td>
+            <td class="args"><span>name</span>, <span>value</span>, <span>path=None</span>, <span>domain=None</span>,
+                <span>secure=None</span>, <span>expiry=None</span></td>
+            <td class="doc"><p>Adds a cookie to your current session.</p>
+                <p><code>name</code> and <code>value</code> are required, <code>path</code>, <code>domain</code>, <code>secure</code>
+                    and <code>expiry</code> are optional. Expiry supports the same formats as the <a
+                            href="http://robotframework.org/robotframework/latest/libraries/DateTime.html">DateTime</a>
+                    library or an epoch time stamp.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Add%20Cookie" class="name">Add Cookie</a></td>
+                        <td>foo</td>
+                        <td>bar</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Add%20Cookie" class="name">Add Cookie</a></td>
+                        <td>foo</td>
+                        <td>bar</td>
+                        <td>domain=example.com</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Add%20Cookie" class="name">Add Cookie</a></td>
+                        <td>foo</td>
+                        <td>bar</td>
+                        <td>expiry=2027-09-28 16:21:35</td>
+                        <td># Expiry as timestamp.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Add%20Cookie" class="name">Add Cookie</a></td>
+                        <td>foo</td>
+                        <td>bar</td>
+                        <td>expiry=1822137695</td>
+                        <td># Expiry as epoch seconds.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Prior to SeleniumLibrary 3.0 setting expiry did not work.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Add Location Strategy" href="#Add%20Location%20Strategy"
+                              title="Link to this keyword">Add Location Strategy</a></td>
+            <td class="args"><span>strategy_name</span>, <span>strategy_keyword</span>, <span>persist=False</span></td>
+            <td class="doc"><p>Adds a custom location strategy.</p>
+                <p>See <a href="#Custom%20locators" class="name">Custom locators</a> for information how to create and
+                    use custom strategies. <a href="#Remove%20Location%20Strategy" class="name">Remove Location
+                        Strategy</a> can be used to remove a registered strategy.</p>
+                <p>Location strategies are automatically removed after leaving the current scope by default. Setting
+                    <code>persist</code> to a true value (see <a href="#Boolean%20arguments" class="name">Boolean
+                        arguments</a>) will cause the location strategy to stay registered throughout the life of the
+                    test.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Alert Should Be Present" href="#Alert%20Should%20Be%20Present"
+                              title="Link to this keyword">Alert Should Be Present</a></td>
+            <td class="args"><span>text=</span>, <span>action=ACCEPT</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Verifies that an alert is present and, by default, accepts it.</p>
+                <p>Fails if no alert is present. If <code>text</code> is a non-empty string, then it is used to verify
+                    alert's message. The alert is accepted by default, but that behavior can be controlled by using the
+                    <code>action</code> argument same way as with <a href="#Handle%20Alert" class="name">Handle
+                        Alert</a>.</p>
+                <p><code>timeout</code> specifies how long to wait for the alert to appear. If it is not given, the
+                    global default <a href="#Timeout" class="name">timeout</a> is used instead.</p>
+                <p><code>action</code> and <code>timeout</code> arguments are new in SeleniumLibrary 3.0. In earlier
+                    versions the alert was always accepted and timeout was hard coded to one second.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Alert Should Not Be Present" href="#Alert%20Should%20Not%20Be%20Present"
+                              title="Link to this keyword">Alert Should Not Be Present</a></td>
+            <td class="args"><span>action=ACCEPT</span>, <span>timeout=0</span></td>
+            <td class="doc"><p>Verifies that no alert is present.</p>
+                <p>If the alert actually exists, the <code>action</code> argument determines how it should be handled.
+                    By default the alert is accepted, but it can be also dismissed or left open the same way as with the
+                    <a href="#Handle%20Alert" class="name">Handle Alert</a> keyword.</p>
+                <p><code>timeout</code> specifies how long to wait for the alert to appear. By default the alert is not
+                    waited at all, but a custom time can be given if alert may be delayed. See the <a
+                            href="#Time%20format" class="name">time format</a> section for information about the syntax.
+                </p>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Assign Id To Element" href="#Assign%20Id%20To%20Element"
+                              title="Link to this keyword">Assign Id To Element</a></td>
+            <td class="args"><span>locator</span>, <span>id</span></td>
+            <td class="doc"><p>Assigns temporary <code>id</code> to element specified by <code>locator</code>.</p>
+                <p>This is mainly useful if the locator is complicated and/or slow XPath expression and it is needed
+                    multiple times. Identifier expires when the page is reloaded.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Assign%20Id%20To%20Element" class="name">Assign ID to Element</a></td>
+                        <td>//ul[@class='example' and ./li[contains(., 'Stuff')]]</td>
+                        <td>my id</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a>
+                        </td>
+                        <td>my id</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Capture Element Screenshot" href="#Capture%20Element%20Screenshot"
+                              title="Link to this keyword">Capture Element Screenshot</a></td>
+            <td class="args"><span>locator</span>, <span>filename=selenium-element-screenshot-{index}.png</span></td>
+            <td class="doc"><p>Captures screenshot from the element identified by <code>locator</code> and embeds it
+                into log file.</p>
+                <p>See <a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a> for details about
+                    <code>filename</code> argument. See the <a href="#Locating%20elements" class="name">Locating
+                        elements</a> section for details about the locator syntax.</p>
+                <p>An absolute path to the created element screenshot is returned.</p>
+                <p>Support for capturing the screenshot from a element has limited support among browser vendors. Please
+                    check the browser vendor driver documentation does the browser support capturing a screenshot from a
+                    element.</p>
+                <p>New in SeleniumLibrary 3.3</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Capture%20Element%20Screenshot" class="name">Capture Element Screenshot</a></td>
+                        <td>id:image_id</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Capture%20Element%20Screenshot" class="name">Capture Element Screenshot</a></td>
+                        <td>id:image_id</td>
+                        <td>${OUTPUTDIR}/id_image_id-1.png</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Capture Page Screenshot" href="#Capture%20Page%20Screenshot"
+                              title="Link to this keyword">Capture Page Screenshot</a></td>
+            <td class="args"><span>filename=selenium-screenshot-{index}.png</span></td>
+            <td class="doc"><p>Takes screenshot of the current page and embeds it into log file.</p>
+                <p><code>filename</code> argument specifies the name of the file to write the screenshot into. The
+                    directory where screenshots are saved can be set when <a href="#Importing"
+                                                                             class="name">importing</a> the library or
+                    by using the <a href="#Set%20Screenshot%20Directory" class="name">Set Screenshot Directory</a>
+                    keyword. If the directory is not configured, screenshots are saved to the same directory where Robot
+                    Framework's log file is written.</p>
+                <p>Starting from SeleniumLibrary 1.8, if <code>filename</code> contains marker <code>{index}</code>, it
+                    will be automatically replaced with unique running index preventing files to be overwritten. Indices
+                    start from 1, and how they are represented can be customized using Python's <a
+                            href="https://docs.python.org/2/library/string.html#formatstrings">format string syntax</a>.
+                </p>
+                <p>An absolute path to the created screenshot file is returned.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${OUTPUTDIR}/selenium-screenshot-1.png</td>
+                    </tr>
+                    <tr>
+                        <td>${path} =</td>
+                        <td><a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${OUTPUTDIR}/selenium-screenshot-2.png</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${path}</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a></td>
+                        <td>custom_name.png</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${OUTPUTDIR}/custom_name.png</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a></td>
+                        <td>custom_with_index_{index}.png</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${OUTPUTDIR}/custom_with_index_1.png</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Capture%20Page%20Screenshot" class="name">Capture Page Screenshot</a></td>
+                        <td>formatted_index_{index:03}.png</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">File Should Exist</span></td>
+                        <td>${OUTPUTDIR}/formatted_index_001.png</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Checkbox Should Be Selected" href="#Checkbox%20Should%20Be%20Selected"
+                              title="Link to this keyword">Checkbox Should Be Selected</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies checkbox <code>locator</code> is selected/checked.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Checkbox Should Not Be Selected" href="#Checkbox%20Should%20Not%20Be%20Selected"
+                              title="Link to this keyword">Checkbox Should Not Be Selected</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies checkbox <code>locator</code> is not selected/checked.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax..</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Choose File" href="#Choose%20File" title="Link to this keyword">Choose File</a></td>
+            <td class="args"><span>locator</span>, <span>file_path</span></td>
+            <td class="doc"><p>Inputs the <code>file_path</code> into file input field <code>locator</code>.</p>
+                <p>This keyword is most often used to input files into upload forms. The file specified with <code>file_path</code>
+                    must be available on machine where tests are executed. When using Selenium Grid, Seleniun will, <a
+                            href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver_remote/selenium.webdriver.remote.command.html?highlight=upload#selenium.webdriver.remote.command.Command.UPLOAD_FILE">magically</a>,
+                    transfer the file from the machine where test are executed to the Selenium Grid node where the
+                    browser is running. Then Selenium will send the file path, from to node file system, to the browser.
+                </p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Choose%20File" class="name">Choose File</a></td>
+                        <td>my_upload_field</td>
+                        <td>${CURDIR}/trades.csv</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Clear Element Text" href="#Clear%20Element%20Text" title="Link to this keyword">Clear
+                Element Text</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Clears the value of text entry element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Button" href="#Click%20Button" title="Link to this keyword">Click Button</a>
+            </td>
+            <td class="args"><span>locator</span>, <span>modifier=False</span></td>
+            <td class="doc"><p>Clicks button identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, buttons are searched using
+                    <code>id</code>, <code>name</code> and <code>value</code>.</p>
+                <p>See the <a href="#Click%20Element" class="name">Click Element</a> keyword for details about the
+                    <code>modifier</code> argument.</p>
+                <p>The <code>modifier</code> argument is new in SeleniumLibrary 3.3</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Element" href="#Click%20Element" title="Link to this keyword">Click
+                Element</a></td>
+            <td class="args"><span>locator</span>, <span>modifier=False</span></td>
+            <td class="doc"><p>Click element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>modifier</code> argument can be used to pass <a
+                        href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys">Selenium
+                    Keys</a> when clicking the element. The <span class="name">+</span> can be used as a separator for
+                    different Selenium Keys. The <span class="name">CTRL</span> is internally translated to <span
+                            class="name">CONTROL</span> key. The <code>modifier</code> is space and case insensitive,
+                    example "alt" and " aLt " are supported formats to <a
+                            href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.ALT">ALT
+                        key</a> . If <code>modifier</code> does not match to Selenium Keys, keyword fails.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>id:button</td>
+                        <td></td>
+                        <td># Would click element without any modifiers.</td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>id:button</td>
+                        <td>CTRL</td>
+                        <td># Would click element with CTLR key pressed down.</td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>id:button</td>
+                        <td>CTRL+ALT</td>
+                        <td># Would click element with CTLR and ALT keys pressed down.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>The <code>modifier</code> argument is new in SeleniumLibrary 3.2</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Element At Coordinates" href="#Click%20Element%20At%20Coordinates"
+                              title="Link to this keyword">Click Element At Coordinates</a></td>
+            <td class="args"><span>locator</span>, <span>xoffset</span>, <span>yoffset</span></td>
+            <td class="doc"><p>Click element <code>locator</code> at <code>xoffset/yoffset</code>.</p>
+                <p>Cursor is moved and the center of the element and x/y coordinates are calculated from that point.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Image" href="#Click%20Image" title="Link to this keyword">Click Image</a></td>
+            <td class="args"><span>locator</span>, <span>modifier=False</span></td>
+            <td class="doc"><p>Clicks an image identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, images are searched using
+                    <code>id</code>, <code>name</code>, <code>src</code> and <code>alt</code>.</p>
+                <p>See the <a href="#Click%20Element" class="name">Click Element</a> keyword for details about the
+                    <code>modifier</code> argument.</p>
+                <p>The <code>modifier</code> argument is new in SeleniumLibrary 3.3</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Link" href="#Click%20Link" title="Link to this keyword">Click Link</a></td>
+            <td class="args"><span>locator</span>, <span>modifier=False</span></td>
+            <td class="doc"><p>Clicks a link identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, links are searched using
+                    <code>id</code>, <code>name</code>, <code>href</code> and the link text.</p>
+                <p>See the <a href="#Click%20Element" class="name">Click Element</a> keyword for details about the
+                    <code>modifier</code> argument.</p>
+                <p>The <code>modifier</code> argument is new in SeleniumLibrary 3.3</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close All Browsers" href="#Close%20All%20Browsers" title="Link to this keyword">Close
+                All Browsers</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes all open browsers and resets the browser cache.</p>
+                <p>After this keyword new indexes returned from <a href="#Open%20Browser" class="name">Open Browser</a>
+                    keyword are reset to 1.</p>
+                <p>This keyword should be used in test or suite teardown to make sure all browsers are closed.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close Browser" href="#Close%20Browser" title="Link to this keyword">Close
+                Browser</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes the current browser.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close Window" href="#Close%20Window" title="Link to this keyword">Close Window</a>
+            </td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes currently opened pop-up window.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Cover Element" href="#Cover%20Element" title="Link to this keyword">Cover
+                Element</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Will cover elements identified by <code>locator</code> with a blue div without breaking
+                page layout.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>New in SeleniumLibrary 3.3.0</p>
+                <p>Example: |<a href="#Cover%20Element" class="name">Cover Element</a> | css:div#container |</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Webdriver" href="#Create%20Webdriver" title="Link to this keyword">Create
+                Webdriver</a></td>
+            <td class="args"><span>driver_name</span>, <span>alias=None</span>, <span>kwargs={}</span>, <span>**init_kwargs</span>
+            </td>
+            <td class="doc"><p>Creates an instance of Selenium WebDriver.</p>
+                <p>Like <a href="#Open%20Browser" class="name">Open Browser</a>, but allows passing arguments to the
+                    created WebDriver instance directly. This keyword should only be used if functionality provided by
+                    <a href="#Open%20Browser" class="name">Open Browser</a> is not adequate.</p>
+                <p><code>driver_name</code> must be an WebDriver implementation name like Firefox, Chrome, Ie, Opera,
+                    Safari, PhantomJS, or Remote.</p>
+                <p>The initialized WebDriver can be configured either with a Python dictionary <code>kwargs</code> or by
+                    using keyword arguments <code>**init_kwargs</code>. These arguments are passed directly to WebDriver
+                    without any processing. See <a href="https://seleniumhq.github.io/selenium/docs/api/py/api.html">Selenium
+                        API documentation</a> for details about the supported arguments.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td># Use proxy with Firefox</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${proxy}=</td>
+                        <td><span class="name">Evaluate</span></td>
+                        <td>sys.modules['selenium.webdriver'].Proxy()</td>
+                        <td>sys, selenium.webdriver</td>
+                    </tr>
+                    <tr>
+                        <td>${proxy.http_proxy}=</td>
+                        <td><span class="name">Set Variable</span></td>
+                        <td>localhost:8888</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Create%20Webdriver" class="name">Create Webdriver</a></td>
+                        <td>Firefox</td>
+                        <td>proxy=${proxy}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Use proxy with PhantomJS</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${service args}=</td>
+                        <td><span class="name">Create List</span></td>
+                        <td>--proxy=192.168.132.104:8888</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Create%20Webdriver" class="name">Create Webdriver</a></td>
+                        <td>PhantomJS</td>
+                        <td>service_args=${service args}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Returns the index of this browser instance which can be used later to switch back to it. Index starts
+                    from 1 and is reset back to it when <a href="#Close%20All%20Browsers" class="name">Close All
+                        Browsers</a> keyword is used. See <a href="#Switch%20Browser" class="name">Switch Browser</a>
+                    for an example.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Current Frame Should Contain" href="#Current%20Frame%20Should%20Contain"
+                              title="Link to this keyword">Current Frame Should Contain</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies that current frame contains <code>text</code>.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p>
+                <p>Prior to SeleniumLibrary 3.0 this keyword was named <span class="name">Current Frame Contains</span>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Current Frame Should Not Contain" href="#Current%20Frame%20Should%20Not%20Contain"
+                              title="Link to this keyword">Current Frame Should Not Contain</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies that current frame does not contains <code>text</code>.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Delete All Cookies" href="#Delete%20All%20Cookies" title="Link to this keyword">Delete
+                All Cookies</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Deletes all cookies.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Delete Cookie" href="#Delete%20Cookie" title="Link to this keyword">Delete
+                Cookie</a></td>
+            <td class="args"><span>name</span></td>
+            <td class="doc"><p>Deletes cookie matching <code>name</code>.</p>
+                <p>If the cookie is not found, nothing happens.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Double Click Element" href="#Double%20Click%20Element" title="Link to this keyword">Double
+                Click Element</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Double click element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Drag And Drop" href="#Drag%20And%20Drop" title="Link to this keyword">Drag And
+                Drop</a></td>
+            <td class="args"><span>locator</span>, <span>target</span></td>
+            <td class="doc"><p>Drags element identified by <code>locator</code> into <code>target</code> element.</p>
+                <p>The <code>locator</code> argument is the locator of the dragged element and the <code>target</code>
+                    is the locator of the target. See the <a href="#Locating%20elements" class="name">Locating
+                        elements</a> section for details about the locator syntax.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Drag%20And%20Drop" class="name">Drag And Drop</a></td>
+                        <td>css:div#element</td>
+                        <td>css:div.target</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Drag And Drop By Offset" href="#Drag%20And%20Drop%20By%20Offset"
+                              title="Link to this keyword">Drag And Drop By Offset</a></td>
+            <td class="args"><span>locator</span>, <span>xoffset</span>, <span>yoffset</span></td>
+            <td class="doc"><p>Drags element identified with <code>locator</code> by <code>xoffset/yoffset</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Element will be moved by <code>xoffset</code> and <code>yoffset</code>, each of which is a negative
+                    or positive number specifying the offset.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Drag%20And%20Drop%20By%20Offset" class="name">Drag And Drop By Offset</a></td>
+                        <td>myElem</td>
+                        <td>50</td>
+                        <td>-35</td>
+                        <td># Move myElem 50px right and 35px down</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Attribute Value Should Be" href="#Element%20Attribute%20Value%20Should%20Be"
+                              title="Link to this keyword">Element Attribute Value Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>attribute</span>, <span>expected</span>,
+                <span>message=None</span></td>
+            <td class="doc"><p>Verifies element identified by <code>locator</code> contains expected attribute value.
+            </p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Example: <a href="#Element%20Attribute%20Value%20Should%20Be" class="name">Element Attribute Value
+                    Should Be</a> | css:img | href | value</p>
+                <p>New in SeleniumLibrary 3.2.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Disabled" href="#Element%20Should%20Be%20Disabled"
+                              title="Link to this keyword">Element Should Be Disabled</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies that element identified with <code>locator</code> is disabled.</p>
+                <p>This keyword considers also elements that are read-only to be disabled.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Enabled" href="#Element%20Should%20Be%20Enabled"
+                              title="Link to this keyword">Element Should Be Enabled</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies that element identified with <code>locator</code> is enabled.</p>
+                <p>This keyword considers also elements that are read-only to be disabled.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Focused" href="#Element%20Should%20Be%20Focused"
+                              title="Link to this keyword">Element Should Be Focused</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies that element identified with <code>locator</code> is focused.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Visible" href="#Element%20Should%20Be%20Visible"
+                              title="Link to this keyword">Element Should Be Visible</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies that the element identified by <code>locator</code> is visible.</p>
+                <p>Herein, visible means that the element is logically visible, not optically visible in the current
+                    browser viewport. For example, an element that carries <code>display:none</code> is not logically
+                    visible, so using this keyword on that element would fail.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Contain" href="#Element%20Should%20Contain"
+                              title="Link to this keyword">Element Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span>, <span>ignore_case=False</span>
+            </td>
+            <td class="doc"><p>Verifies that element <code>locator</code> contains text <code>expected</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>The <code>ignore_case</code> argument can be set to True to compare case insensitive, default is
+                    False. New in SeleniumLibrary 3.1.</p>
+                <p><code>ignore_case</code> argument new in SeleniumLibrary 3.1.</p>
+                <p>Use <a href="#Element%20Text%20Should%20Be" class="name">Element Text Should Be</a> if you want to
+                    match the exact text, not a substring.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Not Be Visible" href="#Element%20Should%20Not%20Be%20Visible"
+                              title="Link to this keyword">Element Should Not Be Visible</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies that the element identified by <code>locator</code> is NOT visible.</p>
+                <p>Passes if element does not exists. See <a href="#Element%20Should%20Be%20Visible" class="name">Element
+                    Should Be Visible</a> for more information about visibility and supported arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Not Contain" href="#Element%20Should%20Not%20Contain"
+                              title="Link to this keyword">Element Should Not Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span>, <span>ignore_case=False</span>
+            </td>
+            <td class="doc"><p>Verifies that element <code>locator</code> does not contains text <code>expected</code>.
+            </p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>The <code>ignore_case</code> argument can be set to True to compare case insensitive, default is
+                    False.</p>
+                <p><code>ignore_case</code> argument new in SeleniumLibrary 3.1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Text Should Be" href="#Element%20Text%20Should%20Be"
+                              title="Link to this keyword">Element Text Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span>, <span>ignore_case=False</span>
+            </td>
+            <td class="doc"><p>Verifies that element <code>locator</code> contains exact text <code>expected</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>The <code>ignore_case</code> argument can be set to True to compare case insensitive, default is
+                    False.</p>
+                <p><code>ignore_case</code> argument new in SeleniumLibrary 3.1.</p>
+                <p>Use <a href="#Element%20Should%20Contain" class="name">Element Should Contain</a> if a substring
+                    match is desired.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Text Should Not Be" href="#Element%20Text%20Should%20Not%20Be"
+                              title="Link to this keyword">Element Text Should Not Be</a></td>
+            <td class="args"><span>locator</span>, <span>not_expected</span>, <span>message=None</span>, <span>ignore_case=False</span>
+            </td>
+            <td class="doc"><p>Verifies that element <code>locator</code> does not contain exact text
+                <code>not_expected</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>The <code>ignore_case</code> argument can be set to True to compare case insensitive, default is
+                    False.</p>
+                <p>New in SeleniumLibrary 3.1.1</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Execute Async Javascript" href="#Execute%20Async%20Javascript"
+                              title="Link to this keyword">Execute Async Javascript</a></td>
+            <td class="args"><span>*code</span></td>
+            <td class="doc"><p>Executes asynchronous JavaScript code with possible arguments.</p>
+                <p>Similar to <a href="#Execute%20Javascript" class="name">Execute Javascript</a> except that scripts
+                    executed with this keyword must explicitly signal they are finished by invoking the provided
+                    callback. This callback is always injected into the executed function as the last argument.</p>
+                <p>Scripts must complete within the script timeout or this keyword will fail. See the <a href="#Timeout"
+                                                                                                         class="name">Timeout</a>
+                    section for more information.</p>
+                <p>Starting from SeleniumLibrary 3.2 it is possible to provide JavaScript <a
+                        href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver_remote/selenium.webdriver.remote.webdriver.html#selenium.webdriver.remote.webdriver.WebDriver.execute_async_script">arguments</a>
+                    as part of <code>code</code> argument. See <a href="#Execute%20Javascript" class="name">Execute
+                        Javascript</a> for more details.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Execute%20Async%20Javascript" class="name">Execute Async JavaScript</a></td>
+                        <td>var callback = arguments[arguments.length - 1]; window.setTimeout(callback, 2000);</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Execute%20Async%20Javascript" class="name">Execute Async JavaScript</a></td>
+                        <td>${CURDIR}/async_js_to_execute.js</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td><a href="#Execute%20Async%20Javascript" class="name">Execute Async JavaScript</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>var callback = arguments[arguments.length - 1];</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>function answer(){callback("text");};</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>window.setTimeout(answer, 2000);</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Should Be Equal</span></td>
+                        <td>${result}</td>
+                        <td>text</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Execute Javascript" href="#Execute%20Javascript" title="Link to this keyword">Execute
+                Javascript</a></td>
+            <td class="args"><span>*code</span></td>
+            <td class="doc"><p>Executes the given JavaScript code with possible arguments.</p>
+                <p><code>code</code> may be divided into multiple cells in the test data and <code>code</code> may
+                    contain multiple lines of code and arguments. In that case, the JavaScript code parts are
+                    concatenated together without adding spaces and optional arguments are separated from
+                    <code>code</code>.</p>
+                <p>If <code>code</code> is a path to an existing file, the JavaScript to execute will be read from that
+                    file. Forward slashes work as a path separator on all operating systems.</p>
+                <p>The JavaScript executes in the context of the currently selected frame or window as the body of an
+                    anonymous function. Use <code>window</code> to refer to the window of your application and <code>document</code>
+                    to refer to the document object of the current frame or window, e.g. <code>document.getElementById('example')</code>.
+                </p>
+                <p>This keyword returns whatever the executed JavaScript code returns. Return values are converted to
+                    the appropriate Python types.</p>
+                <p>Starting from SeleniumLibrary 3.2 it is possible to provide JavaScript <a
+                        href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver_remote/selenium.webdriver.remote.webdriver.html#selenium.webdriver.remote.webdriver.WebDriver.execute_script">arguments</a>
+                    as part of <code>code</code> argument. The JavaScript code and arguments must be separated with
+                    <span class="name">JAVASCRIPT</span> and <span class="name">ARGUMENTS</span> markers and must used
+                    exactly with this format. If the Javascript code is first, then the <span
+                            class="name">JAVASCRIPT</span> marker is optional. The order of <span class="name">JAVASCRIPT</span>
+                    and <span class="name">ARGUMENTS</span> markers can swapped, but if <span
+                            class="name">ARGUMENTS</span> is first marker, then <span class="name">JAVASCRIPT</span>
+                    marker is mandatory. It is only allowed to use <span class="name">JAVASCRIPT</span> and <span
+                            class="name">ARGUMENTS</span> markers only one time in the <code>code</code> argument.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Execute%20Javascript" class="name">Execute JavaScript</a></td>
+                        <td>window.myFunc('arg1', 'arg2')</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Execute%20Javascript" class="name">Execute JavaScript</a></td>
+                        <td>${CURDIR}/js_to_execute.js</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Execute%20Javascript" class="name">Execute JavaScript</a></td>
+                        <td>alert(arguments[0]);</td>
+                        <td>ARGUMENTS</td>
+                        <td>123</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Execute%20Javascript" class="name">Execute JavaScript</a></td>
+                        <td>ARGUMENTS</td>
+                        <td>123</td>
+                        <td>JAVASCRIPT</td>
+                        <td>alert(arguments[0]);</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Frame Should Contain" href="#Frame%20Should%20Contain" title="Link to this keyword">Frame
+                Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>text</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies that frame identified by <code>locator</code> contains <code>text</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get All Links" href="#Get%20All%20Links" title="Link to this keyword">Get All
+                Links</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns a list containing ids of all links found in current page.</p>
+                <p>If a link has no id, an empty string will be in the list instead.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Cookie" href="#Get%20Cookie" title="Link to this keyword">Get Cookie</a></td>
+            <td class="args"><span>name</span></td>
+            <td class="doc"><p>Returns information of cookie with <code>name</code> as an object.</p>
+                <p>If no cookie is found with <code>name</code>, keyword fails. The cookie object contains details about
+                    the cookie. Attributes available in the object are documented in the table below.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explanation</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>The name of a cookie.</td>
+                    </tr>
+                    <tr>
+                        <td>value</td>
+                        <td>Value of the cookie.</td>
+                    </tr>
+                    <tr>
+                        <td>path</td>
+                        <td>Indicates a URL path, for example <code>/</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>domain</td>
+                        <td>The domain the cookie is visible to.</td>
+                    </tr>
+                    <tr>
+                        <td>secure</td>
+                        <td>When true, cookie is only used with HTTPS connections.</td>
+                    </tr>
+                    <tr>
+                        <td>httpOnly</td>
+                        <td>When true, cookie is not accessible via JavaScript.</td>
+                    </tr>
+                    <tr>
+                        <td>expiry</td>
+                        <td>Python datetime object indicating when the cookie expires.</td>
+                    </tr>
+                    <tr>
+                        <td>extra</td>
+                        <td>Possible attributes outside of the WebDriver specification</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See the <a href="https://w3c.github.io/webdriver/#cookies">WebDriver specification</a> for details
+                    about the cookie information. Notice that <code>expiry</code> is specified as a <a
+                            href="https://docs.python.org/3/library/datetime.html#datetime.datetime">datetime object</a>,
+                    not as seconds since Unix Epoch like WebDriver natively does.</p>
+                <p>In some cases, example when running browser in the cloud, it is possible that cookie contains other
+                    attributes than is defined in the <a href="https://w3c.github.io/webdriver/#cookies">WebDriver
+                        specification</a>. These other attributes are available in a <code>extra</code> attribute in the
+                    cookie object and it contains a dictionary of the other attributes. The <code>extra</code> attribute
+                    is new in SeleniumLibrary 4.0.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Add%20Cookie" class="name">Add Cookie</a></td>
+                        <td>foo</td>
+                        <td>bar</td>
+                    </tr>
+                    <tr>
+                        <td>${cookie} =</td>
+                        <td><a href="#Get%20Cookie" class="name">Get Cookie</a></td>
+                        <td>foo</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Should Be Equal</span></td>
+                        <td>${cookie.name}</td>
+                        <td>bar</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Should Be Equal</span></td>
+                        <td>${cookie.value}</td>
+                        <td>foo</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Should Be True</span></td>
+                        <td>${cookie.expiry.year} &gt; 2017</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Cookies" href="#Get%20Cookies" title="Link to this keyword">Get Cookies</a></td>
+            <td class="args"><span>as_dict=False</span></td>
+            <td class="doc"><p>Returns all cookies of the current page.</p>
+                <p>If <code>as_dict</code> argument evaluates as false, see <a href="#Boolean%20arguments" class="name">Boolean
+                    arguments</a> for more details, then cookie information is returned as a single string in format
+                    <code>name1=value1; name2=value2; name3=value3</code>. When <code>as_dict</code> argument evaluates
+                    as true, cookie information is returned as Robot Framework dictionary format. The string format can
+                    be used, for example, for logging purposes or in headers when sending HTTP requests. The dictionary
+                    format is helpful when the result can be passed to requests library's Create Session keyword's
+                    optional cookies parameter.</p>
+                <p>The <span class="name">` as_dict</span>` argument is new in SeleniumLibrary 3.3</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Attribute" href="#Get%20Element%20Attribute"
+                              title="Link to this keyword">Get Element Attribute</a></td>
+            <td class="args"><span>locator</span>, <span>attribute</span></td>
+            <td class="doc"><p>Returns value of <code>attribute</code> from element <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${id}=</td>
+                        <td><a href="#Get%20Element%20Attribute" class="name">Get Element Attribute</a></td>
+                        <td>css:h1</td>
+                        <td>id</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Passing attribute name as part of the <code>locator</code> was removed in SeleniumLibrary 3.2. The
+                    explicit <code>attribute</code> argument should be used instead.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Count" href="#Get%20Element%20Count" title="Link to this keyword">Get
+                Element Count</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns number of elements matching <code>locator</code>.</p>
+                <p>If you wish to assert the number of matching elements, use <a
+                        href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> with
+                    <code>limit</code> argument. Keyword will always return an integer.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${count} =</td>
+                        <td><a href="#Get%20Element%20Count" class="name">Get Element Count</a></td>
+                        <td>name:div_name</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Should Be True</span></td>
+                        <td>${count} &gt; 2</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Size" href="#Get%20Element%20Size" title="Link to this keyword">Get
+                Element Size</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns width and height of element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Both width and height are returned as integers.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${width}</td>
+                        <td>${height} =</td>
+                        <td><a href="#Get%20Element%20Size" class="name">Get Element Size</a></td>
+                        <td>css:div#container</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Horizontal Position" href="#Get%20Horizontal%20Position"
+                              title="Link to this keyword">Get Horizontal Position</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns horizontal position of element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The position is returned in pixels off the left side of the page, as an integer.</p>
+                <p>See also <a href="#Get%20Vertical%20Position" class="name">Get Vertical Position</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get List Items" href="#Get%20List%20Items" title="Link to this keyword">Get List
+                Items</a></td>
+            <td class="args"><span>locator</span>, <span>values=False</span></td>
+            <td class="doc"><p>Returns all labels or values of selection list <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Returns visible labels by default, but values can be returned by setting the <code>values</code>
+                    argument to a true value (see <a href="#Boolean%20arguments" class="name">Boolean arguments</a>).
+                </p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${labels} =</td>
+                        <td><a href="#Get%20List%20Items" class="name">Get List Items</a></td>
+                        <td>mylist</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${values} =</td>
+                        <td><a href="#Get%20List%20Items" class="name">Get List Items</a></td>
+                        <td>css:#example select</td>
+                        <td>values=True</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Support to return values is new in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Location" href="#Get%20Location" title="Link to this keyword">Get Location</a>
+            </td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the current browser URL.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Locations" href="#Get%20Locations" title="Link to this keyword">Get
+                Locations</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns and logs URLs of all known browser windows.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selected List Label" href="#Get%20Selected%20List%20Label"
+                              title="Link to this keyword">Get Selected List Label</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns label of selected option from selection list <code>locator</code>.</p>
+                <p>If there are multiple selected options, label of the first option is returned.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selected List Labels" href="#Get%20Selected%20List%20Labels"
+                              title="Link to this keyword">Get Selected List Labels</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns labels of selected options from selection list <code>locator</code>.</p>
+                <p>Starting from SeleniumLibrary 3.0, returns an empty list if there are no selections. In earlier
+                    versions this caused an error.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selected List Value" href="#Get%20Selected%20List%20Value"
+                              title="Link to this keyword">Get Selected List Value</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns value of selected option from selection list <code>locator</code>.</p>
+                <p>If there are multiple selected options, value of the first option is returned.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selected List Values" href="#Get%20Selected%20List%20Values"
+                              title="Link to this keyword">Get Selected List Values</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns values of selected options from selection list <code>locator</code>.</p>
+                <p>Starting from SeleniumLibrary 3.0, returns an empty list if there are no selections. In earlier
+                    versions this caused an error.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selenium Implicit Wait" href="#Get%20Selenium%20Implicit%20Wait"
+                              title="Link to this keyword">Get Selenium Implicit Wait</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Gets the implicit wait value used by Selenium.</p>
+                <p>The value is returned as a human readable string like <code>1 second</code>.</p>
+                <p>See the <a href="#Implicit%20wait" class="name">Implicit wait</a> section above for more information.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selenium Speed" href="#Get%20Selenium%20Speed" title="Link to this keyword">Get
+                Selenium Speed</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Gets the delay that is waited after each Selenium command.</p>
+                <p>The value is returned as a human readable string like <code>1 second</code>.</p>
+                <p>See the <a href="#Selenium%20speed" class="name">Selenium Speed</a> section above for more
+                    information.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Selenium Timeout" href="#Get%20Selenium%20Timeout" title="Link to this keyword">Get
+                Selenium Timeout</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Gets the timeout that is used by various keywords.</p>
+                <p>The value is returned as a human readable string like <code>1 second</code>.</p>
+                <p>See the <a href="#Timeout" class="name">Timeout</a> section above for more information.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Session Id" href="#Get%20Session%20Id" title="Link to this keyword">Get Session
+                Id</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the currently active browser session id.</p>
+                <p>New in SeleniumLibrary 3.2</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Source" href="#Get%20Source" title="Link to this keyword">Get Source</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the entire HTML source of the current page or frame.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Table Cell" href="#Get%20Table%20Cell" title="Link to this keyword">Get Table
+                Cell</a></td>
+            <td class="args"><span>locator</span>, <span>row</span>, <span>column</span>, <span>loglevel=TRACE</span>
+            </td>
+            <td class="doc"><p>Returns contents of table cell.</p>
+                <p>The table is located using the <code>locator</code> argument and its cell found using
+                    <code>row</code> and <code>column</code>. See the <a href="#Locating%20elements" class="name">Locating
+                        elements</a> section for details about the locator syntax.</p>
+                <p>Both row and column indexes start from 1, and header and footer rows are included in the count. It is
+                    possible to refer to rows and columns from the end by using negative indexes so that -1 is the last
+                    row/column, -2 is the second last, and so on.</p>
+                <p>All <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code> elements anywhere in the table are considered
+                    to be cells.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Text" href="#Get%20Text" title="Link to this keyword">Get Text</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns the text value of element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Title" href="#Get%20Title" title="Link to this keyword">Get Title</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the title of current page.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Value" href="#Get%20Value" title="Link to this keyword">Get Value</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns the value attribute of element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Vertical Position" href="#Get%20Vertical%20Position"
+                              title="Link to this keyword">Get Vertical Position</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns vertical position of element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The position is returned in pixels off the top of the page, as an integer.</p>
+                <p>See also <a href="#Get%20Horizontal%20Position" class="name">Get Horizontal Position</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get WebElement" href="#Get%20WebElement" title="Link to this keyword">Get
+                WebElement</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns the first WebElement matching the given <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get WebElements" href="#Get%20WebElements" title="Link to this keyword">Get
+                WebElements</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns list of WebElement objects matching the <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Starting from SeleniumLibrary 3.0, the keyword returns an empty list if there are no matching
+                    elements. In previous releases the keyword failed in this case.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Handles" href="#Get%20Window%20Handles" title="Link to this keyword">Get
+                Window Handles</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Return all current window handles as a list.</p>
+                <p>Can be used as a list of windows to exclude with <a href="#Select%20Window" class="name">Select
+                    Window</a>.</p>
+                <p>Prior to SeleniumLibrary 3.0, this keyword was named <span class="name">List Windows</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Identifiers" href="#Get%20Window%20Identifiers"
+                              title="Link to this keyword">Get Window Identifiers</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns and logs id attributes of all known browser windows.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Names" href="#Get%20Window%20Names" title="Link to this keyword">Get
+                Window Names</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns and logs names of all known browser windows.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Position" href="#Get%20Window%20Position" title="Link to this keyword">Get
+                Window Position</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns current window position.</p>
+                <p>Position is relative to the top left corner of the screen. Returned values are integers. See also <a
+                        href="#Set%20Window%20Position" class="name">Set Window Position</a>.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${x}</td>
+                        <td>${y}=</td>
+                        <td><a href="#Get%20Window%20Position" class="name">Get Window Position</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Size" href="#Get%20Window%20Size" title="Link to this keyword">Get Window
+                Size</a></td>
+            <td class="args"><span>inner=False</span></td>
+            <td class="doc"><p>Returns current window width and height as integers.</p>
+                <p>See also <a href="#Set%20Window%20Size" class="name">Set Window Size</a>.</p>
+                <p>If <code>inner</code> parameter is set to True, keyword returns HTML DOM window.innerWidth and
+                    window.innerHeight properties. See <a href="#Boolean%20arguments" class="name">Boolean arguments</a>
+                    for more details how to set boolean arguments. The <code>inner</code> is new in SeleniumLibrary 4.0.
+                </p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${width}</td>
+                        <td>${height}=</td>
+                        <td><a href="#Get%20Window%20Size" class="name">Get Window Size</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${width}</td>
+                        <td>${height}=</td>
+                        <td><a href="#Get%20Window%20Size" class="name">Get Window Size</a></td>
+                        <td>True</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Titles" href="#Get%20Window%20Titles" title="Link to this keyword">Get
+                Window Titles</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns and logs titles of all known browser windows.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Go Back" href="#Go%20Back" title="Link to this keyword">Go Back</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Simulates the user clicking the back button on their browser.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Go To" href="#Go%20To" title="Link to this keyword">Go To</a></td>
+            <td class="args"><span>url</span></td>
+            <td class="doc"><p>Navigates the active browser instance to the provided <code>url</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Handle Alert" href="#Handle%20Alert" title="Link to this keyword">Handle Alert</a>
+            </td>
+            <td class="args"><span>action=ACCEPT</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Handles the current alert and returns its message.</p>
+                <p>By default the alert is accepted, but this can be controlled with the <code>action</code> argument
+                    that supports the following case-insensitive values:</p>
+                <ul>
+                    <li><code>ACCEPT</code>: Accept the alert i.e. press <code>Ok</code>. Default.</li>
+                    <li><code>DISMISS</code>: Dismiss the alert i.e. press <code>Cancel</code>.</li>
+                    <li><code>LEAVE</code>: Leave the alert open.</li>
+                </ul>
+                <p>The <code>timeout</code> argument specifies how long to wait for the alert to appear. If it is not
+                    given, the global default <a href="#Timeout" class="name">timeout</a> is used instead.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Handle Alert</td>
+                        <td></td>
+                        <td></td>
+                        <td># Accept alert.</td>
+                    </tr>
+                    <tr>
+                        <td>Handle Alert</td>
+                        <td>action=DISMISS</td>
+                        <td></td>
+                        <td># Dismiss alert.</td>
+                    </tr>
+                    <tr>
+                        <td>Handle Alert</td>
+                        <td>timeout=10 s</td>
+                        <td></td>
+                        <td># Use custom timeout and accept alert.</td>
+                    </tr>
+                    <tr>
+                        <td>Handle Alert</td>
+                        <td>DISMISS</td>
+                        <td>1 min</td>
+                        <td># Use custom timeout and dismiss alert.</td>
+                    </tr>
+                    <tr>
+                        <td>${message} =</td>
+                        <td>Handle Alert</td>
+                        <td></td>
+                        <td># Accept alert and get its message.</td>
+                    </tr>
+                    <tr>
+                        <td>${message} =</td>
+                        <td>Handle Alert</td>
+                        <td>LEAVE</td>
+                        <td># Leave alert open and get its message.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Password" href="#Input%20Password" title="Link to this keyword">Input
+                Password</a></td>
+            <td class="args"><span>locator</span>, <span>password</span>, <span>clear=True</span></td>
+            <td class="doc"><p>Types the given password into text field identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. See <a href="#Input%20Text" class="name">Input Text</a> for <code>clear</code>
+                    argument details.</p>
+                <p>Difference compared to <a href="#Input%20Text" class="name">Input Text</a> is that this keyword does
+                    not log the given password on the INFO level. Notice that if you use the keyword like</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Input Password</td>
+                        <td>password_field</td>
+                        <td>password</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>the password is shown as a normal keyword argument. A way to avoid that is using variables like</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Input Password</td>
+                        <td>password_field</td>
+                        <td>${PASSWORD}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Notice also that SeleniumLibrary logs all the communication with browser drivers using the DEBUG
+                    level, and the actual password can be seen there. Additionally Robot Framework logs all arguments
+                    using the TRACE level. Tests must thus not be executed using level below INFO if password should not
+                    be logged in any format.</p>
+                <p>The <span class="name">clear</span> argument is new in SeleniumLibrary 4.0</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Text" href="#Input%20Text" title="Link to this keyword">Input Text</a></td>
+            <td class="args"><span>locator</span>, <span>text</span>, <span>clear=True</span></td>
+            <td class="doc"><p>Types the given <code>text</code> into text field identified by <code>locator</code>.</p>
+                <p>When <code>clear</code> is true, the input element is cleared before text is typed to the element.
+                    When false, the previous text is not cleared from the element. Use <a href="#Input%20Password"
+                                                                                          class="name">Input
+                        Password</a> if you do not want the given <code>text</code> to be logged.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. See the <a href="#Boolean%20arguments" class="name">Boolean arguments</a>
+                    section how Boolean values are handled.</p>
+                <p>The <span class="name">clear</span> argument is new in SeleniumLibrary 4.0</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Text Into Alert" href="#Input%20Text%20Into%20Alert"
+                              title="Link to this keyword">Input Text Into Alert</a></td>
+            <td class="args"><span>text</span>, <span>action=ACCEPT</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Types the given <code>text</code> into an input field in an alert.</p>
+                <p>The alert is accepted by default, but that behavior can be controlled by using the
+                    <code>action</code> argument same way as with <a href="#Handle%20Alert" class="name">Handle
+                        Alert</a>.</p>
+                <p><code>timeout</code> specifies how long to wait for the alert to appear. If it is not given, the
+                    global default <a href="#Timeout" class="name">timeout</a> is used instead.</p>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="List Selection Should Be" href="#List%20Selection%20Should%20Be"
+                              title="Link to this keyword">List Selection Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>*expected</span></td>
+            <td class="doc"><p>Verifies selection list <code>locator</code> has <code>expected</code> options selected.
+            </p>
+                <p>It is possible to give expected options both as visible labels and as values. Starting from
+                    SeleniumLibrary 3.0, mixing labels and values is not possible. Order of the selected options is not
+                    validated.</p>
+                <p>If no expected options are given, validates that the list has no selections. A more explicit
+                    alternative is using <a href="#List%20Should%20Have%20No%20Selections" class="name">List Should Have
+                        No Selections</a>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#List%20Selection%20Should%20Be" class="name">List Selection Should Be</a></td>
+                        <td>gender</td>
+                        <td>Female</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#List%20Selection%20Should%20Be" class="name">List Selection Should Be</a></td>
+                        <td>interests</td>
+                        <td>Test Automation</td>
+                        <td>Python</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="List Should Have No Selections" href="#List%20Should%20Have%20No%20Selections"
+                              title="Link to this keyword">List Should Have No Selections</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Verifies selection list <code>locator</code> has no options selected.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Location Should Be" href="#Location%20Should%20Be" title="Link to this keyword">Location
+                Should Be</a></td>
+            <td class="args"><span>url</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies that current URL is exactly <code>url</code>.</p>
+                <p>The <code>url</code> argument contains the exact url that should exist in browser.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p><code>message</code> argument new in SeleniumLibrary 3.2.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Location Should Contain" href="#Location%20Should%20Contain"
+                              title="Link to this keyword">Location Should Contain</a></td>
+            <td class="args"><span>expected</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies that current URL contains <code>expected</code>.</p>
+                <p>The <code>expected</code> argument contains the expected value in url.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p><code>message</code> argument new in SeleniumLibrary 3.2.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Locator Should Match X Times" href="#Locator%20Should%20Match%20X%20Times"
+                              title="Link to this keyword">Locator Should Match X Times</a></td>
+            <td class="args"><span>locator</span>, <span>x</span>, <span>message=None</span>,
+                <span>loglevel=TRACE</span></td>
+            <td class="doc"><p><b>DEPRECATED in SeleniumLibrary 4.0.</b>, use <a
+                    href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> with <code>limit</code>
+                argument instead.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log Location" href="#Log%20Location" title="Link to this keyword">Log Location</a>
+            </td>
+            <td class="args"></td>
+            <td class="doc"><p>Logs and returns the current URL.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log Source" href="#Log%20Source" title="Link to this keyword">Log Source</a></td>
+            <td class="args"><span>loglevel=INFO</span></td>
+            <td class="doc"><p>Logs and returns the HTML source of the current page or frame.</p>
+                <p>The <code>loglevel</code> argument defines the used log level. Valid log levels are <code>WARN</code>,
+                    <code>INFO</code> (default), <code>DEBUG</code>, <code>TRACE</code> and <code>NONE</code> (no
+                    logging).</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log Title" href="#Log%20Title" title="Link to this keyword">Log Title</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Logs and returns the title of current page.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Maximize Browser Window" href="#Maximize%20Browser%20Window"
+                              title="Link to this keyword">Maximize Browser Window</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Maximizes current browser window.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Down" href="#Mouse%20Down" title="Link to this keyword">Mouse Down</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates pressing the left mouse button on the element <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The element is pressed without releasing the mouse button.</p>
+                <p>See also the more specific keywords <a href="#Mouse%20Down%20On%20Image" class="name">Mouse Down On
+                    Image</a> and <a href="#Mouse%20Down%20On%20Link" class="name">Mouse Down On Link</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Down On Image" href="#Mouse%20Down%20On%20Image" title="Link to this keyword">Mouse
+                Down On Image</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates a mouse down event on an image identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, images are searched using
+                    <code>id</code>, <code>name</code>, <code>src</code> and <code>alt</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Down On Link" href="#Mouse%20Down%20On%20Link" title="Link to this keyword">Mouse
+                Down On Link</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates a mouse down event on a link identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, links are searched using
+                    <code>id</code>, <code>name</code>, <code>href</code> and the link text.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Out" href="#Mouse%20Out" title="Link to this keyword">Mouse Out</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates moving mouse away from the element <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Over" href="#Mouse%20Over" title="Link to this keyword">Mouse Over</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates hovering mouse over the element <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Mouse Up" href="#Mouse%20Up" title="Link to this keyword">Mouse Up</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Simulates releasing the left mouse button on the element <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Open Browser" href="#Open%20Browser" title="Link to this keyword">Open Browser</a>
+            </td>
+            <td class="args"><span>url</span>, <span>browser=firefox</span>, <span>alias=None</span>, <span>remote_url=False</span>,
+                <span>desired_capabilities=None</span>, <span>ff_profile_dir=None</span></td>
+            <td class="doc"><p>Opens a new browser instance to the given <code>url</code>.</p>
+                <p>The <code>browser</code> argument specifies which browser to use, and the supported browser are
+                    listed in the table below. The browser names are case-insensitive and some browsers have multiple
+                    supported names.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <th>Browser</th>
+                        <th>Name(s)</th>
+                    </tr>
+                    <tr>
+                        <td>Firefox</td>
+                        <td>firefox, ff</td>
+                    </tr>
+                    <tr>
+                        <td>Google Chrome</td>
+                        <td>googlechrome, chrome, gc</td>
+                    </tr>
+                    <tr>
+                        <td>Headless Firefox</td>
+                        <td>headlessfirefox</td>
+                    </tr>
+                    <tr>
+                        <td>Headless Chrome</td>
+                        <td>headlesschrome</td>
+                    </tr>
+                    <tr>
+                        <td>Internet Explorer</td>
+                        <td>internetexplorer, ie</td>
+                    </tr>
+                    <tr>
+                        <td>Edge</td>
+                        <td>edge</td>
+                    </tr>
+                    <tr>
+                        <td>Safari</td>
+                        <td>safari</td>
+                    </tr>
+                    <tr>
+                        <td>Opera</td>
+                        <td>opera</td>
+                    </tr>
+                    <tr>
+                        <td>Android</td>
+                        <td>android</td>
+                    </tr>
+                    <tr>
+                        <td>Iphone</td>
+                        <td>iphone</td>
+                    </tr>
+                    <tr>
+                        <td>PhantomJS</td>
+                        <td>phantomjs</td>
+                    </tr>
+                    <tr>
+                        <td>HTMLUnit</td>
+                        <td>htmlunit</td>
+                    </tr>
+                    <tr>
+                        <td>HTMLUnit with Javascript</td>
+                        <td>htmlunitwithjs</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>To be able to actually use one of these browsers, you need to have a matching Selenium browser driver
+                    available. See the <a href="https://github.com/robotframework/SeleniumLibrary#browser-drivers">project
+                        documentation</a> for more details. Headless Firefox and Headless Chrome are new additions in
+                    SeleniumLibrary 3.1.0 and require Selenium 3.8.0 or newer.</p>
+                <p>Optional <code>alias</code> is an alias given for this browser instance and it can be used for
+                    switching between browsers. An alternative approach for switching is using an index returned by this
+                    keyword. These indices start from 1, are incremented when new browsers are opened, and reset back to
+                    1 when <a href="#Close%20All%20Browsers" class="name">Close All Browsers</a> is called. See <a
+                            href="#Switch%20Browser" class="name">Switch Browser</a> for more information and examples.
+                </p>
+                <p>Optional <code>remote_url</code> is the URL for a <a
+                        href="https://github.com/SeleniumHQ/selenium/wiki/Grid2">Selenium Grid</a>.</p>
+                <p>Optional <code>desired_capabilities</code> can be used to configure, for example, logging preferences
+                    for a browser or a browser and operating system when using <a href="http://saucelabs.com">Sauce
+                        Labs</a>. Desired capabilities can be given either as a Python dictionary or as a string in
+                    format <code>key1:value1,key2:value2</code>. <a
+                            href="https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities">Selenium
+                        documentation</a> lists possible capabilities that can be enabled.</p>
+                <p>Optional <code>ff_profile_dir</code> is the path to the Firefox profile directory if you wish to
+                    overwrite the default profile Selenium uses. Notice that prior to SeleniumLibrary 3.0, the library
+                    contained its own profile that was used by default.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://example.com">http://example.com</a></td>
+                        <td>Chrome</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://example.com">http://example.com</a></td>
+                        <td>Firefox</td>
+                        <td>alias=Firefox</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://example.com">http://example.com</a></td>
+                        <td>Edge</td>
+                        <td>remote_url=http://127.0.0.1:4444/wd/hub</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>If the provided configuration options are not enough, it is possible to use <a
+                        href="#Create%20Webdriver" class="name">Create Webdriver</a> to customize browser initialization
+                    even more.</p>
+                <p>Applying <code>desired_capabilities</code> argument also for local browser is new in SeleniumLibrary
+                    3.1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Open Context Menu" href="#Open%20Context%20Menu" title="Link to this keyword">Open
+                Context Menu</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Opens context menu on element identified by <code>locator</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain" href="#Page%20Should%20Contain" title="Link to this keyword">Page
+                Should Contain</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies that current page contains <code>text</code>.</p>
+                <p>If this keyword fails, it automatically logs the page source using the log level specified with the
+                    optional <code>loglevel</code> argument. Valid log levels are <code>DEBUG</code>, <code>INFO</code>
+                    (default), <code>WARN</code>, and <code>NONE</code>. If the log level is <code>NONE</code> or below
+                    the current active log level the source will not be logged.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Button" href="#Page%20Should%20Contain%20Button"
+                              title="Link to this keyword">Page Should Contain Button</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies button <code>locator</code> is found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, buttons are searched using
+                    <code>id</code>, <code>name</code> and <code>value</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Checkbox" href="#Page%20Should%20Contain%20Checkbox"
+                              title="Link to this keyword">Page Should Contain Checkbox</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies checkbox <code>locator</code> is found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Element" href="#Page%20Should%20Contain%20Element"
+                              title="Link to this keyword">Page Should Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span>, <span>limit=None</span>
+            </td>
+            <td class="doc"><p>Verifies that element <code>locator</code> is found on the current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>The <code>limit</code> argument can used to define how many elements the page should contain. When
+                    <code>limit</code> is <code>None</code> (default) page can contain one or more elements. When limit
+                    is a number, page must contain same number of elements.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p>
+                <p>Examples assumes that locator matches to two elements.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a>
+                        </td>
+                        <td>div_name</td>
+                        <td>limit=1</td>
+                        <td># Keyword fails.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a>
+                        </td>
+                        <td>div_name</td>
+                        <td>limit=2</td>
+                        <td># Keyword passes.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a>
+                        </td>
+                        <td>div_name</td>
+                        <td>limit=none</td>
+                        <td># None is considered one or more.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a>
+                        </td>
+                        <td>div_name</td>
+                        <td></td>
+                        <td># Same as above.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>The <code>limit</code> argument is new in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Image" href="#Page%20Should%20Contain%20Image"
+                              title="Link to this keyword">Page Should Contain Image</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies image identified by <code>locator</code> is found from current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, images are searched using
+                    <code>id</code>, <code>name</code>, <code>src</code> and <code>alt</code>.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Link" href="#Page%20Should%20Contain%20Link"
+                              title="Link to this keyword">Page Should Contain Link</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies link identified by <code>locator</code> is found from current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, links are searched using
+                    <code>id</code>, <code>name</code>, <code>href</code> and the link text.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain List" href="#Page%20Should%20Contain%20List"
+                              title="Link to this keyword">Page Should Contain List</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies selection list <code>locator</code> is found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Radio Button" href="#Page%20Should%20Contain%20Radio%20Button"
+                              title="Link to this keyword">Page Should Contain Radio Button</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies radio button <code>locator</code> is found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, radio buttons are searched using <code>id</code>,
+                    <code>name</code> and <code>value</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Textfield" href="#Page%20Should%20Contain%20Textfield"
+                              title="Link to this keyword">Page Should Contain Textfield</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies text field <code>locator</code> is found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain" href="#Page%20Should%20Not%20Contain"
+                              title="Link to this keyword">Page Should Not Contain</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies the current page does not contain <code>text</code>.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about the
+                    <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Button" href="#Page%20Should%20Not%20Contain%20Button"
+                              title="Link to this keyword">Page Should Not Contain Button</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies button <code>locator</code> is not found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, buttons are searched using
+                    <code>id</code>, <code>name</code> and <code>value</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Checkbox" href="#Page%20Should%20Not%20Contain%20Checkbox"
+                              title="Link to this keyword">Page Should Not Contain Checkbox</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies checkbox <code>locator</code> is not found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Element" href="#Page%20Should%20Not%20Contain%20Element"
+                              title="Link to this keyword">Page Should Not Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies that element <code>locator</code> is found on the current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>See <a href="#Page%20Should%20Contain" class="name">Page Should Contain</a> for explanation about
+                    <code>message</code> and <code>loglevel</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Image" href="#Page%20Should%20Not%20Contain%20Image"
+                              title="Link to this keyword">Page Should Not Contain Image</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies image identified by <code>locator</code> is found from current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, images are searched using
+                    <code>id</code>, <code>name</code>, <code>src</code> and <code>alt</code>.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Link" href="#Page%20Should%20Not%20Contain%20Link"
+                              title="Link to this keyword">Page Should Not Contain Link</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies link identified by <code>locator</code> is not found from current page.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, links are searched using
+                    <code>id</code>, <code>name</code>, <code>href</code> and the link text.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain List" href="#Page%20Should%20Not%20Contain%20List"
+                              title="Link to this keyword">Page Should Not Contain List</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies selection list <code>locator</code> is not found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Radio Button"
+                              href="#Page%20Should%20Not%20Contain%20Radio%20Button" title="Link to this keyword">Page
+                Should Not Contain Radio Button</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies radio button <code>locator</code> is not found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax. When using the default locator strategy, radio buttons are searched using <code>id</code>,
+                    <code>name</code> and <code>value</code>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Textfield" href="#Page%20Should%20Not%20Contain%20Textfield"
+                              title="Link to this keyword">Page Should Not Contain Textfield</a></td>
+            <td class="args"><span>locator</span>, <span>message=None</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies text field <code>locator</code> is not found from current page.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about <code>message</code> and <code>loglevel</code> arguments.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Press Key" href="#Press%20Key" title="Link to this keyword">Press Key</a></td>
+            <td class="args"><span>locator</span>, <span>key</span></td>
+            <td class="doc"><p><b>DEPRECATED in SeleniumLibrary 4.0.</b> use <a href="#Press%20Keys" class="name">Press
+                Keys</a> instead.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Press Keys" href="#Press%20Keys" title="Link to this keyword">Press Keys</a></td>
+            <td class="args"><span>locator=None</span>, <span>*keys</span></td>
+            <td class="doc"><p>Simulates user pressing key(s) to an element or on the active browser.</p>
+                <p>If <code>locator</code> evaluates as false, see <a href="#Boolean%20arguments" class="name">Boolean
+                    arguments</a> for more details, then the <code>keys</code> are sent to the currently active browser.
+                    Otherwise element is searched and <code>keys</code> are send to the element identified by the <code>locator</code>.
+                    In later case, keyword fails if element is not found. See the <a href="#Locating%20elements"
+                                                                                     class="name">Locating elements</a>
+                    section for details about the locator syntax.</p>
+                <p><code>keys</code> arguments can contain one or many strings, but it can not be empty.
+                    <code>keys</code> can also be a combination of <a
+                            href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html">Selenium
+                        Keys</a> and strings or a single Selenium Key. If Selenium Key is combined with strings,
+                    Selenium key and strings must be separated by the <span class="name">+</span> character, like in
+                    <span class="name">CONTROL+c</span>. Selenium Keys are space and case sensitive and Selenium Keys
+                    are not parsed inside of the string. Example AALTO, would send string <span
+                            class="name">AALTO</span> and <span class="name">ALT</span> not parsed inside of the string.
+                    But <span class="name">A+ALT+O</span> would found Selenium ALT key from the <code>keys</code>
+                    argument. It also possible to press many Selenium Keys down at the same time, example
+                    'ALT+ARROW_DOWN`.</p>
+                <p>If Selenium Keys are detected in the <code>keys</code> argument, keyword will press the Selenium Key
+                    down, send the strings and then release the Selenium Key. If keyword needs to send a Selenium Key as
+                    a string, then each character must be separated with <span class="name">+</span> character, example
+                    <span class="name">E+N+D</span>.</p>
+                <p><span class="name">CTRL</span> is alias for <a
+                        href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.CONTROL">Selenium
+                    CONTROL</a> and ESC is alias for <a
+                        href="https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.ESCAPE">Selenium
+                    ESCAPE</a></p>
+                <p>New in SeleniumLibrary 3.3</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>AAAAA</td>
+                        <td></td>
+                        <td># Sends string "AAAAA" to element.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>None</td>
+                        <td>BBBBB</td>
+                        <td></td>
+                        <td># Sends string "BBBBB" to currently active browser.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>E+N+D</td>
+                        <td></td>
+                        <td># Sends string "END" to element.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>XXX</td>
+                        <td>YY</td>
+                        <td># Sends strings "XXX" and "YY" to element.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>XXX+YY</td>
+                        <td></td>
+                        <td># Same as above.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>ALT+ARROW_DOWN</td>
+                        <td></td>
+                        <td># Pressing "ALT" key down, then pressing ARROW_DOWN and then releasing both keys.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>ALT</td>
+                        <td>ARROW_DOWN</td>
+                        <td># Pressing "ALT" key and then pressing ARROW_DOWN.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>text_field</td>
+                        <td>CTRL+c</td>
+                        <td></td>
+                        <td># Pressing CTRL key down, sends string "c" and then releases CTRL key.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Press%20Keys" class="name">Press Keys</a></td>
+                        <td>button</td>
+                        <td>RETURN</td>
+                        <td></td>
+                        <td># Pressing "ENTER" key to element.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Radio Button Should Be Set To" href="#Radio%20Button%20Should%20Be%20Set%20To"
+                              title="Link to this keyword">Radio Button Should Be Set To</a></td>
+            <td class="args"><span>group_name</span>, <span>value</span></td>
+            <td class="doc"><p>Verifies radio button group <code>group_name</code> is set to <code>value</code>.</p>
+                <p><code>group_name</code> is the <code>name</code> of the radio button group.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Radio Button Should Not Be Selected"
+                              href="#Radio%20Button%20Should%20Not%20Be%20Selected" title="Link to this keyword">Radio
+                Button Should Not Be Selected</a></td>
+            <td class="args"><span>group_name</span></td>
+            <td class="doc"><p>Verifies radio button group <code>group_name</code> has no selection.</p>
+                <p><code>group_name</code> is the <code>name</code> of the radio button group.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Register Keyword To Run On Failure"
+                              href="#Register%20Keyword%20To%20Run%20On%20Failure" title="Link to this keyword">Register
+                Keyword To Run On Failure</a></td>
+            <td class="args"><span>keyword</span></td>
+            <td class="doc"><p>Sets the keyword to execute when a SeleniumLibrary keyword fails.</p>
+                <p><code>keyword</code> is the name of a keyword that will be executed if a SeleniumLibrary keyword
+                    fails. It is possible to use any available keyword, including user keywords or keywords from other
+                    libraries, but the keyword must not take any arguments.</p>
+                <p>The initial keyword to use is set when <a href="#Importing" class="name">importing</a> the library,
+                    and the keyword that is used by default is <a href="#Capture%20Page%20Screenshot" class="name">Capture
+                        Page Screenshot</a>. Taking a screenshot when something failed is a very useful feature, but
+                    notice that it can slow down the execution.</p>
+                <p>It is possible to use string <code>NOTHING</code> or <code>NONE</code>, case-insensitively, as well
+                    as Python <code>None</code> to disable this feature altogether.</p>
+                <p>This keyword returns the name of the previously registered failure keyword or Python
+                    <code>None</code> if this functionality was previously disabled. The return value can be always used
+                    to restore the original value later.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Register%20Keyword%20To%20Run%20On%20Failure" class="name">Register Keyword To Run
+                            On Failure</a></td>
+                        <td>Log Source</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${previous kw}=</td>
+                        <td><a href="#Register%20Keyword%20To%20Run%20On%20Failure" class="name">Register Keyword To Run
+                            On Failure</a></td>
+                        <td>NONE</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Register%20Keyword%20To%20Run%20On%20Failure" class="name">Register Keyword To Run
+                            On Failure</a></td>
+                        <td>${previous kw}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Changes in SeleniumLibrary 3.0:</p>
+                <ul>
+                    <li>Possible to use string <code>NONE</code> or Python <code>None</code> to disable the
+                        functionality.
+                    </li>
+                    <li>Return Python <code>None</code> when the functionality was disabled earlier. In previous
+                        versions special value <code>No Keyword</code> was returned and it could not be used to restore
+                        the original state.
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Reload Page" href="#Reload%20Page" title="Link to this keyword">Reload Page</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Simulates user reloading page.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove Location Strategy" href="#Remove%20Location%20Strategy"
+                              title="Link to this keyword">Remove Location Strategy</a></td>
+            <td class="args"><span>strategy_name</span></td>
+            <td class="doc"><p>Removes a previously added custom location strategy.</p>
+                <p>See <a href="#Custom%20locators" class="name">Custom locators</a> for information how to create and
+                    use custom strategies.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Scroll Element Into View" href="#Scroll%20Element%20Into%20View"
+                              title="Link to this keyword">Scroll Element Into View</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Scrolls an element identified by <code>locator</code> into view.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>New in SeleniumLibrary 3.2.0</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select All From List" href="#Select%20All%20From%20List"
+                              title="Link to this keyword">Select All From List</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Selects all options from multi-selection list <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select Checkbox" href="#Select%20Checkbox" title="Link to this keyword">Select
+                Checkbox</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Selects checkbox identified by <code>locator</code>.</p>
+                <p>Does nothing if checkbox is already selected.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select Frame" href="#Select%20Frame" title="Link to this keyword">Select Frame</a>
+            </td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Sets frame identified by <code>locator</code> as the current frame.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Works both with frames and iframes. Use <a href="#Unselect%20Frame" class="name">Unselect Frame</a>
+                    to cancel the frame selection and return to the main frame.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Select%20Frame" class="name">Select Frame</a></td>
+                        <td>top-frame</td>
+                        <td># Select frame with id or name 'top-frame'</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Click%20Link" class="name">Click Link</a></td>
+                        <td>example</td>
+                        <td># Click link 'example' in the selected frame</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Unselect%20Frame" class="name">Unselect Frame</a></td>
+                        <td></td>
+                        <td># Back to main frame.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Frame" class="name">Select Frame</a></td>
+                        <td>//iframe[@name='xxx']</td>
+                        <td># Select frame using xpath</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select From List By Index" href="#Select%20From%20List%20By%20Index"
+                              title="Link to this keyword">Select From List By Index</a></td>
+            <td class="args"><span>locator</span>, <span>*indexes</span></td>
+            <td class="doc"><p>Selects options from selection list <code>locator</code> by <code>indexes</code>.</p>
+                <p>Indexes of list options start from 0.</p>
+                <p>If more than one option is given for a single-selection list, the last value will be selected. With
+                    multi-selection lists all specified options are selected, but possible old selections are not
+                    cleared.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select From List By Label" href="#Select%20From%20List%20By%20Label"
+                              title="Link to this keyword">Select From List By Label</a></td>
+            <td class="args"><span>locator</span>, <span>*labels</span></td>
+            <td class="doc"><p>Selects options from selection list <code>locator</code> by <code>labels</code>.</p>
+                <p>If more than one option is given for a single-selection list, the last value will be selected. With
+                    multi-selection lists all specified options are selected, but possible old selections are not
+                    cleared.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select From List By Value" href="#Select%20From%20List%20By%20Value"
+                              title="Link to this keyword">Select From List By Value</a></td>
+            <td class="args"><span>locator</span>, <span>*values</span></td>
+            <td class="doc"><p>Selects options from selection list <code>locator</code> by <code>values</code>.</p>
+                <p>If more than one option is given for a single-selection list, the last value will be selected. With
+                    multi-selection lists all specified options are selected, but possible old selections are not
+                    cleared.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select Radio Button" href="#Select%20Radio%20Button" title="Link to this keyword">Select
+                Radio Button</a></td>
+            <td class="args"><span>group_name</span>, <span>value</span></td>
+            <td class="doc"><p>Sets radio button group <code>group_name</code> to <code>value</code>.</p>
+                <p>The radio button to be selected is located by two arguments:</p>
+                <ul>
+                    <li><code>group_name</code> is the name of the radio button group.</li>
+                    <li><code>value</code> is the <code>id</code> or <code>value</code> attribute of the actual radio
+                        button.
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Select%20Radio%20Button" class="name">Select Radio Button</a></td>
+                        <td>size</td>
+                        <td>XL</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Radio%20Button" class="name">Select Radio Button</a></td>
+                        <td>contact</td>
+                        <td>email</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Select Window" href="#Select%20Window" title="Link to this keyword">Select
+                Window</a></td>
+            <td class="args"><span>locator=MAIN</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Selects browser window matching <code>locator</code>.</p>
+                <p>If the window is found, all subsequent commands use the selected window, until this keyword is used
+                    again. If the window is not found, this keyword fails. The previous window handle is returned, and
+                    can be used to return back to it later.</p>
+                <p>Notice that in this context <i>window</i> means a pop-up window opened when doing something on an
+                    existing window. It is not possible to select windows opened with <a href="#Open%20Browser"
+                                                                                         class="name">Open Browser</a>,
+                    <a href="#Switch%20Browser" class="name">Switch Browser</a> must be used instead. Notice also that
+                    alerts should be handled with <a href="#Handle%20Alert" class="name">Handle Alert</a> or other alert
+                    related keywords.</p>
+                <p>The <code>locator</code> can be specified using different strategies somewhat similarly as when <a
+                        href="#Locating%20elements" class="name">locating elements</a> on pages.</p>
+                <ul>
+                    <li>By default the <code>locator</code> is matched against window handle, name, title, and URL.
+                        Matching is done in that order and the the first matching window is selected.
+                    </li>
+                </ul>
+                <ul>
+                    <li>The <code>locator</code> can specify an explicit strategy by using format
+                        <code>strategy:value</code> (recommended) or <code>strategy=value</code>. Supported strategies
+                        are <code>name</code>, <code>title</code> and <code>url</code>, which match windows using name,
+                        title, and URL, respectively. Additionally, <code>default</code> can be used to explicitly use
+                        the default strategy explained above.
+                    </li>
+                </ul>
+                <ul>
+                    <li>If the <code>locator</code> is <code>NEW</code> (case-insensitive), the latest opened window is
+                        selected. It is an error if this is the same as the current window.
+                    </li>
+                </ul>
+                <ul>
+                    <li>If the <code>locator</code> is <code>MAIN</code> (default, case-insensitive), the main window is
+                        selected.
+                    </li>
+                </ul>
+                <ul>
+                    <li>If the <code>locator</code> is <code>CURRENT</code> (case-insensitive), nothing is done. This
+                        effectively just returns the current window handle.
+                    </li>
+                </ul>
+                <ul>
+                    <li>If the <code>locator</code> is not a string, it is expected to be a list of window handles <i>to
+                        exclude</i>. Such a list of excluded windows can be get from <a href="#Get%20Window%20Handles"
+                                                                                        class="name">Get Window
+                        Handles</a> prior to doing an action that opens a new window.
+                    </li>
+                </ul>
+                <p>The <code>timeout</code> is used to specify how long keyword will poll to select the new window. The
+                    <code>timeout</code> is new in SeleniumLibrary 3.2.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Click%20Link" class="name">Click Link</a></td>
+                        <td>popup1</td>
+                        <td></td>
+                        <td># Open new window</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Window" class="name">Select Window</a></td>
+                        <td>example</td>
+                        <td></td>
+                        <td># Select window using default strategy</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Title%20Should%20Be" class="name">Title Should Be</a></td>
+                        <td>Pop-up 1</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Click%20Button" class="name">Click Button</a></td>
+                        <td>popup2</td>
+                        <td></td>
+                        <td># Open another window</td>
+                    </tr>
+                    <tr>
+                        <td>${handle} =</td>
+                        <td><a href="#Select%20Window" class="name">Select Window</a></td>
+                        <td>NEW</td>
+                        <td># Select latest opened window</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Title%20Should%20Be" class="name">Title Should Be</a></td>
+                        <td>Pop-up 2</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Window" class="name">Select Window</a></td>
+                        <td>${handle}</td>
+                        <td></td>
+                        <td># Select window using handle</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Title%20Should%20Be" class="name">Title Should Be</a></td>
+                        <td>Pop-up 1</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Window" class="name">Select Window</a></td>
+                        <td>MAIN</td>
+                        <td></td>
+                        <td># Select the main window</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Title%20Should%20Be" class="name">Title Should Be</a></td>
+                        <td>Main</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${excludes} =</td>
+                        <td><a href="#Get%20Window%20Handles" class="name">Get Window Handles</a></td>
+                        <td></td>
+                        <td># Get list of current windows</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Click%20Link" class="name">Click Link</a></td>
+                        <td>popup3</td>
+                        <td></td>
+                        <td># Open one more window</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Select%20Window" class="name">Select Window</a></td>
+                        <td>${excludes}</td>
+                        <td></td>
+                        <td># Select window using excludes</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Title%20Should%20Be" class="name">Title Should Be</a></td>
+                        <td>Pop-up 3</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><b>NOTE:</b></p>
+                <ul>
+                    <li>The <code>strategy:value</code> syntax is only supported by SeleniumLibrary 3.0 and newer.</li>
+                    <li>Prior to SeleniumLibrary 3.0 matching windows by name, title and URL was case-insensitive.</li>
+                    <li>Earlier versions supported aliases <code>None</code>, <code>null</code> and the empty string for
+                        selecting the main window, and alias <code>self</code> for selecting the current window. Support
+                        for these aliases were removed in SeleniumLibrary 3.2.
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Browser Implicit Wait" href="#Set%20Browser%20Implicit%20Wait"
+                              title="Link to this keyword">Set Browser Implicit Wait</a></td>
+            <td class="args"><span>value</span></td>
+            <td class="doc"><p>Sets the implicit wait value used by Selenium.</p>
+                <p>Same as <a href="#Set%20Selenium%20Implicit%20Wait" class="name">Set Selenium Implicit Wait</a> but
+                    only affects the current browser.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Focus To Element" href="#Set%20Focus%20To%20Element"
+                              title="Link to this keyword">Set Focus To Element</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Sets focus to element identified by <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Prior to SeleniumLibrary 3.0 this keyword was named <span class="name">Focus</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Screenshot Directory" href="#Set%20Screenshot%20Directory"
+                              title="Link to this keyword">Set Screenshot Directory</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Sets the directory for captured screenshots.</p>
+                <p><code>path</code> argument specifies the absolute path to a directory where the screenshots should be
+                    written to. If the directory does not exist, it will be created. The directory can also be set when
+                    <a href="#Importing" class="name">importing</a> the library. If it is not configured anywhere,
+                    screenshots are saved to the same directory where Robot Framework's log file is written.</p>
+                <p>The previous value is returned and can be used to restore the original value later if needed.</p>
+                <p>Returning the previous value is new in SeleniumLibrary 3.0. The persist argument was removed in
+                    SeleniumLibrary 3.2.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Selenium Implicit Wait" href="#Set%20Selenium%20Implicit%20Wait"
+                              title="Link to this keyword">Set Selenium Implicit Wait</a></td>
+            <td class="args"><span>value</span></td>
+            <td class="doc"><p>Sets the implicit wait value used by Selenium.</p>
+                <p>The value can be given as a number that is considered to be seconds or as a human readable string
+                    like <code>1 second</code>. The previous value is returned and can be used to restore the original
+                    value later if needed.</p>
+                <p>This keyword sets the implicit wait for all opened browsers. Use <a
+                        href="#Set%20Browser%20Implicit%20Wait" class="name">Set Browser Implicit Wait</a> to set it
+                    only to the current browser.</p>
+                <p>See the <a href="#Implicit%20wait" class="name">Implicit wait</a> section above for more information.
+                </p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${orig wait} =</td>
+                        <td><a href="#Set%20Selenium%20Implicit%20Wait" class="name">Set Selenium Implicit Wait</a></td>
+                        <td>10 seconds</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Perform AJAX call that is slow</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Set%20Selenium%20Implicit%20Wait" class="name">Set Selenium Implicit Wait</a></td>
+                        <td>${orig wait}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Selenium Speed" href="#Set%20Selenium%20Speed" title="Link to this keyword">Set
+                Selenium Speed</a></td>
+            <td class="args"><span>value</span></td>
+            <td class="doc"><p>Sets the delay that is waited after each Selenium command.</p>
+                <p>The value can be given as a number that is considered to be seconds or as a human readable string
+                    like <code>1 second</code>. The previous value is returned and can be used to restore the original
+                    value later if needed.</p>
+                <p>See the <a href="#Selenium%20speed" class="name">Selenium Speed</a> section above for more
+                    information.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Set%20Selenium%20Speed" class="name">Set Selenium Speed</a></td>
+                        <td>0.5 seconds</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Selenium Timeout" href="#Set%20Selenium%20Timeout" title="Link to this keyword">Set
+                Selenium Timeout</a></td>
+            <td class="args"><span>value</span></td>
+            <td class="doc"><p>Sets the timeout that is used by various keywords.</p>
+                <p>The value can be given as a number that is considered to be seconds or as a human readable string
+                    like <code>1 second</code>. The previous value is returned and can be used to restore the original
+                    value later if needed.</p>
+                <p>See the <a href="#Timeout" class="name">Timeout</a> section above for more information.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${orig timeout} =</td>
+                        <td><a href="#Set%20Selenium%20Timeout" class="name">Set Selenium Timeout</a></td>
+                        <td>15 seconds</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Open page that loads slowly</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Set%20Selenium%20Timeout" class="name">Set Selenium Timeout</a></td>
+                        <td>${orig timeout}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Window Position" href="#Set%20Window%20Position" title="Link to this keyword">Set
+                Window Position</a></td>
+            <td class="args"><span>x</span>, <span>y</span></td>
+            <td class="doc"><p>Sets window position using <code>x</code> and <code>y</code> coordinates.</p>
+                <p>The position is relative to the top left corner of the screen, but some browsers exclude possible
+                    task bar set by the operating system from the calculation. The actual position may thus be different
+                    with different browsers.</p>
+                <p>Values can be given using strings containing numbers or by using actual numbers. See also <a
+                        href="#Get%20Window%20Position" class="name">Get Window Position</a>.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Set%20Window%20Position" class="name">Set Window Position</a></td>
+                        <td>100</td>
+                        <td>200</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Window Size" href="#Set%20Window%20Size" title="Link to this keyword">Set Window
+                Size</a></td>
+            <td class="args"><span>width</span>, <span>height</span>, <span>inner=False</span></td>
+            <td class="doc"><p>Sets current windows size to given <code>width</code> and <code>height</code>.</p>
+                <p>Values can be given using strings containing numbers or by using actual numbers. See also <a
+                        href="#Get%20Window%20Size" class="name">Get Window Size</a>.</p>
+                <p>Browsers have a limit how small they can be set. Trying to set them smaller will cause the actual
+                    size to be bigger than the requested size.</p>
+                <p>If <code>inner</code> parameter is set to True, keyword sets the necessary window width and height to
+                    have the desired HTML DOM window.innerWidth and window.innerHeight The <code>inner</code> is new in
+                    SeleniumLibrary 4.0. See <a href="#Boolean%20arguments" class="name">Boolean arguments</a> for more
+                    details how to set boolean arguments.</p>
+                <p>This <code>inner</code> argument does not support Frames. If a frame is selected, switch to default
+                    before running this.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Set%20Window%20Size" class="name">Set Window Size</a></td>
+                        <td>800</td>
+                        <td>600</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Set%20Window%20Size" class="name">Set Window Size</a></td>
+                        <td>800</td>
+                        <td>600</td>
+                        <td>True</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Simulate Event" href="#Simulate%20Event" title="Link to this keyword">Simulate
+                Event</a></td>
+            <td class="args"><span>locator</span>, <span>event</span></td>
+            <td class="doc"><p>Simulates <code>event</code> on element identified by <code>locator</code>.</p>
+                <p>This keyword is useful if element has <code>OnEvent</code> handler that needs to be explicitly
+                    invoked.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>Prior to SeleniumLibrary 3.0 this keyword was named <span class="name">Simulate</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Submit Form" href="#Submit%20Form" title="Link to this keyword">Submit Form</a></td>
+            <td class="args"><span>locator=None</span></td>
+            <td class="doc"><p>Submits a form identified by <code>locator</code>.</p>
+                <p>If <code>locator</code> is not given, first form on the page is submitted.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Switch Browser" href="#Switch%20Browser" title="Link to this keyword">Switch
+                Browser</a></td>
+            <td class="args"><span>index_or_alias</span></td>
+            <td class="doc"><p>Switches between active browsers using <code>index_or_alias</code>.</p>
+                <p>Indices are returned by the <a href="#Open%20Browser" class="name">Open Browser</a> keyword and
+                    aliases can be given to it explicitly. Indices start from 1.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://google.com">http://google.com</a></td>
+                        <td>ff</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Location%20Should%20Be" class="name">Location Should Be</a></td>
+                        <td><a href="http://google.com">http://google.com</a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://yahoo.com">http://yahoo.com</a></td>
+                        <td>ie</td>
+                        <td>alias=second</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Location%20Should%20Be" class="name">Location Should Be</a></td>
+                        <td><a href="http://yahoo.com">http://yahoo.com</a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Browser" class="name">Switch Browser</a></td>
+                        <td>1</td>
+                        <td># index</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain" class="name">Page Should Contain</a></td>
+                        <td>I'm feeling lucky</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Browser" class="name">Switch Browser</a></td>
+                        <td>second</td>
+                        <td># alias</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Page%20Should%20Contain" class="name">Page Should Contain</a></td>
+                        <td>More Yahoo!</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Close%20All%20Browsers" class="name">Close All Browsers</a></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Above example expects that there was no other open browsers when opening the first one because it
+                    used index <code>1</code> when switching to it later. If you are not sure about that, you can store
+                    the index into a variable as below.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${index} =</td>
+                        <td><a href="#Open%20Browser" class="name">Open Browser</a></td>
+                        <td><a href="http://google.com">http://google.com</a></td>
+                    </tr>
+                    <tr>
+                        <td># Do something ...</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Browser" class="name">Switch Browser</a></td>
+                        <td>${index}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Cell Should Contain" href="#Table%20Cell%20Should%20Contain"
+                              title="Link to this keyword">Table Cell Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>row</span>, <span>column</span>, <span>expected</span>, <span>loglevel=TRACE</span>
+            </td>
+            <td class="doc"><p>Verifies table cell contains text <code>expected</code>.</p>
+                <p>See <a href="#Get%20Table%20Cell" class="name">Get Table Cell</a> that this keyword uses internally
+                    for explanation about accepted arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Column Should Contain" href="#Table%20Column%20Should%20Contain"
+                              title="Link to this keyword">Table Column Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>column</span>, <span>expected</span>,
+                <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies table column contains text <code>expected</code>.</p>
+                <p>The table is located using the <code>locator</code> argument and its column found using
+                    <code>column</code>. See the <a href="#Locating%20elements" class="name">Locating elements</a>
+                    section for details about the locator syntax.</p>
+                <p>Column indexes start from 1. It is possible to refer to columns from the end by using negative
+                    indexes so that -1 is the last column, -2 is the second last, and so on.</p>
+                <p>If a table contains cells that span multiple columns, those merged cells count as a single
+                    column.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about the <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Footer Should Contain" href="#Table%20Footer%20Should%20Contain"
+                              title="Link to this keyword">Table Footer Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies table footer contains text <code>expected</code>.</p>
+                <p>Any <code>&lt;td&gt;</code> element inside <code>&lt;tfoot&gt;</code> element is considered to be
+                    part of the footer.</p>
+                <p>The table is located using the <code>locator</code> argument. See the <a href="#Locating%20elements"
+                                                                                            class="name">Locating
+                    elements</a> section for details about the locator syntax.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about the <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Header Should Contain" href="#Table%20Header%20Should%20Contain"
+                              title="Link to this keyword">Table Header Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies table header contains text <code>expected</code>.</p>
+                <p>Any <code>&lt;th&gt;</code> element anywhere in the table is considered to be part of the header.</p>
+                <p>The table is located using the <code>locator</code> argument. See the <a href="#Locating%20elements"
+                                                                                            class="name">Locating
+                    elements</a> section for details about the locator syntax.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about the <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Row Should Contain" href="#Table%20Row%20Should%20Contain"
+                              title="Link to this keyword">Table Row Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>row</span>, <span>expected</span>, <span>loglevel=TRACE</span>
+            </td>
+            <td class="doc"><p>Verifies that table row contains text <code>expected</code>.</p>
+                <p>The table is located using the <code>locator</code> argument and its column found using
+                    <code>column</code>. See the <a href="#Locating%20elements" class="name">Locating elements</a>
+                    section for details about the locator syntax.</p>
+                <p>Row indexes start from 1. It is possible to refer to rows from the end by using negative indexes so
+                    that -1 is the last row, -2 is the second last, and so on.</p>
+                <p>If a table contains cells that span multiple rows, a match only occurs for the uppermost row of those
+                    merged cells.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about the <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Table Should Contain" href="#Table%20Should%20Contain" title="Link to this keyword">Table
+                Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>loglevel=TRACE</span></td>
+            <td class="doc"><p>Verifies table contains text <code>expected</code>.</p>
+                <p>The table is located using the <code>locator</code> argument. See the <a href="#Locating%20elements"
+                                                                                            class="name">Locating
+                    elements</a> section for details about the locator syntax.</p>
+                <p>See <a href="#Page%20Should%20Contain%20Element" class="name">Page Should Contain Element</a> for
+                    explanation about the <code>loglevel</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Textarea Should Contain" href="#Textarea%20Should%20Contain"
+                              title="Link to this keyword">Textarea Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies text area <code>locator</code> contains text <code>expected</code>.</p>
+                <p><code>message</code> can be used to override default error message.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Textarea Value Should Be" href="#Textarea%20Value%20Should%20Be"
+                              title="Link to this keyword">Textarea Value Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies text area <code>locator</code> has exactly text <code>expected</code>.</p>
+                <p><code>message</code> can be used to override default error message.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Textfield Should Contain" href="#Textfield%20Should%20Contain"
+                              title="Link to this keyword">Textfield Should Contain</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies text field <code>locator</code> contains text <code>expected</code>.</p>
+                <p><code>message</code> can be used to override the default error message.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Textfield Value Should Be" href="#Textfield%20Value%20Should%20Be"
+                              title="Link to this keyword">Textfield Value Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies text field <code>locator</code> has exactly text <code>expected</code>.</p>
+                <p><code>message</code> can be used to override default error message.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Title Should Be" href="#Title%20Should%20Be" title="Link to this keyword">Title
+                Should Be</a></td>
+            <td class="args"><span>title</span>, <span>message=None</span></td>
+            <td class="doc"><p>Verifies that current page title equals <code>title</code>.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p><code>message</code> argument is new in SeleniumLibrary 3.1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect All From List" href="#Unselect%20All%20From%20List"
+                              title="Link to this keyword">Unselect All From List</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Unselects all options from multi-selection list <code>locator</code>.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p>
+                <p>New in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect Checkbox" href="#Unselect%20Checkbox" title="Link to this keyword">Unselect
+                Checkbox</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Removes selection of checkbox identified by <code>locator</code>.</p>
+                <p>Does nothing if the checkbox is not selected.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect Frame" href="#Unselect%20Frame" title="Link to this keyword">Unselect
+                Frame</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Sets the main frame as the current frame.</p>
+                <p>In practice cancels the previous <a href="#Select%20Frame" class="name">Select Frame</a> call.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect From List By Index" href="#Unselect%20From%20List%20By%20Index"
+                              title="Link to this keyword">Unselect From List By Index</a></td>
+            <td class="args"><span>locator</span>, <span>*indexes</span></td>
+            <td class="doc"><p>Unselects options from selection list <code>locator</code> by <code>indexes</code>.</p>
+                <p>Indexes of list options start from 0. This keyword works only with multi-selection lists.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect From List By Label" href="#Unselect%20From%20List%20By%20Label"
+                              title="Link to this keyword">Unselect From List By Label</a></td>
+            <td class="args"><span>locator</span>, <span>*labels</span></td>
+            <td class="doc"><p>Unselects options from selection list <code>locator</code> by <code>labels</code>.</p>
+                <p>This keyword works only with multi-selection lists.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Unselect From List By Value" href="#Unselect%20From%20List%20By%20Value"
+                              title="Link to this keyword">Unselect From List By Value</a></td>
+            <td class="args"><span>locator</span>, <span>*values</span></td>
+            <td class="doc"><p>Unselects options from selection list <code>locator</code> by <code>values</code>.</p>
+                <p>This keyword works only with multi-selection lists.</p>
+                <p>See the <a href="#Locating%20elements" class="name">Locating elements</a> section for details about
+                    the locator syntax.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait For Condition" href="#Wait%20For%20Condition" title="Link to this keyword">Wait
+                For Condition</a></td>
+            <td class="args"><span>condition</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until <code>condition</code> is true or <code>timeout</code> expires.</p>
+                <p>The condition can be arbitrary JavaScript expression but it must return a value to be evaluated. See
+                    <a href="#Execute%20Javascript" class="name">Execute JavaScript</a> for information about accessing
+                    content on pages.</p>
+                <p>Fails if the timeout expires before the condition becomes true. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value.</p>
+                <p><code>error</code> can be used to override the default error message.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Wait%20For%20Condition" class="name">Wait For Condition</a></td>
+                        <td>return document.title == "New Title"</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Wait%20For%20Condition" class="name">Wait For Condition</a></td>
+                        <td>return jQuery.active == 0</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Wait%20For%20Condition" class="name">Wait For Condition</a></td>
+                        <td>style = document.querySelector('h1').style; return style.background == "red" &amp;&amp;
+                            style.color == "white"
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Contains" href="#Wait%20Until%20Element%20Contains"
+                              title="Link to this keyword">Wait Until Element Contains</a></td>
+            <td class="args"><span>locator</span>, <span>text</span>, <span>timeout=None</span>, <span>error=None</span>
+            </td>
+            <td class="doc"><p>Waits until element <code>locator</code> contains <code>text</code>.</p>
+                <p>Fails if <code>timeout</code> expires before the text appears. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value and the <a href="#Locating%20elements" class="name">Locating elements</a> section for details
+                    about the locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Does Not Contain"
+                              href="#Wait%20Until%20Element%20Does%20Not%20Contain" title="Link to this keyword">Wait
+                Until Element Does Not Contain</a></td>
+            <td class="args"><span>locator</span>, <span>text</span>, <span>timeout=None</span>, <span>error=None</span>
+            </td>
+            <td class="doc"><p>Waits until element <code>locator</code> does not contain <code>text</code>.</p>
+                <p>Fails if <code>timeout</code> expires before the text disappears. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value and the <a href="#Locating%20elements" class="name">Locating elements</a> section for details
+                    about the locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Is Enabled" href="#Wait%20Until%20Element%20Is%20Enabled"
+                              title="Link to this keyword">Wait Until Element Is Enabled</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element <code>locator</code> is enabled.</p>
+                <p>Element is considered enabled if it is not disabled nor read-only.</p>
+                <p>Fails if <code>timeout</code> expires before the element is enabled. See the <span class="name">Timeouts</span>
+                    section for more information about using timeouts and their default value and the <a
+                            href="#Locating%20elements" class="name">Locating elements</a> section for details about the
+                    locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p>
+                <p>Considering read-only elements to be disabled is a new feature in SeleniumLibrary 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Is Not Visible"
+                              href="#Wait%20Until%20Element%20Is%20Not%20Visible" title="Link to this keyword">Wait
+                Until Element Is Not Visible</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element <code>locator</code> is not visible.</p>
+                <p>Fails if <code>timeout</code> expires before the element is not visible. See the <span class="name">Timeouts</span>
+                    section for more information about using timeouts and their default value and the <a
+                            href="#Locating%20elements" class="name">Locating elements</a> section for details about the
+                    locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Is Visible" href="#Wait%20Until%20Element%20Is%20Visible"
+                              title="Link to this keyword">Wait Until Element Is Visible</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element <code>locator</code> is visible.</p>
+                <p>Fails if <code>timeout</code> expires before the element is visible. See the <span class="name">Timeouts</span>
+                    section for more information about using timeouts and their default value and the <a
+                            href="#Locating%20elements" class="name">Locating elements</a> section for details about the
+                    locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Location Contains" href="#Wait%20Until%20Location%20Contains"
+                              title="Link to this keyword">Wait Until Location Contains</a></td>
+            <td class="args"><span>expected</span>, <span>timeout=None</span>, <span>message=None</span></td>
+            <td class="doc"><p>Wait until that current URL contains <code>expected</code>.</p>
+                <p>The <code>expected</code> argument contains the expected value in url.</p>
+                <p>Fails if <code>timeout</code> expires before the location contains. See the <span class="name">Timeouts</span>
+                    section for more information about using timeouts and their default value.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>New in SeleniumLibrary 4.0</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Location Is" href="#Wait%20Until%20Location%20Is"
+                              title="Link to this keyword">Wait Until Location Is</a></td>
+            <td class="args"><span>expected</span>, <span>timeout=None</span>, <span>message=None</span></td>
+            <td class="doc"><p>Wait until that current URL is <code>expected</code>.</p>
+                <p>The <code>expected</code> argument is the expected value in url.</p>
+                <p>Fails if <code>timeout</code> expires before the location is. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value.</p>
+                <p>The <code>message</code> argument can be used to override the default error message.</p>
+                <p>New in SeleniumLibrary 4.0</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Contains" href="#Wait%20Until%20Page%20Contains"
+                              title="Link to this keyword">Wait Until Page Contains</a></td>
+            <td class="args"><span>text</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until <code>text</code> appears on current page.</p>
+                <p>Fails if <code>timeout</code> expires before the text appears. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Contains Element" href="#Wait%20Until%20Page%20Contains%20Element"
+                              title="Link to this keyword">Wait Until Page Contains Element</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element <code>locator</code> appears on current page.</p>
+                <p>Fails if <code>timeout</code> expires before the element appears. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value and the <a href="#Locating%20elements" class="name">Locating elements</a> section for details
+                    about the locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Does Not Contain" href="#Wait%20Until%20Page%20Does%20Not%20Contain"
+                              title="Link to this keyword">Wait Until Page Does Not Contain</a></td>
+            <td class="args"><span>text</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until <code>text</code> disappears from current page.</p>
+                <p>Fails if <code>timeout</code> expires before the text disappears. See the <span
+                        class="name">Timeouts</span> section for more information about using timeouts and their default
+                    value.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Does Not Contain Element"
+                              href="#Wait%20Until%20Page%20Does%20Not%20Contain%20Element" title="Link to this keyword">Wait
+                Until Page Does Not Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element <code>locator</code> disappears from current page.</p>
+                <p>Fails if <code>timeout</code> expires before the element disappears. See the <span class="name">Timeouts</span>
+                    section for more information about using timeouts and their default value and the <a
+                            href="#Locating%20elements" class="name">Locating elements</a> section for details about the
+                    locator syntax.</p>
+                <p><code>error</code> can be used to override the default error message.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
