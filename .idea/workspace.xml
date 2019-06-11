@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="996c7de6-738d-4f87-ab50-5f5f630d3905" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/case.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/object.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/suite.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/user_keyword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/case.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/menu.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/object.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/suite.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/var.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/win.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/case.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/case.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/object.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/project.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/suite.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/user_keyword.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/user_keyword.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/var.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/var.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/img/keyword.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/keyword.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/img/obj.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/obj.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/img/var.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/var.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/img/立方体2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/jquery-1.8.1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/lucky.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/lucky.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/project.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/var.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/var.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/keyword.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/keyword.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/home.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/9f71adb7ca47_.py" beforeDir="false" />
-    </list>
+    <list default="true" id="996c7de6-738d-4f87-ab50-5f5f630d3905" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,52 +26,7 @@
     <favorites_list name="Lucky" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1482">
-              <caret line="46" column="94" selection-start-line="46" selection-start-column="94" selection-end-line="46" selection-end-column="94" />
-              <folding>
-                <element signature="e#2642#2662#0#HTML" expanded="true" />
-                <element signature="e#2677#2697#0#HTML" expanded="true" />
-                <element signature="e#2718#2743#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/menu.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="40" column="76" selection-start-line="40" selection-start-column="76" selection-end-line="40" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/api/project.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="317" column="40" selection-start-line="317" selection-start-column="40" selection-end-line="317" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/object.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -255,30 +170,6 @@
               <item name="Lucky" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Lucky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lucky" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lucky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lucky" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lucky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lucky" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lucky" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lucky" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -369,16 +260,15 @@
       <workItem from="1560129374588" duration="259000" />
       <workItem from="1560129663356" duration="13522000" />
       <workItem from="1560158073342" duration="2416000" />
-      <workItem from="1560184957561" duration="3847000" />
+      <workItem from="1560184957561" duration="4851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="265795000" />
+    <option name="totallyTimeSpent" value="266799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="14" y="36" width="1346" height="698" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49736843" visible="true" weight="0.34681183" />
       <window_info id="Structure" order="1" sideWeight="0.5026316" side_tool="true" weight="0.2496112" />
@@ -748,41 +638,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1482">
-          <caret line="46" column="94" selection-start-line="46" selection-start-column="94" selection-end-line="46" selection-end-column="94" />
-          <folding>
-            <element signature="e#2642#2662#0#HTML" expanded="true" />
-            <element signature="e#2677#2697#0#HTML" expanded="true" />
-            <element signature="e#2718#2743#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/api/user_keyword.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
           <folding>
             <element signature="e#109#138#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/home.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -806,6 +667,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/project.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="317" column="40" selection-start-line="317" selection-start-column="40" selection-end-line="317" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -813,12 +684,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/project.py">
+    <entry file="file://$PROJECT_DIR$/app/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="317" column="40" selection-start-line="317" selection-start-column="40" selection-end-line="317" selection-end-column="40" />
+        <state relative-caret-position="-1482">
+          <caret line="46" column="94" selection-start-line="46" selection-start-column="94" selection-end-line="46" selection-end-column="94" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#2642#2662#0#HTML" expanded="true" />
+            <element signature="e#2677#2697#0#HTML" expanded="true" />
+            <element signature="e#2718#2743#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/home.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
