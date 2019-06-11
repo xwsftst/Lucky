@@ -1,4 +1,9 @@
 /*
+* 全局变量
+* */
+var G_SYS_KEYWORD_LIST = null;
+
+/*
  * for string format
 */
 String.prototype.lym_format = function() {

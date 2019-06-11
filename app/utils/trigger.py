@@ -74,7 +74,6 @@ class Trigger:
 				cron = p.cron.replace("\n", "").strip().split(" ")
 				if len(cron) < 5:
 					return False
-				print(self.scheduler.get_job(id))
 
 				if self.scheduler.get_job(id) is None:
 					self.scheduler.add_job(func=run_job, trigger='cron', name=p.name,
