@@ -20,6 +20,7 @@ from .case import CaseApi
 from .user_keyword import UserKeywordSuiteApi, UserKeywordApi
 from .keyword import KeywordApi
 from .var import VarApi
+from .help import HelpApi
 
 
 api.add_resource(Login, '/login/')
@@ -34,3 +35,4 @@ api.add_resource(UserKeywordSuiteApi, '/user_keyword_suite/')
 api.add_resource(UserKeywordApi, '/user_keyword/')
 api.add_resource(KeywordApi, '/keyword/')
 api.add_resource(VarApi, '/var/')
+api.add_resource(HelpApi, '/help/')

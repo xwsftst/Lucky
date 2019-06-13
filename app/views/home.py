@@ -48,8 +48,8 @@ def user():
 def manage(category, id):
     return render_template('%s.html' % category, id=id)
 
-#
-# @home_blue.route('/help/', methods=['GET'])
-# @login_required
-# def help():
-#     return render_template('help.html')
+
+@home_blue.route('/help/', methods=['GET'])
+@login_required
+def help():
+    return render_template('help.html')
