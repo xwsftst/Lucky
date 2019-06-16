@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block resource %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/task.js') }}"></script>
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 8px 0;"></div>
+	<table id="task_list" class="easyui-datagrid" title="调度状态" style="width:100%;height:auto;"
+			data-options="rownumbers: true,
+			    singleSelect: true,
+			    url: '/api/v1/trigger/',
+			    method: 'get',
+			    toolbar: toolbar,
+			    pagination: true,
+			    pageList: [10,20,30],
+				pageSize: 20">
+		<thead>
+			<tr>
+				<th data-options="field:'status', formatter:showImg">状态</th>
+				<th data-options="field:'id',width:30,align:'center' , halign: 'center'">id</th>
+				<th data-options="field:'name',align:'left' , halign: 'center'">名称</th>
+				<th data-options="field:'next_run_time',width:150,align:'center' , halign: 'center'">下次运行时间</th>
+				<th data-options="field:'cron',width: 120,align:'center' , halign: 'center'">Cron Trigger</th>
+				<th data-options="field:'enable',width: 80,align:'center' , halign: 'center', formatter:manage_task"> 调度管理 </th>
+				<th data-options="field:'report',width: 80,align:'center' , halign: 'center', formatter:view_task"> 查看任务 </th>
+				<!--<th data-options="field:'mange',width: 80,align:'center' , halign: 'center', formatter:manage_task"> 操作 </th>-->
+
+			</tr>
+		</thead>
+	</table>
+	<script type="text/javascript">
+		var timer=null;
+
+		var toolbar = [{
+				text:'启动刷新',
+				iconCls:'icon-reload',
+				handler:function(){
+					timer = setInterval(function(){ $("#task_list").datagrid('reload'); }, 5000);
+					show_msg("提示信息", "启动自动刷新成功");
+				}
+			},'-',{
+				text:'停止刷新',
+				iconCls:'icon-reload',
+				handler:function(){
+					clearInterval(timer);
+					show_msg("提示信息", "停止自动刷新成功");
+				}
+			}];
+	</script>
+{% endblock %}

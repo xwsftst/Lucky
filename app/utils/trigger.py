@@ -139,7 +139,7 @@ class Trigger:
 								 "name": p.name,
 								 "enable": p.enable,
 								 "status": status,
-								 "url": url_for('static', filename='images/%s' % urls[status]),
+								 "url": url_for('static', filename='img/%s' % urls[status]),
 								 "cron": p.cron,
 								 "next_run_time": next_run_time
 								 })
@@ -165,7 +165,7 @@ class Trigger:
 			data["rows"].append({"id": "%s" % job.id,
 								 "name": job.name,
 								 "status": status,
-								 "url": url_for('static', filename='images/%s' % urls[status]),
+								 "url": url_for('static', filename='img/%s' % urls[status]),
 								 "cron": AutoProject.query.filter_by(id=job.id).first().cron,
 								 "next_run_time": job.next_run_time.astimezone(to_zone).strftime("%Y-%m-%d %H:%M:%S")
 								 })

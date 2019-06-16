@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block resource %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/ui.js') }}"></script>
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 8px 0;"></div>
+	<table id="ui_step_list" class="easyui-datagrid" title="步骤列表" style="width:100%;height:auto;"
+			data-options="rownumbers: true,
+			    singleSelect: true,
+			    url: '/api/v1/step/?case_id={{ id }}',
+			    method: 'get',
+			    toolbar: '#toolbar',
+			    pagination: true,
+			    pageList: [10,20,30],
+				pageSize: 10">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:40">ID</th>
+				<th data-options="field:'keyword'">关键字</th>
+				<th data-options="field:'case_id'" hidden>用例ID</th>
+                <th data-options="field:'param_1'">参数1</th>
+                <th data-options="field:'param_2'">参数2</th>
+                <th data-options="field:'param_3'">参数3</th>
+                <th data-options="field:'param_4'">参数4</th>
+                <th data-options="field:'desc'">备注</th>
+				<th data-options="field:'create_user'">创建人</th>
+				<th data-options="field:'create_timestamp'">创建日期</th>
+                <th data-options="field:'update_user'">修改人</th>
+				<th data-options="field:'update_timestamp'">修改日期</th>
+			</tr>
+		</thead>
+	</table>
+    <div id="ui_step_win" class="easyui-window" title=""
+         data-options="modal:true,closed:true,iconCls:'icon-ui_step'"
+         style="width:500px;height:330px;padding:10px;">
+        <form id="ui_step_fm" action="/api/v1/step/" method="post">
+
+            <div style="margin-bottom:10px">
+               <input id="keyword" name="keyword" class="easyui-combotree"
+                      data-options="
+                        animate:true,
+                        lines:true,
+                        editable: true,
+                        required: true,
+                        label:'关键字:',
+                        labelPosition:'left',
+                        onShowPanel: onShowKeywordPanel"
+                      style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:5px">
+                <input id="param_1" name="param_1" class="easyui-combotree"
+                      data-options="
+                        animate:true,
+                        lines:true,
+                        editable: true,
+                        label:'参数1:',
+                        labelPosition:'left',
+                        onShowPanel: onShowKeywordPanel"
+                      style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:5px">
+                <input id="param_2" name="param_2" class="easyui-combotree"
+                      data-options="
+                        animate:true,
+                        lines:true,
+                        editable: true,
+                        label:'参数2:',
+                        labelPosition:'left',
+                        onShowPanel: onShowKeywordPanel"
+                      style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:5px">
+                <input id="param_3" name="param_3" class="easyui-combotree"
+                      data-options="
+                        animate:true,
+                        lines:true,
+                        editable: true,
+                        label:'参数3:',
+                        labelPosition:'left',
+                        onShowPanel: onShowKeywordPanel"
+                      style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:5px">
+                <input id="param_4" name="param_4" class="easyui-combotree"
+                      data-options="
+                        animate:true,
+                        lines:true,
+                        editable: true,
+                        label:'参数4:',
+                        labelPosition:'left',
+                        onShowPanel: onShowKeywordPanel"
+                      style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input name="desc" id="desc" class="easyui-textbox" label="备注:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <input hidden name="method" id="method" value="create">
+            <input hidden name="id" id="id" value="-1">
+            <input hidden name="case_id" id="case_id" value="{{ id }}">
+            <div style="text-align:center;margin-bottom:10px">
+                <a id="manage_step" href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="manage_ui_step('ui_step_win', 'ui_step_fm');">创建</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:manage_ui_step_table('ui_step_win', 'ui_step_fm', 'create', 'UI自动化步骤')">创建</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:manage_ui_step_table('ui_step_win', 'ui_step_fm', 'edit', 'UI自动化步骤')">编辑</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:manage_ui_step_table('ui_step_win', 'ui_step_fm', 'delete', 'UI自动化步骤')">删除</a>
+    </div>
+{% endblock %}

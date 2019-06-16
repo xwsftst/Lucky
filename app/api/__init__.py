@@ -17,10 +17,13 @@ from .user import UserApi
 from .role import RoleApi
 from .suite import SuiteApi
 from .case import CaseApi
+from .step import StepApi
 from .user_keyword import UserKeywordSuiteApi, UserKeywordApi
 from .keyword import KeywordApi
 from .var import VarApi
 from .help import HelpApi
+from .task import TaskApi
+from .trigger import TriggerApi
 
 
 api.add_resource(Login, '/login/')
@@ -30,9 +33,12 @@ api.add_resource(ObjectApi, "/object/")
 api.add_resource(UserApi, '/user/')
 api.add_resource(RoleApi, '/role/')
 api.add_resource(CaseApi, '/case/')
+api.add_resource(StepApi, '/step/')
 api.add_resource(SuiteApi, '/suite/')
 api.add_resource(UserKeywordSuiteApi, '/user_keyword_suite/')
 api.add_resource(UserKeywordApi, '/user_keyword/')
 api.add_resource(KeywordApi, '/keyword/')
 api.add_resource(VarApi, '/var/')
 api.add_resource(HelpApi, '/help/')
+api.add_resource(TaskApi, '/task/')
+api.add_resource(TriggerApi, '/trigger/')

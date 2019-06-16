@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block resource %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/task.js') }}"></script>
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 8px 0;"></div>
+	<table id="task_list" class="easyui-datagrid" title="任务列表" style="width:100%;height:auto;"
+			data-options="rownumbers: true,
+			    singleSelect: true,
+			    url: '/api/v1/task/?project_id={{ id }}',
+			    method: 'get',
+			    toolbar: toolbar,
+			    pagination: true,
+			    pageList: [10,20,30],
+				pageSize: 20">
+		<thead>
+			<tr>
+				<th data-options="field:'id'" hidden>id</th>
+				<th data-options="field:'status', formatter:showImg">状态</th>
+				<th data-options="field:'build_no'">任务ID</th>
+				<th data-options="field:'name'">项目名称</th>
+				<th data-options="field:'project_id'" hidden>项目ID</th>
+				<th data-options="field:'start_time',width: 160">运行时间</th>
+				<th data-options="field:'end_time',width: 160">结束时间</th>
+				<th data-options="field:'duration'">持续时间</th>
+                <th data-options="field:'cron',width: 120">Cron表达式</th>
+				<th data-options="field:'runner'">执行人</th>
+				<th data-options="field:'report',width: 80, formatter:view_detail_report"> 详细报告 </th>
+				<th data-options="field:'log',width: 80, formatter:view_run_log"> 实时日志 </th>
+			</tr>
+		</thead>
+	</table>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+		var timer=null;
+		var toolbar = [{
+            text:'启动刷新',
+            iconCls:'icon-reload',
+            handler:function(){
+                timer = setInterval(function(){ $("#task_list").datagrid('reload'); }, 5000);
+                show_msg("提示信息", "启动自动刷新成功");
+            }
+        },'-',{
+            text:'停止刷新',
+            iconCls:'icon-reload',
+            handler:function(){
+                clearInterval(timer);
+                show_msg("提示信息", "停止自动刷新成功");
+            }
+        }];
+	</script>
+{% endblock %}

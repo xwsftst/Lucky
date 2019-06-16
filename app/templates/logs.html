@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block resource %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/report.js') }}"></script>
+{% endblock %}
+
+{% block center %}
+    <div style="margin: 8px 0;"></div>
+    <pre>运行日志以3秒为周期，自动刷新</pre>
+    <hr />
+    <pre>
+    {{ logs }}
+    </pre>
+{% endblock %}

@@ -66,8 +66,8 @@ function manage_var_table(win_id, fm_id, method, category){
             open_win(win_id);
         }
         else{
-        show_msg("提示", "请选择要"+button[method]+"的"+category);
-    }
+            show_msg("提示", "请选择要"+button[method]+"的"+category);
+        }
     }
     else{
         show_msg("提示", "方法错误: ".lym_format(method));

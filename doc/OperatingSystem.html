@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OperatingSystem</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Append To Environment Variable" href="#Append%20To%20Environment%20Variable"
+                              title="Link to this keyword">Append To Environment Variable</a></td>
+            <td class="args"><span>name</span>, <span>*values</span>, <span>**config</span></td>
+            <td class="doc"><p>Appends given <code>values</code> to environment variable <code>name</code>.</p>
+                <p>If the environment variable already exists, values are added after it, and otherwise a new
+                    environment variable is created.</p>
+                <p>Values are, by default, joined together using the operating system path separator (<code>;</code> on
+                    Windows, <code>:</code> elsewhere). This can be changed by giving a separator after the values like
+                    <code>separator=value</code>. No other configuration parameters are accepted.</p>
+                <p>Examples (assuming <code>NAME</code> and <code>NAME2</code> do not exist initially):</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Append To Environment Variable</td>
+                        <td>NAME</td>
+                        <td>first</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>%{NAME}</td>
+                        <td>first</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Append To Environment Variable</td>
+                        <td>NAME</td>
+                        <td>second</td>
+                        <td>third</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>%{NAME}</td>
+                        <td>first${:}second${:}third</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Append To Environment Variable</td>
+                        <td>NAME2</td>
+                        <td>first</td>
+                        <td>separator=-</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>%{NAME2}</td>
+                        <td>first</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Append To Environment Variable</td>
+                        <td>NAME2</td>
+                        <td>second</td>
+                        <td>separator=-</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>%{NAME2}</td>
+                        <td>first-second</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Append To File" href="#Append%20To%20File" title="Link to this keyword">Append To
+                File</a></td>
+            <td class="args"><span>path</span>, <span>content</span>, <span>encoding=UTF-8</span></td>
+            <td class="doc"><p>Appends the given content to the specified file.</p>
+                <p>If the file exists, the given text is written to its end. If the file does not exist, it is
+                    created.</p>
+                <p>Other than not overwriting possible existing files, this keyword works exactly like <a
+                        href="#Create%20File" class="name">Create File</a>. See its documentation for more details about
+                    the usage.</p>
+                <p>Note that special encodings <code>SYSTEM</code> and <code>CONSOLE</code> only work with this keyword
+                    starting from Robot Framework 3.1.2.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Copy Directory" href="#Copy%20Directory" title="Link to this keyword">Copy
+                Directory</a></td>
+            <td class="args"><span>source</span>, <span>destination</span></td>
+            <td class="doc"><p>Copies the source directory into the destination.</p>
+                <p>If the destination exists, the source is copied under it. Otherwise the destination directory and the
+                    possible missing intermediate directories are created.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Copy File" href="#Copy%20File" title="Link to this keyword">Copy File</a></td>
+            <td class="args"><span>source</span>, <span>destination</span></td>
+            <td class="doc"><p>Copies the source file into the destination.</p>
+                <p>Source must be a path to an existing file or a glob pattern (see <a href="#Pattern%20matching"
+                                                                                       class="name">Pattern matching</a>)
+                    that matches exactly one file. How the destination is interpreted is explained below.</p>
+                <p>1) If the destination is an existing file, the source file is copied over it.</p>
+                <p>2) If the destination is an existing directory, the source file is copied into it. A possible file
+                    with the same name as the source is overwritten.</p>
+                <p>3) If the destination does not exist and it ends with a path separator (<code>/</code> or
+                    <code>\</code>), it is considered a directory. That directory is created and a source file copied
+                    into it. Possible missing intermediate directories are also created.</p>
+                <p>4) If the destination does not exist and it does not end with a path separator, it is considered a
+                    file. If the path to the file does not exist, it is created.</p>
+                <p>The resulting destination path is returned since Robot Framework 2.9.2.</p>
+                <p>See also <a href="#Copy%20Files" class="name">Copy Files</a>, <a href="#Move%20File" class="name">Move
+                    File</a>, and <a href="#Move%20Files" class="name">Move Files</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Copy Files" href="#Copy%20Files" title="Link to this keyword">Copy Files</a></td>
+            <td class="args"><span>*sources_and_destination</span></td>
+            <td class="doc"><p>Copies specified files to the target directory.</p>
+                <p>Source files can be given as exact paths and as glob patterns (see <a href="#Pattern%20matching"
+                                                                                         class="name">Pattern
+                    matching</a>). At least one source must be given, but it is not an error if it is a pattern that
+                    does not match anything.</p>
+                <p>Last argument must be the destination directory. If the destination does not exist, it will be
+                    created.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Copy Files</td>
+                        <td>${dir}/file1.txt</td>
+                        <td>${dir}/file2.txt</td>
+                        <td>${dir2}</td>
+                    </tr>
+                    <tr>
+                        <td>Copy Files</td>
+                        <td>${dir}/file-*.txt</td>
+                        <td>${dir2}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See also <a href="#Copy%20File" class="name">Copy File</a>, <a href="#Move%20File" class="name">Move
+                    File</a>, and <a href="#Move%20Files" class="name">Move Files</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Count Directories In Directory" href="#Count%20Directories%20In%20Directory"
+                              title="Link to this keyword">Count Directories In Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span></td>
+            <td class="doc"><p>Wrapper for <a href="#Count%20Items%20In%20Directory" class="name">Count Items In
+                Directory</a> returning only directory count.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Count Files In Directory" href="#Count%20Files%20In%20Directory"
+                              title="Link to this keyword">Count Files In Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span></td>
+            <td class="doc"><p>Wrapper for <a href="#Count%20Items%20In%20Directory" class="name">Count Items In
+                Directory</a> returning only file count.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Count Items In Directory" href="#Count%20Items%20In%20Directory"
+                              title="Link to this keyword">Count Items In Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span></td>
+            <td class="doc"><p>Returns and logs the number of all items in the given directory.</p>
+                <p>The argument <code>pattern</code> has the same semantics as with <a href="#List%20Directory"
+                                                                                       class="name">List Directory</a>
+                    keyword. The count is returned as an integer, so it must be checked e.g. with the built-in keyword
+                    <span class="name">Should Be Equal As Integers</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Binary File" href="#Create%20Binary%20File" title="Link to this keyword">Create
+                Binary File</a></td>
+            <td class="args"><span>path</span>, <span>content</span></td>
+            <td class="doc"><p>Creates a binary file with the given content.</p>
+                <p>If content is given as a Unicode string, it is first converted to bytes character by character. All
+                    characters with ordinal below 256 can be used and are converted to bytes with same values. Using
+                    characters with higher ordinal is an error.</p>
+                <p>Byte strings, and possible other types, are written to the file as is.</p>
+                <p>If the directory for the file does not exist, it is created, along with missing intermediate
+                    directories.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Create Binary File</td>
+                        <td>${dir}/example.png</td>
+                        <td>${image content}</td>
+                    </tr>
+                    <tr>
+                        <td>Create Binary File</td>
+                        <td>${path}</td>
+                        <td>\x01\x00\xe4\x00</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <a href="#Create%20File" class="name">Create File</a> if you want to create a text file using a
+                    certain encoding. <a href="#File%20Should%20Not%20Exist" class="name">File Should Not Exist</a> can
+                    be used to avoid overwriting existing files.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Directory" href="#Create%20Directory" title="Link to this keyword">Create
+                Directory</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Creates the specified directory.</p>
+                <p>Also possible intermediate directories are created. Passes if the directory already exists, but fails
+                    if the path exists and is not a directory.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create File" href="#Create%20File" title="Link to this keyword">Create File</a></td>
+            <td class="args"><span>path</span>, <span>content=</span>, <span>encoding=UTF-8</span></td>
+            <td class="doc"><p>Creates a file with the given content and encoding.</p>
+                <p>If the directory where the file is created does not exist, it is automatically created along with
+                    possible missing intermediate directories. Possible existing file is overwritten.</p>
+                <p>On Windows newline characters (<code>\n</code>) in content are automatically converted to Windows
+                    native newline sequence (<code>\r\n</code>).</p>
+                <p>See <a href="#Get%20File" class="name">Get File</a> for more information about possible <code>encoding</code>
+                    values, including special values <code>SYSTEM</code> and <code>CONSOLE</code>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Create File</td>
+                        <td>${dir}/example.txt</td>
+                        <td>Hello, world!</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Create File</td>
+                        <td>${path}</td>
+                        <td>Hyv\xe4 esimerkki</td>
+                        <td>Latin-1</td>
+                    </tr>
+                    <tr>
+                        <td>Create File</td>
+                        <td>/tmp/foo.txt</td>
+                        <td>3\nlines\nhere\n</td>
+                        <td>SYSTEM</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Use <a href="#Append%20To%20File" class="name">Append To File</a> if you want to append to an
+                    existing file and <a href="#Create%20Binary%20File" class="name">Create Binary File</a> if you need
+                    to write bytes without encoding. <a href="#File%20Should%20Not%20Exist" class="name">File Should Not
+                        Exist</a> can be used to avoid overwriting existing files.</p>
+                <p>The support for <code>SYSTEM</code> and <code>CONSOLE</code> encodings is new in Robot Framework 3.0.
+                    Automatically converting <code>\n</code> to <code>\r\n</code> on Windows is new in Robot Framework
+                    3.1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Directory Should Be Empty" href="#Directory%20Should%20Be%20Empty"
+                              title="Link to this keyword">Directory Should Be Empty</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails unless the specified directory is empty.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Directory Should Exist" href="#Directory%20Should%20Exist"
+                              title="Link to this keyword">Directory Should Exist</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails unless the given path points to an existing directory.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Directory Should Not Be Empty" href="#Directory%20Should%20Not%20Be%20Empty"
+                              title="Link to this keyword">Directory Should Not Be Empty</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the specified directory is empty.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Directory Should Not Exist" href="#Directory%20Should%20Not%20Exist"
+                              title="Link to this keyword">Directory Should Not Exist</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given path points to an existing file.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Empty Directory" href="#Empty%20Directory" title="Link to this keyword">Empty
+                Directory</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Deletes all the content from the given directory.</p>
+                <p>Deletes both files and sub-directories, but the specified directory itself if not removed. Use <a
+                        href="#Remove%20Directory" class="name">Remove Directory</a> if you want to remove the whole
+                    directory.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Environment Variable Should Be Set"
+                              href="#Environment%20Variable%20Should%20Be%20Set" title="Link to this keyword">Environment
+                Variable Should Be Set</a></td>
+            <td class="args"><span>name</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the specified environment variable is not set.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Environment Variable Should Not Be Set"
+                              href="#Environment%20Variable%20Should%20Not%20Be%20Set" title="Link to this keyword">Environment
+                Variable Should Not Be Set</a></td>
+            <td class="args"><span>name</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the specified environment variable is set.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="File Should Be Empty" href="#File%20Should%20Be%20Empty"
+                              title="Link to this keyword">File Should Be Empty</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails unless the specified file is empty.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="File Should Exist" href="#File%20Should%20Exist" title="Link to this keyword">File
+                Should Exist</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails unless the given <code>path</code> points to an existing file.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="File Should Not Be Empty" href="#File%20Should%20Not%20Be%20Empty"
+                              title="Link to this keyword">File Should Not Be Empty</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the specified directory is empty.</p>
+                <p>The default error message can be overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="File Should Not Exist" href="#File%20Should%20Not%20Exist"
+                              title="Link to this keyword">File Should Not Exist</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given path points to an existing file.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Binary File" href="#Get%20Binary%20File" title="Link to this keyword">Get Binary
+                File</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Returns the contents of a specified file.</p>
+                <p>This keyword reads the specified file and returns the contents as is. See also <a href="#Get%20File"
+                                                                                                     class="name">Get
+                    File</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Environment Variable" href="#Get%20Environment%20Variable"
+                              title="Link to this keyword">Get Environment Variable</a></td>
+            <td class="args"><span>name</span>, <span>default=None</span></td>
+            <td class="doc"><p>Returns the value of an environment variable with the given name.</p>
+                <p>If no such environment variable is set, returns the default value, if given. Otherwise fails the test
+                    case.</p>
+                <p>Returned variables are automatically decoded to Unicode using the system encoding.</p>
+                <p>Note that you can also access environment variables directly using the variable syntax <code>%{ENV_VAR_NAME}</code>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Environment Variables" href="#Get%20Environment%20Variables"
+                              title="Link to this keyword">Get Environment Variables</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns currently available environment variables as a dictionary.</p>
+                <p>Both keys and values are decoded to Unicode using the system encoding. Altering the returned
+                    dictionary has no effect on the actual environment variables.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get File" href="#Get%20File" title="Link to this keyword">Get File</a></td>
+            <td class="args"><span>path</span>, <span>encoding=UTF-8</span>, <span>encoding_errors=strict</span></td>
+            <td class="doc"><p>Returns the contents of a specified file.</p>
+                <p>This keyword reads the specified file and returns the contents. Line breaks in content are converted
+                    to platform independent form. See also <a href="#Get%20Binary%20File" class="name">Get Binary
+                        File</a>.</p>
+                <p><code>encoding</code> defines the encoding of the file. The default value is <code>UTF-8</code>,
+                    which means that UTF-8 and ASCII encoded files are read correctly. In addition to the encodings
+                    supported by the underlying Python implementation, the following special encoding values can be
+                    used:</p>
+                <ul>
+                    <li><code>SYSTEM</code>: Use the default system encoding.</li>
+                    <li><code>CONSOLE</code>: Use the console encoding. Outside Windows this is same as the system
+                        encoding.
+                    </li>
+                </ul>
+                <p><code>encoding_errors</code> argument controls what to do if decoding some bytes fails. All values
+                    accepted by <code>decode</code> method in Python are valid, but in practice the following values are
+                    most useful:</p>
+                <ul>
+                    <li><code>strict</code>: Fail if characters cannot be decoded (default).</li>
+                    <li><code>ignore</code>: Ignore characters that cannot be decoded.</li>
+                    <li><code>replace</code>: Replace characters that cannot be decoded with a replacement character.
+                    </li>
+                </ul>
+                <p>Support for <code>SYSTEM</code> and <code>CONSOLE</code> encodings in Robot Framework 3.0.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get File Size" href="#Get%20File%20Size" title="Link to this keyword">Get File
+                Size</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Returns and logs file size as an integer in bytes.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Modified Time" href="#Get%20Modified%20Time" title="Link to this keyword">Get
+                Modified Time</a></td>
+            <td class="args"><span>path</span>, <span>format=timestamp</span></td>
+            <td class="doc"><p>Returns the last modification time of a file or directory.</p>
+                <p>How time is returned is determined based on the given <code>format</code> string as follows. Note
+                    that all checks are case-insensitive. Returned time is also automatically logged.</p>
+                <p>1) If <code>format</code> contains the word <code>epoch</code>, the time is returned in seconds after
+                    the UNIX epoch. The return value is always an integer.</p>
+                <p>2) If <code>format</code> contains any of the words <code>year</code>, <code>month</code>,
+                    <code>day</code>, <code>hour</code>, <code>min</code> or <code>sec</code>, only the selected parts
+                    are returned. The order of the returned parts is always the one in the previous sentence and the
+                    order of the words in <code>format</code> is not significant. The parts are returned as zero-padded
+                    strings (e.g. May -&gt; <code>05</code>).</p>
+                <p>3) Otherwise, and by default, the time is returned as a timestamp string in the format <code>2006-02-24
+                    15:08:31</code>.</p>
+                <p>Examples (when the modified time of <code>${CURDIR}</code> is 2006-03-29 15:06:21):</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${time} =</td>
+                        <td>Get Modified Time</td>
+                        <td>${CURDIR}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${secs} =</td>
+                        <td>Get Modified Time</td>
+                        <td>${CURDIR}</td>
+                        <td>epoch</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${year} =</td>
+                        <td>Get Modified Time</td>
+                        <td>${CURDIR}</td>
+                        <td>return year</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${y}</td>
+                        <td>${d} =</td>
+                        <td>Get Modified Time</td>
+                        <td>${CURDIR}</td>
+                        <td>year,day</td>
+                    </tr>
+                    <tr>
+                        <td>@{time} =</td>
+                        <td>Get Modified Time</td>
+                        <td>${CURDIR}</td>
+                        <td>year,month,day,hour,min,sec</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>${time} = '2006-03-29 15:06:21'</li>
+                    <li>${secs} = 1143637581</li>
+                    <li>${year} = '2006'</li>
+                    <li>${y} = '2006' &amp; ${d} = '29'</li>
+                    <li>@{time} = ['2006', '03', '29', '15', '06', '21']</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Grep File" href="#Grep%20File" title="Link to this keyword">Grep File</a></td>
+            <td class="args"><span>path</span>, <span>pattern</span>, <span>encoding=UTF-8</span>, <span>encoding_errors=strict</span>
+            </td>
+            <td class="doc"><p>Returns the lines of the specified file that match the <code>pattern</code>.</p>
+                <p>This keyword reads a file from the file system using the defined <code>path</code>,
+                    <code>encoding</code> and <code>encoding_errors</code> similarly as <a href="#Get%20File"
+                                                                                           class="name">Get File</a>. A
+                    difference is that only the lines that match the given <code>pattern</code> are returned. Lines are
+                    returned as a single string catenated back together with newlines and the number of matched lines is
+                    automatically logged. Possible trailing newline is never returned.</p>
+                <p>A line matches if it contains the <code>pattern</code> anywhere in it and it <b>does not need to
+                    match the pattern fully</b>. The pattern matching syntax is explained in <a href="#Introduction"
+                                                                                                class="name">introduction</a>,
+                    and in this case matching is case-sensitive.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${errors} =</td>
+                        <td>Grep File</td>
+                        <td>/var/log/myapp.log</td>
+                        <td>ERROR</td>
+                    </tr>
+                    <tr>
+                        <td>${ret} =</td>
+                        <td>Grep File</td>
+                        <td>${CURDIR}/file.txt</td>
+                        <td>[Ww]ildc??d ex*ple</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>If more complex pattern matching is needed, it is possible to use <a href="#Get%20File" class="name">Get
+                    File</a> in combination with String library keywords like <span class="name">Get Lines Matching Regexp</span>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Join Path" href="#Join%20Path" title="Link to this keyword">Join Path</a></td>
+            <td class="args"><span>base</span>, <span>*parts</span></td>
+            <td class="doc"><p>Joins the given path part(s) to the given base path.</p>
+                <p>The path separator (<code>/</code> or <code>\</code>) is inserted when needed and the possible
+                    absolute paths handled as expected. The resulted path is also normalized.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${path} =</td>
+                        <td>Join Path</td>
+                        <td>my</td>
+                        <td>path</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${p2} =</td>
+                        <td>Join Path</td>
+                        <td>my/</td>
+                        <td>path/</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${p3} =</td>
+                        <td>Join Path</td>
+                        <td>my</td>
+                        <td>path</td>
+                        <td>my</td>
+                        <td>file.txt</td>
+                    </tr>
+                    <tr>
+                        <td>${p4} =</td>
+                        <td>Join Path</td>
+                        <td>my</td>
+                        <td>/path</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${p5} =</td>
+                        <td>Join Path</td>
+                        <td>/my/path/</td>
+                        <td>..</td>
+                        <td>path2</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>${path} = 'my/path'</li>
+                    <li>${p2} = 'my/path'</li>
+                    <li>${p3} = 'my/path/my/file.txt'</li>
+                    <li>${p4} = '/path'</li>
+                    <li>${p5} = '/my/path2'</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Join Paths" href="#Join%20Paths" title="Link to this keyword">Join Paths</a></td>
+            <td class="args"><span>base</span>, <span>*paths</span></td>
+            <td class="doc"><p>Joins given paths with base and returns resulted paths.</p>
+                <p>See <a href="#Join%20Path" class="name">Join Path</a> for more information.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{p1} =</td>
+                        <td>Join Paths</td>
+                        <td>base</td>
+                        <td>example</td>
+                        <td>other</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{p2} =</td>
+                        <td>Join Paths</td>
+                        <td>/my/base</td>
+                        <td>/example</td>
+                        <td>other</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{p3} =</td>
+                        <td>Join Paths</td>
+                        <td>my/base</td>
+                        <td>example/path/</td>
+                        <td>other</td>
+                        <td>one/more</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>@{p1} = ['base/example', 'base/other']</li>
+                    <li>@{p2} = ['/example', '/my/base/other']</li>
+                    <li>@{p3} = ['my/base/example/path', 'my/base/other', 'my/base/one/more']</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="List Directories In Directory" href="#List%20Directories%20In%20Directory"
+                              title="Link to this keyword">List Directories In Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span>, <span>absolute=False</span></td>
+            <td class="doc"><p>Wrapper for <a href="#List%20Directory" class="name">List Directory</a> that returns only
+                directories.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="List Directory" href="#List%20Directory" title="Link to this keyword">List
+                Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span>, <span>absolute=False</span></td>
+            <td class="doc"><p>Returns and logs items in a directory, optionally filtered with <code>pattern</code>.</p>
+                <p>File and directory names are returned in case-sensitive alphabetical order, e.g. <code>['A Name',
+                    'Second', 'a lower case name', 'one more']</code>. Implicit directories <code>.</code> and
+                    <code>..</code> are not returned. The returned items are automatically logged.</p>
+                <p>File and directory names are returned relative to the given path (e.g. <code>'file.txt'</code>) by
+                    default. If you want them be returned in absolute format (e.g. <code>'/home/robot/file.txt'</code>),
+                    give the <code>absolute</code> argument a true value (see <a href="#Boolean%20arguments"
+                                                                                 class="name">Boolean arguments</a>).
+                </p>
+                <p>If <code>pattern</code> is given, only items matching it are returned. The pattern matching syntax is
+                    explained in <a href="#Introduction" class="name">introduction</a>, and in this case matching is
+                    case-sensitive.</p>
+                <p>Examples (using also other <a href="#List%20Directory" class="name">List Directory</a> variants):</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{items} =</td>
+                        <td>List Directory</td>
+                        <td>${TEMPDIR}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@{files} =</td>
+                        <td>List Files In Directory</td>
+                        <td>/tmp</td>
+                        <td>*.txt</td>
+                        <td>absolute</td>
+                    </tr>
+                    <tr>
+                        <td>${count} =</td>
+                        <td>Count Files In Directory</td>
+                        <td>${CURDIR}</td>
+                        <td>???</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="List Files In Directory" href="#List%20Files%20In%20Directory"
+                              title="Link to this keyword">List Files In Directory</a></td>
+            <td class="args"><span>path</span>, <span>pattern=None</span>, <span>absolute=False</span></td>
+            <td class="doc"><p>Wrapper for <a href="#List%20Directory" class="name">List Directory</a> that returns only
+                files.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log Environment Variables" href="#Log%20Environment%20Variables"
+                              title="Link to this keyword">Log Environment Variables</a></td>
+            <td class="args"><span>level=INFO</span></td>
+            <td class="doc"><p>Logs all environment variables using the given log level.</p>
+                <p>Environment variables are also returned the same way as with <a href="#Get%20Environment%20Variables"
+                                                                                   class="name">Get Environment
+                    Variables</a> keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log File" href="#Log%20File" title="Link to this keyword">Log File</a></td>
+            <td class="args"><span>path</span>, <span>encoding=UTF-8</span>, <span>encoding_errors=strict</span></td>
+            <td class="doc"><p>Wrapper for <a href="#Get%20File" class="name">Get File</a> that also logs the returned
+                file.</p>
+                <p>The file is logged with the INFO level. If you want something else, just use <a href="#Get%20File"
+                                                                                                   class="name">Get
+                    File</a> and the built-in keyword <span class="name">Log</span> with the desired level.</p>
+                <p>See <a href="#Get%20File" class="name">Get File</a> for more information about <code>encoding</code>
+                    and <code>encoding_errors</code> arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Move Directory" href="#Move%20Directory" title="Link to this keyword">Move
+                Directory</a></td>
+            <td class="args"><span>source</span>, <span>destination</span></td>
+            <td class="doc"><p>Moves the source directory into a destination.</p>
+                <p>Uses <a href="#Copy%20Directory" class="name">Copy Directory</a> keyword internally, and
+                    <code>source</code> and <code>destination</code> arguments have exactly same semantics as with that
+                    keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Move File" href="#Move%20File" title="Link to this keyword">Move File</a></td>
+            <td class="args"><span>source</span>, <span>destination</span></td>
+            <td class="doc"><p>Moves the source file into the destination.</p>
+                <p>Arguments have exactly same semantics as with <a href="#Copy%20File" class="name">Copy File</a>
+                    keyword. Destination file path is returned since Robot Framework 2.9.2.</p>
+                <p>If the source and destination are on the same filesystem, rename operation is used. Otherwise file is
+                    copied to the destination filesystem and then removed from the original filesystem.</p>
+                <p>See also <a href="#Move%20Files" class="name">Move Files</a>, <a href="#Copy%20File" class="name">Copy
+                    File</a>, and <a href="#Copy%20Files" class="name">Copy Files</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Move Files" href="#Move%20Files" title="Link to this keyword">Move Files</a></td>
+            <td class="args"><span>*sources_and_destination</span></td>
+            <td class="doc"><p>Moves specified files to the target directory.</p>
+                <p>Arguments have exactly same semantics as with <a href="#Copy%20Files" class="name">Copy Files</a>
+                    keyword.</p>
+                <p>See also <a href="#Move%20File" class="name">Move File</a>, <a href="#Copy%20File" class="name">Copy
+                    File</a>, and <a href="#Copy%20Files" class="name">Copy Files</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Normalize Path" href="#Normalize%20Path" title="Link to this keyword">Normalize
+                Path</a></td>
+            <td class="args"><span>path</span>, <span>case_normalize=False</span></td>
+            <td class="doc"><p>Normalizes the given path.</p>
+                <ul>
+                    <li>Collapses redundant separators and up-level references.</li>
+                    <li>Converts <code>/</code> to <code>\</code> on Windows.</li>
+                    <li>Replaces initial <code>~</code> or <code>~user</code> by that user's home directory. The latter
+                        is not supported on Jython.
+                    </li>
+                    <li>If <code>case_normalize</code> is given a true value (see <a href="#Boolean%20arguments"
+                                                                                     class="name">Boolean arguments</a>)
+                        on Windows, converts the path to all lowercase. New in Robot Framework 3.1.
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${path1} =</td>
+                        <td>Normalize Path</td>
+                        <td>abc/</td>
+                    </tr>
+                    <tr>
+                        <td>${path2} =</td>
+                        <td>Normalize Path</td>
+                        <td>abc/../def</td>
+                    </tr>
+                    <tr>
+                        <td>${path3} =</td>
+                        <td>Normalize Path</td>
+                        <td>abc/./def//ghi</td>
+                    </tr>
+                    <tr>
+                        <td>${path4} =</td>
+                        <td>Normalize Path</td>
+                        <td>~robot/stuff</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>${path1} = 'abc'</li>
+                    <li>${path2} = 'def'</li>
+                    <li>${path3} = 'abc/def/ghi'</li>
+                    <li>${path4} = '/home/robot/stuff'</li>
+                </ul>
+                <p>On Windows result would use <code>\</code> instead of <code>/</code> and home directory would be
+                    different.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove Directory" href="#Remove%20Directory" title="Link to this keyword">Remove
+                Directory</a></td>
+            <td class="args"><span>path</span>, <span>recursive=False</span></td>
+            <td class="doc"><p>Removes the directory pointed to by the given <code>path</code>.</p>
+                <p>If the second argument <code>recursive</code> is given a true value (see <a
+                        href="#Boolean%20arguments" class="name">Boolean arguments</a>), the directory is removed
+                    recursively. Otherwise removing fails if the directory is not empty.</p>
+                <p>If the directory pointed to by the <code>path</code> does not exist, the keyword passes, but it
+                    fails, if the <code>path</code> points to a file.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove Environment Variable" href="#Remove%20Environment%20Variable"
+                              title="Link to this keyword">Remove Environment Variable</a></td>
+            <td class="args"><span>*names</span></td>
+            <td class="doc"><p>Deletes the specified environment variable.</p>
+                <p>Does nothing if the environment variable is not set.</p>
+                <p>It is possible to remove multiple variables by passing them to this keyword as separate
+                    arguments.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove File" href="#Remove%20File" title="Link to this keyword">Remove File</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Removes a file with the given path.</p>
+                <p>Passes if the file does not exist, but fails if the path does not point to a regular file (e.g. it
+                    points to a directory).</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. If the path is a pattern, all files
+                    matching it are removed.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove Files" href="#Remove%20Files" title="Link to this keyword">Remove Files</a>
+            </td>
+            <td class="args"><span>*paths</span></td>
+            <td class="doc"><p>Uses <a href="#Remove%20File" class="name">Remove File</a> to remove multiple files
+                one-by-one.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Remove Files</td>
+                        <td>${TEMPDIR}${/}foo.txt</td>
+                        <td>${TEMPDIR}${/}bar.txt</td>
+                        <td>${TEMPDIR}${/}zap.txt</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Run" href="#Run" title="Link to this keyword">Run</a></td>
+            <td class="args"><span>command</span></td>
+            <td class="doc"><p>Runs the given command in the system and returns the output.</p>
+                <p>The execution status of the command <b>is not checked</b> by this keyword, and it must be done
+                    separately based on the returned output. If the execution return code is needed, either <a
+                            href="#Run%20And%20Return%20Rc" class="name">Run And Return RC</a> or <a
+                            href="#Run%20And%20Return%20Rc%20And%20Output" class="name">Run And Return RC And Output</a>
+                    can be used.</p>
+                <p>The standard error stream is automatically redirected to the standard output stream by adding <code>2&gt;&amp;1</code>
+                    after the executed command. This automatic redirection is done only when the executed command does
+                    not contain additional output redirections. You can thus freely forward the standard error somewhere
+                    else, for example, like <code>my_command 2&gt;stderr.txt</code>.</p>
+                <p>The returned output contains everything written into the standard output or error streams by the
+                    command (unless either of them is redirected explicitly). Many commands add an extra newline (<code>\n</code>)
+                    after the output to make it easier to read in the console. To ease processing the returned output,
+                    this possible trailing newline is stripped by this keyword.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${output} =</td>
+                        <td>Run</td>
+                        <td>ls -lhF /tmp</td>
+                    </tr>
+                    <tr>
+                        <td>Log</td>
+                        <td>${output}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Run</td>
+                        <td>${CURDIR}${/}tester.py arg1 arg2</td>
+                    </tr>
+                    <tr>
+                        <td>Should Not Contain</td>
+                        <td>${result}</td>
+                        <td>FAIL</td>
+                    </tr>
+                    <tr>
+                        <td>${stdout} =</td>
+                        <td>Run</td>
+                        <td>/opt/script.sh 2&gt;/tmp/stderr.txt</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stdout}</td>
+                        <td>TEST PASSED</td>
+                    </tr>
+                    <tr>
+                        <td>File Should Be Empty</td>
+                        <td>/tmp/stderr.txt</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><b>TIP:</b> <span class="name">Run Process</span> keyword provided by the <a
+                        href="http://robotframework.org/robotframework/latest/libraries/Process.html">Process
+                    library</a> supports better process configuration and is generally recommended as a replacement for
+                    this keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Run And Return Rc" href="#Run%20And%20Return%20Rc" title="Link to this keyword">Run
+                And Return Rc</a></td>
+            <td class="args"><span>command</span></td>
+            <td class="doc"><p>Runs the given command in the system and returns the return code.</p>
+                <p>The return code (RC) is returned as a positive integer in range from 0 to 255 as returned by the
+                    executed command. On some operating systems (notable Windows) original return codes can be something
+                    else, but this keyword always maps them to the 0-255 range. Since the RC is an integer, it must be
+                    checked e.g. with the keyword <span class="name">Should Be Equal As Integers</span> instead of <span
+                            class="name">Should Be Equal</span> (both are built-in keywords).</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${rc} =</td>
+                        <td>Run and Return RC</td>
+                        <td>${CURDIR}${/}script.py arg</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal As Integers</td>
+                        <td>${rc}</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>${rc} =</td>
+                        <td>Run and Return RC</td>
+                        <td>/path/to/example.rb arg1 arg2</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be True</td>
+                        <td>0 &lt; ${rc} &lt; 42</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Run" class="name">Run</a> and <a href="#Run%20And%20Return%20Rc%20And%20Output"
+                                                                  class="name">Run And Return RC And Output</a> if you
+                    need to get the output of the executed command.</p>
+                <p><b>TIP:</b> <span class="name">Run Process</span> keyword provided by the <a
+                        href="http://robotframework.org/robotframework/latest/libraries/Process.html">Process
+                    library</a> supports better process configuration and is generally recommended as a replacement for
+                    this keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Run And Return Rc And Output" href="#Run%20And%20Return%20Rc%20And%20Output"
+                              title="Link to this keyword">Run And Return Rc And Output</a></td>
+            <td class="args"><span>command</span></td>
+            <td class="doc"><p>Runs the given command in the system and returns the RC and output.</p>
+                <p>The return code (RC) is returned similarly as with <a href="#Run%20And%20Return%20Rc" class="name">Run
+                    And Return RC</a> and the output similarly as with <a href="#Run" class="name">Run</a>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${rc}</td>
+                        <td>${output} =</td>
+                        <td>Run and Return RC and Output</td>
+                        <td>${CURDIR}${/}mytool</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal As Integers</td>
+                        <td>${rc}</td>
+                        <td>0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Not Contain</td>
+                        <td>${output}</td>
+                        <td>FAIL</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${rc}</td>
+                        <td>${stdout} =</td>
+                        <td>Run and Return RC and Output</td>
+                        <td>/opt/script.sh 2&gt;/tmp/stderr.txt</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be True</td>
+                        <td>${rc} &gt; 42</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stdout}</td>
+                        <td>TEST PASSED</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>File Should Be Empty</td>
+                        <td>/tmp/stderr.txt</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><b>TIP:</b> <span class="name">Run Process</span> keyword provided by the <a
+                        href="http://robotframework.org/robotframework/latest/libraries/Process.html">Process
+                    library</a> supports better process configuration and is generally recommended as a replacement for
+                    this keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Environment Variable" href="#Set%20Environment%20Variable"
+                              title="Link to this keyword">Set Environment Variable</a></td>
+            <td class="args"><span>name</span>, <span>value</span></td>
+            <td class="doc"><p>Sets an environment variable to a specified value.</p>
+                <p>Values are converted to strings automatically. Set variables are automatically encoded using the
+                    system encoding.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Modified Time" href="#Set%20Modified%20Time" title="Link to this keyword">Set
+                Modified Time</a></td>
+            <td class="args"><span>path</span>, <span>mtime</span></td>
+            <td class="doc"><p>Sets the file modification and access times.</p>
+                <p>Changes the modification and access times of the given file to the value determined by
+                    <code>mtime</code>. The time can be given in different formats described below. Note that all checks
+                    involving strings are case-insensitive. Modified time can only be set to regular files.</p>
+                <p>1) If <code>mtime</code> is a number, or a string that can be converted to a number, it is
+                    interpreted as seconds since the UNIX epoch (1970-01-01 00:00:00 UTC). This documentation was
+                    originally written about 1177654467 seconds after the epoch.</p>
+                <p>2) If <code>mtime</code> is a timestamp, that time will be used. Valid timestamp formats are <code>YYYY-MM-DD
+                    hh:mm:ss</code> and <code>YYYYMMDD hhmmss</code>.</p>
+                <p>3) If <code>mtime</code> is equal to <code>NOW</code>, the current local time is used.</p>
+                <p>4) If <code>mtime</code> is equal to <code>UTC</code>, the current time in <a
+                        href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a> is used.</p>
+                <p>5) If <code>mtime</code> is in the format like <code>NOW - 1 day</code> or <code>UTC + 1 hour 30
+                    min</code>, the current local/UTC time plus/minus the time specified with the time string is used.
+                    The time string format is described in an appendix of Robot Framework User Guide.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Set Modified Time</td>
+                        <td>/path/file</td>
+                        <td>1177654467</td>
+                        <td># Time given as epoch seconds</td>
+                    </tr>
+                    <tr>
+                        <td>Set Modified Time</td>
+                        <td>/path/file</td>
+                        <td>2007-04-27 9:14:27</td>
+                        <td># Time given as a timestamp</td>
+                    </tr>
+                    <tr>
+                        <td>Set Modified Time</td>
+                        <td>/path/file</td>
+                        <td>NOW</td>
+                        <td># The local time of execution</td>
+                    </tr>
+                    <tr>
+                        <td>Set Modified Time</td>
+                        <td>/path/file</td>
+                        <td>NOW - 1 day</td>
+                        <td># 1 day subtracted from the local time</td>
+                    </tr>
+                    <tr>
+                        <td>Set Modified Time</td>
+                        <td>/path/file</td>
+                        <td>UTC + 1h 2min 3s</td>
+                        <td># 1h 2min 3s added to the UTC time</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Exist" href="#Should%20Exist" title="Link to this keyword">Should Exist</a>
+            </td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails unless the given path (file or directory) exists.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Should Not Exist" href="#Should%20Not%20Exist" title="Link to this keyword">Should
+                Not Exist</a></td>
+            <td class="args"><span>path</span>, <span>msg=None</span></td>
+            <td class="doc"><p>Fails if the given path (file or directory) exists.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. The default error message can be
+                    overridden with the <code>msg</code> argument.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split Extension" href="#Split%20Extension" title="Link to this keyword">Split
+                Extension</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Splits the extension from the given path.</p>
+                <p>The given path is first normalized (e.g. possible trailing path separators removed, special
+                    directories <code>..</code> and <code>.</code> removed). The base path and extension are returned as
+                    separate components so that the dot used as an extension separator is removed. If the path contains
+                    no extension, an empty string is returned for it. Possible leading and trailing dots in the file
+                    name are never considered to be extension separators.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${path}</td>
+                        <td>${ext} =</td>
+                        <td>Split Extension</td>
+                        <td>file.extension</td>
+                    </tr>
+                    <tr>
+                        <td>${p2}</td>
+                        <td>${e2} =</td>
+                        <td>Split Extension</td>
+                        <td>path/file.ext</td>
+                    </tr>
+                    <tr>
+                        <td>${p3}</td>
+                        <td>${e3} =</td>
+                        <td>Split Extension</td>
+                        <td>path/file</td>
+                    </tr>
+                    <tr>
+                        <td>${p4}</td>
+                        <td>${e4} =</td>
+                        <td>Split Extension</td>
+                        <td>p1/../p2/file.ext</td>
+                    </tr>
+                    <tr>
+                        <td>${p5}</td>
+                        <td>${e5} =</td>
+                        <td>Split Extension</td>
+                        <td>path/.file.ext</td>
+                    </tr>
+                    <tr>
+                        <td>${p6}</td>
+                        <td>${e6} =</td>
+                        <td>Split Extension</td>
+                        <td>path/.file</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>${path} = 'file' &amp; ${ext} = 'extension'</li>
+                    <li>${p2} = 'path/file' &amp; ${e2} = 'ext'</li>
+                    <li>${p3} = 'path/file' &amp; ${e3} = ''</li>
+                    <li>${p4} = 'p2/file' &amp; ${e4} = 'ext'</li>
+                    <li>${p5} = 'path/.file' &amp; ${e5} = 'ext'</li>
+                    <li>${p6} = 'path/.file' &amp; ${e6} = ''</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split Path" href="#Split%20Path" title="Link to this keyword">Split Path</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Splits the given path from the last path separator (<code>/</code> or <code>\</code>).
+            </p>
+                <p>The given path is first normalized (e.g. a possible trailing path separator is removed, special
+                    directories <code>..</code> and <code>.</code> removed). The parts that are split are returned as
+                    separate components.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${path1}</td>
+                        <td>${dir} =</td>
+                        <td>Split Path</td>
+                        <td>abc/def</td>
+                    </tr>
+                    <tr>
+                        <td>${path2}</td>
+                        <td>${file} =</td>
+                        <td>Split Path</td>
+                        <td>abc/def/ghi.txt</td>
+                    </tr>
+                    <tr>
+                        <td>${path3}</td>
+                        <td>${d2} =</td>
+                        <td>Split Path</td>
+                        <td>abc/../def/ghi/</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>=&gt;</p>
+                <ul>
+                    <li>${path1} = 'abc' &amp; ${dir} = 'def'</li>
+                    <li>${path2} = 'abc/def' &amp; ${file} = 'ghi.txt'</li>
+                    <li>${path3} = 'def' &amp; ${d2} = 'ghi'</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Touch" href="#Touch" title="Link to this keyword">Touch</a></td>
+            <td class="args"><span>path</span></td>
+            <td class="doc"><p>Emulates the UNIX touch command.</p>
+                <p>Creates a file, if it does not exist. Otherwise changes its access and modification times to the
+                    current time.</p>
+                <p>Fails if used with the directories or the parent directory of the given file does not exist.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Created" href="#Wait%20Until%20Created" title="Link to this keyword">Wait
+                Until Created</a></td>
+            <td class="args"><span>path</span>, <span>timeout=1 minute</span></td>
+            <td class="doc"><p>Waits until the given file or directory is created.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. If the path is a pattern, the keyword
+                    returns when an item matching it is created.</p>
+                <p>The optional <code>timeout</code> can be used to control the maximum time of waiting. The timeout is
+                    given as a timeout string, e.g. in a format <code>15 seconds</code>, <code>1min 10s</code> or just
+                    <code>10</code>. The time string format is described in an appendix of Robot Framework User Guide.
+                </p>
+                <p>If the timeout is negative, the keyword is never timed-out. The keyword returns immediately, if the
+                    path already exists.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Removed" href="#Wait%20Until%20Removed" title="Link to this keyword">Wait
+                Until Removed</a></td>
+            <td class="args"><span>path</span>, <span>timeout=1 minute</span></td>
+            <td class="doc"><p>Waits until the given file or directory is removed.</p>
+                <p>The path can be given as an exact path or as a glob pattern. The pattern matching syntax is explained
+                    in <a href="#Introduction" class="name">introduction</a>. If the path is a pattern, the keyword
+                    waits until all matching items are removed.</p>
+                <p>The optional <code>timeout</code> can be used to control the maximum time of waiting. The timeout is
+                    given as a timeout string, e.g. in a format <code>15 seconds</code>, <code>1min 10s</code> or just
+                    <code>10</code>. The time string format is described in an appendix of Robot Framework User Guide.
+                </p>
+                <p>If the timeout is negative, the keyword is never timed-out. The keyword returns immediately, if the
+                    path does not exist in the first place.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

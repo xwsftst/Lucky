@@ -178,12 +178,97 @@ function addManageTab(title, url, icon){
 }
 
 function onShowKeywordPanel(){
-    var root = $('#project_tree').tree("getRoot");
+    var root;
+    if(document.title=="home_title"){
+        root = $('#project_tree').tree("getRoot");
+    }else{
+        root = parent.$('#project_tree').tree("getRoot");
+    }
     var keyword=[];
     for(var i in G_SYS_KEYWORD_LIST){
         keyword.push(G_SYS_KEYWORD_LIST[i]);
     }
     if(root){
         $(this).combotree('reload', "/api/v1/keyword/?project_id={0}".lym_format(root.id));
+    }
+}
+
+function test_run(category){
+    var node = $('#project_tree').tree('getRoot');
+    if(node){
+        $.ajax({
+            type : 'get',
+            url : '/test_run/{0}/{1}'.lym_format(category, node.attributes["id"]),
+            success : function(data, textStatus, request) {
+                alert("test_run");
+                var d = JSON.parse(data);
+                if(d["status"] == "success"){
+
+                    show_msg("提示信息", d["msg"]);
+                    addManageTab('查看任务', '/task', 'icon-task');
+                }
+                else{
+                    show_msg("提示信息", d["msg"]);
+                }
+            }
+        });
+    }
+}
+
+function addReportTab(project_id, build_no){
+    var editor_tabs = $("#editor_tabs");
+    var url = "/report/{0}/{1}".lym_format(project_id, build_no)
+    if (editor_tabs.tabs('exists', '详细报告')){
+        //如果tab已经存在,则选中并刷新该tab
+        editor_tabs.tabs('select', '详细报告');
+        refreshTab({title: title, url: url});
+    }
+    else {
+        var content='<iframe scrolling="yes" frameborder="0"  src="{0}" style="width:100%;height:960px;"></iframe>'.lym_format(url);
+        editor_tabs.tabs('add',{
+            title: '详细报告',
+            closable: true,
+            content: content,
+            iconCls: 'icon-report'
+        });
+    }
+}
+
+function addLogTab(project_id, build_no){
+    alert("asdas");
+    var editor_tabs = $("#editor_tabs");
+    var url = "/run_logs/{0}/{1}".lym_format(project_id, build_no)
+    if (editor_tabs.tabs('exists', '查看日志')){
+        //如果tab已经存在,则选中并刷新该tab
+        editor_tabs.tabs('select', '查看日志');
+        refreshTab({title: title, url: url});
+    }
+    else {
+        var content='<iframe scrolling="yes" frameborder="0"  src="{0}" style="width:100%;height:740px;"></iframe>'.lym_format(url);
+        editor_tabs.tabs('add',{
+            title: '查看日志',
+            closable: true,
+            content: content,
+            iconCls: 'icon-report'
+        });
+    }
+}
+
+function addViewImageTab(project_id, build_no, filename){
+    var editor_tabs = $("#editor_tabs");
+    var url = "/view_image/{0}/{1}/{2}".lym_format(project_id, build_no, filename)
+    if (editor_tabs.tabs('exists', '查看截图')){
+        //如果tab已经存在,则选中并刷新该tab
+        editor_tabs.tabs('select', '查看截图');
+        refreshTab({title: title, url: url});
+    }
+    else {
+        var content='<iframe scrolling="yes" frameborder="0"  src="{0}" style="width:100%;height:1024px;"></iframe>'.lym_format(url);
+        editor_tabs.tabs('add',{
+            title: '查看截图',
+            closable: true,
+            content: content,
+            iconCls: 'icon-report'
+        });
     }
 }

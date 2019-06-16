@@ -18,6 +18,7 @@ class Config:
     FLASKY_ADMIN = 'xwsftst@126.com'
 
     TRIGGER = None
+    RUNNERS = []
 
 
 class DevelopConfig(Config):

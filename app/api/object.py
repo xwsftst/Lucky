@@ -151,7 +151,7 @@ class ObjectApi(Resource):
             return [{
                 "name": project.name,
                 "open": False,
-                "icon": url_for("static", filename="images/project.png"),
+                "icon": url_for("static", filename="img/project.png"),
                 "attr": {
                     "category": "project",
                     "id": project.id,
