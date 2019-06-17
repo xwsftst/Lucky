@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Telnet</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close All Connections" href="#Close%20All%20Connections"
+                              title="Link to this keyword">Close All Connections</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes all open connections and empties the connection cache.</p>
+                <p>If multiple connections are opened, this keyword should be used in a test or suite teardown to make
+                    sure that all connections are closed. It is not an error is some of the connections have already
+                    been closed by <a href="#Close%20Connection" class="name">Close Connection</a>.</p>
+                <p>After this keyword, new indexes returned by <a href="#Open%20Connection" class="name">Open
+                    Connection</a> keyword are reset to 1.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close Connection" href="#Close%20Connection" title="Link to this keyword">Close
+                Connection</a></td>
+            <td class="args"><span>loglevel=None</span></td>
+            <td class="doc"><p>Closes the current Telnet connection.</p>
+                <p>Remaining output in the connection is read, logged, and returned. It is not an error to close an
+                    already closed connection.</p>
+                <p>Use <a href="#Close%20All%20Connections" class="name">Close All Connections</a> if you want to make
+                    sure all opened connections are closed.</p>
+                <p>See <a href="#Logging" class="name">Logging</a> section for more information about log levels.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Execute Command" href="#Execute%20Command" title="Link to this keyword">Execute
+                Command</a></td>
+            <td class="args"><span>command</span>, <span>loglevel=None</span>, <span>strip_prompt=False</span></td>
+            <td class="doc"><p>Executes the given <code>command</code> and reads, logs, and returns everything until the
+                prompt.</p>
+                <p>This keyword requires the prompt to be <a href="#Configuration">configured</a> either in <a
+                        href="#Importing" class="name">importing</a> or with <a href="#Open%20Connection" class="name">Open
+                    Connection</a> or <a href="#Set%20Prompt" class="name">Set Prompt</a> keyword.</p>
+                <p>This is a convenience keyword that uses <a href="#Write" class="name">Write</a> and <a
+                        href="#Read%20Until%20Prompt" class="name">Read Until Prompt</a> internally. Following two
+                    examples are thus functionally identical:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${out} =</td>
+                        <td><a href="#Execute%20Command" class="name">Execute Command</a></td>
+                        <td>pwd</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Write" class="name">Write</a></td>
+                        <td>pwd</td>
+                    </tr>
+                    <tr>
+                        <td>${out} =</td>
+                        <td><a href="#Read%20Until%20Prompt" class="name">Read Until Prompt</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Logging" class="name">Logging</a> section for more information about log levels and <a
+                        href="#Read%20Until%20Prompt" class="name">Read Until Prompt</a> for more information about the
+                    <code>strip_prompt</code> parameter.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Login" href="#Login" title="Link to this keyword">Login</a></td>
+            <td class="args"><span>username</span>, <span>password</span>, <span>login_prompt=login: </span>, <span>password_prompt=Password: </span>,
+                <span>login_timeout=1 second</span>, <span>login_incorrect=Login incorrect</span></td>
+            <td class="doc"><p>Logs in to the Telnet server with the given user information.</p>
+                <p>This keyword reads from the connection until the <code>login_prompt</code> is encountered and then
+                    types the given <code>username</code>. Then it reads until the <code>password_prompt</code> and
+                    types the given <code>password</code>. In both cases a newline is appended automatically and the
+                    connection specific timeout used when waiting for outputs.</p>
+                <p>How logging status is verified depends on whether a prompt is set for this connection or not:</p>
+                <p>1) If the prompt is set, this keyword reads the output until the prompt is found using the normal
+                    timeout. If no prompt is found, login is considered failed and also this keyword fails. Note that in
+                    this case both <code>login_timeout</code> and <code>login_incorrect</code> arguments are ignored.
+                </p>
+                <p>2) If the prompt is not set, this keywords sleeps until <code>login_timeout</code> and then reads all
+                    the output available on the connection. If the output contains <code>login_incorrect</code> text,
+                    login is considered failed and also this keyword fails.</p>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about
+                    setting newline, timeout, and prompt.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Open Connection" href="#Open%20Connection" title="Link to this keyword">Open
+                Connection</a></td>
+            <td class="args"><span>host</span>, <span>alias=None</span>, <span>port=23</span>, <span>timeout=None</span>,
+                <span>newline=None</span>, <span>prompt=None</span>, <span>prompt_is_regexp=False</span>, <span>encoding=None</span>,
+                <span>encoding_errors=None</span>, <span>default_log_level=None</span>, <span>window_size=None</span>,
+                <span>environ_user=None</span>, <span>terminal_emulation=None</span>, <span>terminal_type=None</span>,
+                <span>telnetlib_log_level=None</span>, <span>connection_timeout=None</span></td>
+            <td class="doc"><p>Opens a new Telnet connection to the given host and port.</p>
+                <p>The <code>timeout</code>, <code>newline</code>, <code>prompt</code>, <code>prompt_is_regexp</code>,
+                    <code>encoding</code>, <code>default_log_level</code>, <code>window_size</code>,
+                    <code>environ_user</code>, <code>terminal_emulation</code>, <code>terminal_type</code> and <code>telnetlib_log_level</code>
+                    arguments get default values when the library is <a href="#Importing">imported</a>. Setting them
+                    here overrides those values for the opened connection. See <a href="#Configuration" class="name">Configuration</a>,
+                    <a href="#Terminal%20emulation" class="name">Terminal emulation</a> and <a href="#Logging"
+                                                                                               class="name">Logging</a>
+                    sections for more information about these parameters and their possible values.</p>
+                <p>Possible already opened connections are cached and it is possible to switch back to them using <a
+                        href="#Switch%20Connection" class="name">Switch Connection</a> keyword. It is possible to switch
+                    either using explicitly given <code>alias</code> or using index returned by this keyword. Indexing
+                    starts from 1 and is reset back to it by <a href="#Close%20All%20Connections" class="name">Close All
+                        Connections</a> keyword.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Read" href="#Read" title="Link to this keyword">Read</a></td>
+            <td class="args"><span>loglevel=None</span></td>
+            <td class="doc"><p>Reads everything that is currently available in the output.</p>
+                <p>Read output is both returned and logged. See <a href="#Logging" class="name">Logging</a> section for
+                    more information about log levels.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Read Until" href="#Read%20Until" title="Link to this keyword">Read Until</a></td>
+            <td class="args"><span>expected</span>, <span>loglevel=None</span></td>
+            <td class="doc"><p>Reads output until <code>expected</code> text is encountered.</p>
+                <p>Text up to and including the match is returned and logged. If no match is found, this keyword fails.
+                    How much to wait for the output depends on the <a href="#Configuration">configured timeout</a>.</p>
+                <p>See <a href="#Logging" class="name">Logging</a> section for more information about log levels. Use <a
+                        href="#Read%20Until%20Regexp" class="name">Read Until Regexp</a> if more complex matching is
+                    needed.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Read Until Prompt" href="#Read%20Until%20Prompt" title="Link to this keyword">Read
+                Until Prompt</a></td>
+            <td class="args"><span>loglevel=None</span>, <span>strip_prompt=False</span></td>
+            <td class="doc"><p>Reads output until the prompt is encountered.</p>
+                <p>This keyword requires the prompt to be <a href="#Configuration">configured</a> either in <a
+                        href="#Importing" class="name">importing</a> or with <a href="#Open%20Connection" class="name">Open
+                    Connection</a> or <a href="#Set%20Prompt" class="name">Set Prompt</a> keyword.</p>
+                <p>By default, text up to and including the prompt is returned and logged. If no prompt is found, this
+                    keyword fails. How much to wait for the output depends on the <a href="#Configuration">configured
+                        timeout</a>.</p>
+                <p>If you want to exclude the prompt from the returned output, set <code>strip_prompt</code> to a true
+                    value (see <a href="#Boolean%20arguments" class="name">Boolean arguments</a>). If your prompt is a
+                    regular expression, make sure that the expression spans the whole prompt, because only the part of
+                    the output that matches the regular expression is stripped away.</p>
+                <p>See <a href="#Logging" class="name">Logging</a> section for more information about log levels.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Read Until Regexp" href="#Read%20Until%20Regexp" title="Link to this keyword">Read
+                Until Regexp</a></td>
+            <td class="args"><span>*expected</span></td>
+            <td class="doc"><p>Reads output until any of the <code>expected</code> regular expressions match.</p>
+                <p>This keyword accepts any number of regular expressions patterns or compiled Python regular expression
+                    objects as arguments. Text up to and including the first match to any of the regular expressions is
+                    returned and logged. If no match is found, this keyword fails. How much to wait for the output
+                    depends on the <a href="#Configuration">configured timeout</a>.</p>
+                <p>If the last given argument is a <a href="#Logging">valid log level</a>, it is used as
+                    <code>loglevel</code> similarly as with <a href="#Read%20Until" class="name">Read Until</a> keyword.
+                </p>
+                <p>See the documentation of <a href="http://docs.python.org/library/re.html">Python re module</a> for
+                    more information about the supported regular expression syntax. Notice that possible backslashes
+                    need to be escaped in Robot Framework test data.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Read%20Until%20Regexp" class="name">Read Until Regexp</a></td>
+                        <td>(#|$)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Read%20Until%20Regexp" class="name">Read Until Regexp</a></td>
+                        <td>first_regexp</td>
+                        <td>second_regexp</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Read%20Until%20Regexp" class="name">Read Until Regexp</a></td>
+                        <td>\\d{4}-\\d{2}-\\d{2}</td>
+                        <td>DEBUG</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Default Log Level" href="#Set%20Default%20Log%20Level"
+                              title="Link to this keyword">Set Default Log Level</a></td>
+            <td class="args"><span>level</span></td>
+            <td class="doc"><p>Sets the default log level used for <a href="#Logging" class="name">logging</a> in the
+                current connection.</p>
+                <p>The old default log level is returned and can be used to restore the log level later.</p>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about global
+                    and connection specific configuration.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Encoding" href="#Set%20Encoding" title="Link to this keyword">Set Encoding</a>
+            </td>
+            <td class="args"><span>encoding=None</span>, <span>errors=None</span></td>
+            <td class="doc"><p>Sets the encoding to use for <a href="#Writing%20and%20reading" class="name">writing and
+                reading</a> in the current connection.</p>
+                <p>The given <code>encoding</code> specifies the encoding to use when written/read text is
+                    encoded/decoded, and <code>errors</code> specifies the error handler to use if encoding/decoding
+                    fails. Either of these can be omitted and in that case the old value is not affected. Use string
+                    <code>NONE</code> to disable encoding altogether.</p>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about
+                    encoding and error handlers, as well as global and connection specific configuration in general.</p>
+                <p>The old values are returned and can be used to restore the encoding and the error handler later. See
+                    <a href="#Set%20Prompt" class="name">Set Prompt</a> for a similar example.</p>
+                <p>If terminal emulation is used, the encoding can not be changed on an open connection.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Newline" href="#Set%20Newline" title="Link to this keyword">Set Newline</a></td>
+            <td class="args"><span>newline</span></td>
+            <td class="doc"><p>Sets the newline used by <a href="#Write" class="name">Write</a> keyword in the current
+                connection.</p>
+                <p>The old newline is returned and can be used to restore the newline later. See <a
+                        href="#Set%20Timeout" class="name">Set Timeout</a> for a similar example.</p>
+                <p>If terminal emulation is used, the newline can not be changed on an open connection.</p>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about global
+                    and connection specific configuration.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Prompt" href="#Set%20Prompt" title="Link to this keyword">Set Prompt</a></td>
+            <td class="args"><span>prompt</span>, <span>prompt_is_regexp=False</span></td>
+            <td class="doc"><p>Sets the prompt used by <a href="#Read%20Until%20Prompt" class="name">Read Until
+                Prompt</a> and <a href="#Login" class="name">Login</a> in the current connection.</p>
+                <p>If <code>prompt_is_regexp</code> is given a true value (see <a href="#Boolean%20arguments"
+                                                                                  class="name">Boolean arguments</a>),
+                    the given <code>prompt</code> is considered to be a regular expression.</p>
+                <p>The old prompt is returned and can be used to restore the prompt later.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${prompt}</td>
+                        <td>${regexp} =</td>
+                        <td><a href="#Set%20Prompt" class="name">Set Prompt</a></td>
+                        <td>$</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Do Something</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Set%20Prompt" class="name">Set Prompt</a></td>
+                        <td>${prompt}</td>
+                        <td>${regexp}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See the documentation of <a href="http://docs.python.org/library/re.html">Python re module</a> for
+                    more information about the supported regular expression syntax. Notice that possible backslashes
+                    need to be escaped in Robot Framework test data.</p>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about global
+                    and connection specific configuration.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Telnetlib Log Level" href="#Set%20Telnetlib%20Log%20Level"
+                              title="Link to this keyword">Set Telnetlib Log Level</a></td>
+            <td class="args"><span>level</span></td>
+            <td class="doc"><p>Sets the log level used for <a href="#Logging" class="name">logging</a> in the underlying
+                <code>telnetlib</code>.</p>
+                <p>Note that <code>telnetlib</code> can be very noisy thus using the level <code>NONE</code> can
+                    shutdown the messages generated by this library.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Timeout" href="#Set%20Timeout" title="Link to this keyword">Set Timeout</a></td>
+            <td class="args"><span>timeout</span></td>
+            <td class="doc"><p>Sets the timeout used for waiting output in the current connection.</p>
+                <p>Read operations that expect some output to appear (<a href="#Read%20Until" class="name">Read
+                    Until</a>, <a href="#Read%20Until%20Regexp" class="name">Read Until Regexp</a>, <a
+                        href="#Read%20Until%20Prompt" class="name">Read Until Prompt</a>, <a href="#Login" class="name">Login</a>)
+                    use this timeout and fail if the expected output does not appear before this timeout expires.</p>
+                <p>The <code>timeout</code> must be given in <a href="#Time%20string%20format" class="name">time string
+                    format</a>. The old timeout is returned and can be used to restore the timeout later.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${old} =</td>
+                        <td><a href="#Set%20Timeout" class="name">Set Timeout</a></td>
+                        <td>2 minute 30 seconds</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Do Something</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Set%20Timeout" class="name">Set Timeout</a></td>
+                        <td>${old}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Configuration" class="name">Configuration</a> section for more information about global
+                    and connection specific configuration.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Switch Connection" href="#Switch%20Connection" title="Link to this keyword">Switch
+                Connection</a></td>
+            <td class="args"><span>index_or_alias</span></td>
+            <td class="doc"><p>Switches between active connections using an index or an alias.</p>
+                <p>Aliases can be given to <a href="#Open%20Connection" class="name">Open Connection</a> keyword which
+                    also always returns the connection index.</p>
+                <p>This keyword returns the index of previous active connection.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><a href="#Open%20Connection" class="name">Open Connection</a></td>
+                        <td>myhost.net</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Login" class="name">Login</a></td>
+                        <td>john</td>
+                        <td>secret</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Write" class="name">Write</a></td>
+                        <td>some command</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Open%20Connection" class="name">Open Connection</a></td>
+                        <td>yourhost.com</td>
+                        <td>2nd conn</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Login" class="name">Login</a></td>
+                        <td>root</td>
+                        <td>password</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Write" class="name">Write</a></td>
+                        <td>another cmd</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${old index}=</td>
+                        <td><a href="#Switch%20Connection" class="name">Switch Connection</a></td>
+                        <td>1</td>
+                        <td># index</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Write" class="name">Write</a></td>
+                        <td>something</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Connection" class="name">Switch Connection</a></td>
+                        <td>2nd conn</td>
+                        <td></td>
+                        <td># alias</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Write" class="name">Write</a></td>
+                        <td>whatever</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Connection" class="name">Switch Connection</a></td>
+                        <td>${old index}</td>
+                        <td></td>
+                        <td># back to original</td>
+                    </tr>
+                    <tr>
+                        <td>[Teardown]</td>
+                        <td><a href="#Close%20All%20Connections" class="name">Close All Connections</a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>The example above expects that there were no other open connections when opening the first one,
+                    because it used index <code>1</code> when switching to the connection later. If you are not sure
+                    about that, you can store the index into a variable as shown below.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${index} =</td>
+                        <td><a href="#Open%20Connection" class="name">Open Connection</a></td>
+                        <td>myhost.net</td>
+                    </tr>
+                    <tr>
+                        <td><span class="name">Do Something</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#Switch%20Connection" class="name">Switch Connection</a></td>
+                        <td>${index}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Write" href="#Write" title="Link to this keyword">Write</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=None</span></td>
+            <td class="doc"><p>Writes the given text plus a newline into the connection.</p>
+                <p>The newline character sequence to use can be <a href="#Configuration">configured</a> both globally
+                    and per connection basis. The default value is <code>CRLF</code>.</p>
+                <p>This keyword consumes the written text, until the added newline, from the output and logs and returns
+                    it. The given text itself must not contain newlines. Use <a href="#Write%20Bare" class="name">Write
+                        Bare</a> instead if either of these features causes a problem.</p>
+                <p><b>Note:</b> This keyword does not return the possible output of the executed command. To get the
+                    output, one of the <span class="name">Read ...</span> <a href="#Keywords" class="name">keywords</a>
+                    must be used. See <a href="#Writing%20and%20reading" class="name">Writing and reading</a> section
+                    for more details.</p>
+                <p>See <a href="#Logging" class="name">Logging</a> section for more information about log levels.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Write Bare" href="#Write%20Bare" title="Link to this keyword">Write Bare</a></td>
+            <td class="args"><span>text</span></td>
+            <td class="doc"><p>Writes the given text, and nothing else, into the connection.</p>
+                <p>This keyword does not append a newline nor consume the written text. Use <a href="#Write"
+                                                                                               class="name">Write</a> if
+                    these features are needed.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Write Control Character" href="#Write%20Control%20Character"
+                              title="Link to this keyword">Write Control Character</a></td>
+            <td class="args"><span>character</span></td>
+            <td class="doc"><p>Writes the given control character into the connection.</p>
+                <p>The control character is prepended with an IAC (interpret as command) character.</p>
+                <p>The following control character names are supported: BRK, IP, AO, AYT, EC, EL, NOP. Additionally, you
+                    can use arbitrary numbers to send any control character.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Write Control Character</td>
+                        <td>BRK</td>
+                        <td># Send Break command</td>
+                    </tr>
+                    <tr>
+                        <td>Write Control Character</td>
+                        <td>241</td>
+                        <td># Send No operation command</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Write Until Expected Output" href="#Write%20Until%20Expected%20Output"
+                              title="Link to this keyword">Write Until Expected Output</a></td>
+            <td class="args"><span>text</span>, <span>expected</span>, <span>timeout</span>, <span>retry_interval</span>,
+                <span>loglevel=None</span></td>
+            <td class="doc"><p>Writes the given <code>text</code> repeatedly, until <code>expected</code> appears in the
+                output.</p>
+                <p><code>text</code> is written without appending a newline and it is consumed from the output before
+                    trying to find <code>expected</code>. If <code>expected</code> does not appear in the output within
+                    <code>timeout</code>, this keyword fails.</p>
+                <p><code>retry_interval</code> defines the time to wait <code>expected</code> to appear before writing
+                    the <code>text</code> again. Consuming the written <code>text</code> is subject to the normal <a
+                            href="#Configuration">configured timeout</a>.</p>
+                <p>Both <code>timeout</code> and <code>retry_interval</code> must be given in <a
+                        href="#Time%20string%20format" class="name">time string format</a>. See <a href="#Logging"
+                                                                                                   class="name">Logging</a>
+                    section for more information about log levels.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Write Until Expected Output</td>
+                        <td>ps -ef| grep myprocess\r\n</td>
+                        <td>myprocess</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>5 s</td>
+                        <td>0.5 s</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>The above example writes command <code>ps -ef | grep myprocess\r\n</code> until
+                    <code>myprocess</code> appears in the output. The command is written every 0.5 seconds and the
+                    keyword fails if <code>myprocess</code> does not appear in the output in 5 seconds.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

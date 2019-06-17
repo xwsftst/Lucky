@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from app.utils.parsing import parser_doc
 
 
-class Help(Resource):
+class HelpApi(Resource):
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
 

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Process</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Process Id" href="#Get%20Process%20Id" title="Link to this keyword">Get Process
+                Id</a></td>
+            <td class="args"><span>handle=None</span></td>
+            <td class="doc"><p>Returns the process ID (pid) of the process as an integer.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>Notice that the pid is not the same as the handle returned by <a href="#Start%20Process"
+                                                                                    class="name">Start Process</a> that
+                    is used internally by this library.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Process Object" href="#Get%20Process%20Object" title="Link to this keyword">Get
+                Process Object</a></td>
+            <td class="args"><span>handle=None</span></td>
+            <td class="doc"><p>Return the underlying <code>subprocess.Popen</code> object.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Process Result" href="#Get%20Process%20Result" title="Link to this keyword">Get
+                Process Result</a></td>
+            <td class="args"><span>handle=None</span>, <span>rc=False</span>, <span>stdout=False</span>, <span>stderr=False</span>,
+                <span>stdout_path=False</span>, <span>stderr_path=False</span></td>
+            <td class="doc"><p>Returns the specified <a href="#Result%20object" class="name">result object</a> or some
+                of its attributes.</p>
+                <p>The given <code>handle</code> specifies the process whose results should be returned. If no <code>handle</code>
+                    is given, results of the current <a href="#Active%20process" class="name">active process</a> are
+                    returned. In either case, the process must have been finishes before this keyword can be used. In
+                    practice this means that processes started with <a href="#Start%20Process" class="name">Start
+                        Process</a> must be finished either with <a href="#Wait%20For%20Process" class="name">Wait For
+                        Process</a> or <a href="#Terminate%20Process" class="name">Terminate Process</a> before using
+                    this keyword.</p>
+                <p>If no other arguments than the optional <code>handle</code> are given, a whole <a
+                        href="#Result%20object" class="name">result object</a> is returned. If one or more of the other
+                    arguments are given any true value, only the specified attributes of the <a href="#Result%20object"
+                                                                                                class="name">result
+                        object</a> are returned. These attributes are always returned in the same order as arguments are
+                    specified in the keyword signature. See <a href="#Boolean%20arguments" class="name">Boolean
+                        arguments</a> section for more details about true and false values.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Run Process</td>
+                        <td>python</td>
+                        <td>-c</td>
+                        <td>print 'Hello, world!'</td>
+                        <td>alias=myproc</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Get result object</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Get Process Result</td>
+                        <td>myproc</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${result.rc}</td>
+                        <td>${0}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${result.stdout}</td>
+                        <td>Hello, world!</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Empty</td>
+                        <td>${result.stderr}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Get one attribute</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${stdout} =</td>
+                        <td>Get Process Result</td>
+                        <td>myproc</td>
+                        <td>stdout=true</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stdout}</td>
+                        <td>Hello, world!</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Multiple attributes</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${stdout}</td>
+                        <td>${stderr} =</td>
+                        <td>Get Process Result</td>
+                        <td>myproc</td>
+                        <td>stdout=yes</td>
+                        <td>stderr=yes</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${stdout}</td>
+                        <td>Hello, world!</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Empty</td>
+                        <td>${stderr}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Although getting results of a previously executed process can be handy in general, the main use case
+                    for this keyword is returning results over the remote library interface. The remote interface does
+                    not support returning the whole result object, but individual attributes can be returned without
+                    problems.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Is Process Running" href="#Is%20Process%20Running" title="Link to this keyword">Is
+                Process Running</a></td>
+            <td class="args"><span>handle=None</span></td>
+            <td class="doc"><p>Checks is the process running or not.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>Returns <code>True</code> if the process is still running and <code>False</code> otherwise.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Join Command Line" href="#Join%20Command%20Line" title="Link to this keyword">Join
+                Command Line</a></td>
+            <td class="args"><span>*args</span></td>
+            <td class="doc"><p>Joins arguments into one command line string.</p>
+                <p>In resulting command line string arguments are delimited with a space, arguments containing spaces
+                    are surrounded with quotes, and possible quotes are escaped with a backslash.</p>
+                <p>If this keyword is given only one argument and that is a list like object, then the values of that
+                    list are joined instead.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${cmd} =</td>
+                        <td>Join Command Line</td>
+                        <td>--option</td>
+                        <td>value with spaces</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${cmd}</td>
+                        <td>--option "value with spaces"</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in Robot Framework 2.9.2.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Process Should Be Running" href="#Process%20Should%20Be%20Running"
+                              title="Link to this keyword">Process Should Be Running</a></td>
+            <td class="args"><span>handle=None</span>, <span>error_message=Process is not running.</span></td>
+            <td class="doc"><p>Verifies that the process is running.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>Fails if the process has stopped.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Process Should Be Stopped" href="#Process%20Should%20Be%20Stopped"
+                              title="Link to this keyword">Process Should Be Stopped</a></td>
+            <td class="args"><span>handle=None</span>, <span>error_message=Process is running.</span></td>
+            <td class="doc"><p>Verifies that the process is not running.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>Fails if the process is still running.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Run Process" href="#Run%20Process" title="Link to this keyword">Run Process</a></td>
+            <td class="args"><span>command</span>, <span>*arguments</span>, <span>**configuration</span></td>
+            <td class="doc"><p>Runs a process and waits for it to complete.</p>
+                <p><code>command</code> and <code>*arguments</code> specify the command to execute and arguments passed
+                    to it. See <a href="#Specifying%20command%20and%20arguments" class="name">Specifying command and
+                        arguments</a> for more details.</p>
+                <p><code>**configuration</code> contains additional configuration related to starting processes and
+                    waiting for them to finish. See <a href="#Process%20configuration" class="name">Process
+                        configuration</a> for more details about configuration related to starting processes.
+                    Configuration related to waiting for processes consists of <code>timeout</code> and
+                    <code>on_timeout</code> arguments that have same semantics as with <a href="#Wait%20For%20Process"
+                                                                                          class="name">Wait For
+                        Process</a> keyword. By default there is no timeout, and if timeout is defined the default
+                    action on timeout is <code>terminate</code>.</p>
+                <p>Returns a <a href="#Result%20object" class="name">result object</a> containing information about the
+                    execution.</p>
+                <p>Note that possible equal signs in <code>*arguments</code> must be escaped with a backslash (e.g.
+                    <code>name\=value</code>) to avoid them to be passed in as <code>**configuration</code>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Run Process</td>
+                        <td>python</td>
+                        <td>-c</td>
+                        <td>print 'Hello, world!'</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${result.stdout}</td>
+                        <td>Hello, world!</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Run Process</td>
+                        <td>${command}</td>
+                        <td>stderr=STDOUT</td>
+                        <td>timeout=10s</td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Run Process</td>
+                        <td>${command}</td>
+                        <td>timeout=1min</td>
+                        <td>on_timeout=continue</td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Run Process</td>
+                        <td>java -Dname\=value Example</td>
+                        <td>shell=True</td>
+                        <td>cwd=${EXAMPLE}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>This keyword does not change the <a href="#Active%20process" class="name">active process</a>.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Send Signal To Process" href="#Send%20Signal%20To%20Process"
+                              title="Link to this keyword">Send Signal To Process</a></td>
+            <td class="args"><span>signal</span>, <span>handle=None</span>, <span>group=False</span></td>
+            <td class="doc"><p>Sends the given <code>signal</code> to the specified process.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>Signal can be specified either as an integer as a signal name. In the latter case it is possible to
+                    give the name both with or without <code>SIG</code> prefix, but names are case-sensitive. For
+                    example, all the examples below send signal <code>INT (2)</code>:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Send Signal To Process</td>
+                        <td>2</td>
+                        <td></td>
+                        <td># Send to active process</td>
+                    </tr>
+                    <tr>
+                        <td>Send Signal To Process</td>
+                        <td>INT</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Send Signal To Process</td>
+                        <td>SIGINT</td>
+                        <td>myproc</td>
+                        <td># Send to named process</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>This keyword is only supported on Unix-like machines, not on Windows. What signals are supported
+                    depends on the system. For a list of existing signals on your system, see the Unix man pages related
+                    to signal handling (typically <code>man signal</code> or <code>man 7 signal</code>).</p>
+                <p>By default sends the signal only to the parent process, not to possible child processes started by
+                    it. Notice that when <a href="#Running%20processes%20in%20shell" class="name">running processes in
+                        shell</a>, the shell is the parent process and it depends on the system does the shell propagate
+                    the signal to the actual started process.</p>
+                <p>To send the signal to the whole process group, <code>group</code> argument can be set to any true
+                    value (see <a href="#Boolean%20arguments" class="name">Boolean arguments</a>). This is not supported
+                    by Jython, however.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Split Command Line" href="#Split%20Command%20Line" title="Link to this keyword">Split
+                Command Line</a></td>
+            <td class="args"><span>args</span>, <span>escaping=False</span></td>
+            <td class="doc"><p>Splits command line string into a list of arguments.</p>
+                <p>String is split from spaces, but argument surrounded in quotes may contain spaces in them. If <code>escaping</code>
+                    is given a true value, then backslash is treated as an escape character. It can escape unquoted
+                    spaces, quotes inside quotes, and so on, but it also requires using double backslashes when using
+                    Windows paths.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{cmd} =</td>
+                        <td>Split Command Line</td>
+                        <td>--option "value with spaces"</td>
+                    </tr>
+                    <tr>
+                        <td>Should Be True</td>
+                        <td>$cmd == ['--option', 'value with spaces']</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in Robot Framework 2.9.2.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Start Process" href="#Start%20Process" title="Link to this keyword">Start
+                Process</a></td>
+            <td class="args"><span>command</span>, <span>*arguments</span>, <span>**configuration</span></td>
+            <td class="doc"><p>Starts a new process on background.</p>
+                <p>See <a href="#Specifying%20command%20and%20arguments" class="name">Specifying command and
+                    arguments</a> and <a href="#Process%20configuration" class="name">Process configuration</a> for more
+                    information about the arguments, and <a href="#Run%20Process" class="name">Run Process</a> keyword
+                    for related examples.</p>
+                <p>Makes the started process new <a href="#Active%20process" class="name">active process</a>. Returns an
+                    identifier that can be used as a handle to activate the started process if needed.</p>
+                <p>Processes are started so that they create a new process group. This allows sending signals to and
+                    terminating also possible child processes. This is not supported on Jython.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Switch Process" href="#Switch%20Process" title="Link to this keyword">Switch
+                Process</a></td>
+            <td class="args"><span>handle</span></td>
+            <td class="doc"><p>Makes the specified process the current <a href="#Active%20process" class="name">active
+                process</a>.</p>
+                <p>The handle can be an identifier returned by <a href="#Start%20Process" class="name">Start Process</a>
+                    or the <code>alias</code> given to it explicitly.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Start Process</td>
+                        <td>prog1</td>
+                        <td>alias=process1</td>
+                    </tr>
+                    <tr>
+                        <td>Start Process</td>
+                        <td>prog2</td>
+                        <td>alias=process2</td>
+                    </tr>
+                    <tr>
+                        <td># currently active process is process2</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Switch Process</td>
+                        <td>process1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># now active process is process1</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Terminate All Processes" href="#Terminate%20All%20Processes"
+                              title="Link to this keyword">Terminate All Processes</a></td>
+            <td class="args"><span>kill=False</span></td>
+            <td class="doc"><p>Terminates all still running processes started by this library.</p>
+                <p>This keyword can be used in suite teardown or elsewhere to make sure that all processes are
+                    stopped,</p>
+                <p>By default tries to terminate processes gracefully, but can be configured to forcefully kill them
+                    immediately. See <a href="#Terminate%20Process" class="name">Terminate Process</a> that this keyword
+                    uses internally for more details.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Terminate Process" href="#Terminate%20Process" title="Link to this keyword">Terminate
+                Process</a></td>
+            <td class="args"><span>handle=None</span>, <span>kill=False</span></td>
+            <td class="doc"><p>Stops the process gracefully or forcefully.</p>
+                <p>If <code>handle</code> is not given, uses the current <a href="#Active%20process" class="name">active
+                    process</a>.</p>
+                <p>By default first tries to stop the process gracefully. If the process does not stop in 30 seconds, or
+                    <code>kill</code> argument is given a true value, (see <a href="#Boolean%20arguments" class="name">Boolean
+                        arguments</a>) kills the process forcefully. Stops also all the child processes of the
+                    originally started process.</p>
+                <p>Waits for the process to stop after terminating it. Returns a <a href="#Result%20object"
+                                                                                    class="name">result object</a>
+                    containing information about the execution similarly as <a href="#Wait%20For%20Process"
+                                                                               class="name">Wait For Process</a>.</p>
+                <p>On Unix-like machines graceful termination is done using <code>TERM (15)</code> signal and killing
+                    using <code>KILL (9)</code>. Use <a href="#Send%20Signal%20To%20Process" class="name">Send Signal To
+                        Process</a> instead if you just want to send either of these signals without waiting for the
+                    process to stop.</p>
+                <p>On Windows graceful termination is done using <code>CTRL_BREAK_EVENT</code> event and killing using
+                    Win32 API function <code>TerminateProcess()</code>.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Terminate Process</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal As Integers</td>
+                        <td>${result.rc}</td>
+                        <td>-15</td>
+                        <td># On Unixes</td>
+                    </tr>
+                    <tr>
+                        <td>Terminate Process</td>
+                        <td>myproc</td>
+                        <td>kill=true</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Limitations:</p>
+                <ul>
+                    <li>Graceful termination is not supported on Windows when using Jython. Process is killed instead.
+                    </li>
+                    <li>Stopping the whole process group is not supported when using Jython.</li>
+                    <li>On Windows forceful kill only stops the main process, not possible child processes.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait For Process" href="#Wait%20For%20Process" title="Link to this keyword">Wait For
+                Process</a></td>
+            <td class="args"><span>handle=None</span>, <span>timeout=None</span>, <span>on_timeout=continue</span></td>
+            <td class="doc"><p>Waits for the process to complete or to reach the given timeout.</p>
+                <p>The process to wait for must have been started earlier with <a href="#Start%20Process" class="name">Start
+                    Process</a>. If <code>handle</code> is not given, uses the current <a href="#Active%20process"
+                                                                                          class="name">active
+                    process</a>.</p>
+                <p><code>timeout</code> defines the maximum time to wait for the process. It can be given in <a
+                        href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#time-format">various
+                    time formats</a> supported by Robot Framework, for example, <code>42</code>, <code>42 s</code>, or
+                    <code>1 minute 30 seconds</code>.</p>
+                <p><code>on_timeout</code> defines what to do if the timeout occurs. Possible values and corresponding
+                    actions are explained in the table below. Notice that reaching the timeout never fails the test.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <th>Value</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>continue</td>
+                        <td>The process is left running (default).</td>
+                    </tr>
+                    <tr>
+                        <td>terminate</td>
+                        <td>The process is gracefully terminated.</td>
+                    </tr>
+                    <tr>
+                        <td>kill</td>
+                        <td>The process is forcefully stopped.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Terminate%20Process" class="name">Terminate Process</a> keyword for more details how
+                    processes are terminated and killed.</p>
+                <p>If the process ends before the timeout or it is terminated or killed, this keyword returns a <a
+                        href="#Result%20object" class="name">result object</a> containing information about the
+                    execution. If the process is left running, Python <code>None</code> is returned instead.</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td># Process ends cleanly</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Wait For Process</td>
+                        <td>example</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Process Should Be Stopped</td>
+                        <td>example</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal As Integers</td>
+                        <td>${result.rc}</td>
+                        <td>0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Process does not end</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Wait For Process</td>
+                        <td>timeout=42 secs</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Process Should Be Running</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal</td>
+                        <td>${result}</td>
+                        <td>${NONE}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td># Kill non-ending process</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${result} =</td>
+                        <td>Wait For Process</td>
+                        <td>timeout=1min 30s</td>
+                        <td>on_timeout=kill</td>
+                    </tr>
+                    <tr>
+                        <td>Process Should Be Stopped</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Should Be Equal As Integers</td>
+                        <td>${result.rc}</td>
+                        <td>-9</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

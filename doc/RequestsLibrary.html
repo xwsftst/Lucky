@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RequestsLibrary</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Client Cert Session" href="#Create%20Client%20Cert%20Session"
+                              title="Link to this keyword">Create Client Cert Session</a></td>
+            <td class="args"><span>alias</span>, <span>url</span>, <span>headers={}</span>, <span>cookies={}</span>,
+                <span>client_certs=None</span>, <span>timeout=None</span>, <span>proxies=None</span>,
+                <span>verify=False</span>, <span>debug=0</span>, <span>max_retries=3</span>,
+                <span>backoff_factor=0.1</span>, <span>disable_warnings=0</span></td>
+            <td class="doc"><p>Create Session: create a HTTP session to a server</p>
+                <p><code>url</code> Base url of the server</p>
+                <p><code>alias</code> Robot Framework alias to identify the session</p>
+                <p><code>headers</code> Dictionary of default headers</p>
+                <p><code>cookies</code> Dictionary of cookies</p>
+                <p><code>client_certs</code> ['client certificate', 'client key'] PEM files containing the client key
+                    and certificate</p>
+                <p><code>timeout</code> Connection timeout</p>
+                <p><code>proxies</code> Dictionary that contains proxy urls for HTTP and HTTPS communication</p>
+                <p><code>verify</code> Whether the SSL cert will be verified. A CA_BUNDLE path can also be provided.
+                    Defaults to False.</p>
+                <p><code>debug</code> Enable http verbosity option more information <a
+                        href="https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel">https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel</a>
+                </p>
+                <p><code>max_retries</code> The maximum number of retries each connection should attempt.</p>
+                <p><code>backoff_factor</code> The pause between for each retry</p>
+                <p><code>disable_warnings</code> Disable requests warning useful when you have large number of testcases
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Custom Session" href="#Create%20Custom%20Session"
+                              title="Link to this keyword">Create Custom Session</a></td>
+            <td class="args"><span>alias</span>, <span>url</span>, <span>auth</span>, <span>headers={}</span>, <span>cookies={}</span>,
+                <span>timeout=None</span>, <span>proxies=None</span>, <span>verify=False</span>, <span>debug=0</span>,
+                <span>max_retries=3</span>, <span>backoff_factor=0.1</span>, <span>disable_warnings=0</span></td>
+            <td class="doc"><p>Create Session: create a HTTP session to a server</p>
+                <p><code>url</code> Base url of the server</p>
+                <p><code>alias</code> Robot Framework alias to identify the session</p>
+                <p><code>headers</code> Dictionary of default headers</p>
+                <p><code>cookies</code> Dictionary of cookies</p>
+                <p><code>auth</code> A Custom Authentication object to be passed on to the reqests library. <a
+                        href="http://docs.python-requests.org/en/master/user/advanced/#custom-authentication">http://docs.python-requests.org/en/master/user/advanced/#custom-authentication</a>
+                </p>
+                <p><code>timeout</code> Connection timeout</p>
+                <p><code>proxies</code> Dictionary that contains proxy urls for HTTP and HTTPS communication</p>
+                <p><code>verify</code> Whether the SSL cert will be verified. A CA_BUNDLE path can also be provided.
+                    Defaults to False.</p>
+                <p><code>debug</code> Enable http verbosity option more information <a
+                        href="https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel">https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel</a>
+                </p>
+                <p><code>max_retries</code> The maximum number of retries each connection should attempt.</p>
+                <p><code>backoff_factor</code> The pause between for each retry</p>
+                <p><code>disable_warnings</code> Disable requests warning useful when you have large number of testcases
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Digest Session" href="#Create%20Digest%20Session"
+                              title="Link to this keyword">Create Digest Session</a></td>
+            <td class="args"><span>alias</span>, <span>url</span>, <span>auth</span>, <span>headers={}</span>, <span>cookies={}</span>,
+                <span>timeout=None</span>, <span>proxies=None</span>, <span>verify=False</span>, <span>debug=0</span>,
+                <span>max_retries=3</span>, <span>backoff_factor=0.1</span>, <span>disable_warnings=0</span></td>
+            <td class="doc"><p>Create Session: create a HTTP session to a server</p>
+                <p><code>url</code> Base url of the server</p>
+                <p><code>alias</code> Robot Framework alias to identify the session</p>
+                <p><code>headers</code> Dictionary of default headers</p>
+                <p><code>cookies</code> Dictionary of cookies</p>
+                <p><code>auth</code> ['DOMAIN', 'username', 'password'] for NTLM Authentication</p>
+                <p><code>timeout</code> Connection timeout</p>
+                <p><code>proxies</code> Dictionary that contains proxy urls for HTTP and HTTPS communication</p>
+                <p><code>verify</code> Whether the SSL cert will be verified. A CA_BUNDLE path can also be provided.
+                    Defaults to False.</p>
+                <p><code>debug</code> Enable http verbosity option more information <a
+                        href="https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel">https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel</a>
+                </p>
+                <p><code>max_retries</code> The maximum number of retries each connection should attempt.</p>
+                <p><code>backoff_factor</code> The pause between for each retry</p>
+                <p><code>disable_warnings</code> Disable requests warning useful when you have large number of testcases
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Ntlm Session" href="#Create%20Ntlm%20Session" title="Link to this keyword">Create
+                Ntlm Session</a></td>
+            <td class="args"><span>alias</span>, <span>url</span>, <span>auth</span>, <span>headers={}</span>, <span>cookies={}</span>,
+                <span>timeout=None</span>, <span>proxies=None</span>, <span>verify=False</span>, <span>debug=0</span>,
+                <span>max_retries=3</span>, <span>backoff_factor=0.1</span>, <span>disable_warnings=0</span></td>
+            <td class="doc"><p>Create Session: create a HTTP session to a server</p>
+                <p><code>url</code> Base url of the server</p>
+                <p><code>alias</code> Robot Framework alias to identify the session</p>
+                <p><code>headers</code> Dictionary of default headers</p>
+                <p><code>cookies</code> Dictionary of cookies</p>
+                <p><code>auth</code> ['DOMAIN', 'username', 'password'] for NTLM Authentication</p>
+                <p><code>timeout</code> Connection timeout</p>
+                <p><code>proxies</code> Dictionary that contains proxy urls for HTTP and HTTPS communication</p>
+                <p><code>verify</code> Whether the SSL cert will be verified. A CA_BUNDLE path can also be provided.
+                    Defaults to False.</p>
+                <p><code>debug</code> Enable http verbosity option more information <a
+                        href="https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel">https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel</a>
+                </p>
+                <p><code>max_retries</code> The maximum number of retries each connection should attempt.</p>
+                <p><code>backoff_factor</code> The pause between for each retry</p>
+                <p><code>disable_warnings</code> Disable requests warning useful when you have large number of testcases
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Create Session" href="#Create%20Session" title="Link to this keyword">Create
+                Session</a></td>
+            <td class="args"><span>alias</span>, <span>url</span>, <span>headers={}</span>, <span>cookies={}</span>,
+                <span>auth=None</span>, <span>timeout=None</span>, <span>proxies=None</span>, <span>verify=False</span>,
+                <span>debug=0</span>, <span>max_retries=3</span>, <span>backoff_factor=0.1</span>, <span>disable_warnings=0</span>
+            </td>
+            <td class="doc"><p>Create Session: create a HTTP session to a server</p>
+                <p><code>url</code> Base url of the server</p>
+                <p><code>alias</code> Robot Framework alias to identify the session</p>
+                <p><code>headers</code> Dictionary of default headers</p>
+                <p><code>cookies</code> Dictionary of cookies</p>
+                <p><code>auth</code> List of username &amp; password for HTTP Basic Auth</p>
+                <p><code>timeout</code> Connection timeout</p>
+                <p><code>proxies</code> Dictionary that contains proxy urls for HTTP and HTTPS communication</p>
+                <p><code>verify</code> Whether the SSL cert will be verified. A CA_BUNDLE path can also be provided.
+                    Defaults to False.</p>
+                <p><code>debug</code> Enable http verbosity option more information <a
+                        href="https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel">https://docs.python.org/2/library/httplib.html#httplib.HTTPConnection.set_debuglevel</a>
+                </p>
+                <p><code>max_retries</code> The maximum number of retries each connection should attempt.</p>
+                <p><code>backoff_factor</code> The pause between for each retry</p>
+                <p><code>disable_warnings</code> Disable requests warning useful when you have large number of testcases
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Delete" href="#Delete" title="Link to this keyword">Delete</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=()</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>* * * Deprecated- See Delete Request now * * *</p>
+                <p>Send a DELETE request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the DELETE request to</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Delete All Sessions" href="#Delete%20All%20Sessions" title="Link to this keyword">Delete
+                All Sessions</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Removes all the session objects</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Delete Request" href="#Delete%20Request" title="Link to this keyword">Delete
+                Request</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=()</span>, <span>params=None</span>,
+                <span>headers=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Send a DELETE request on the session object found using the given <span class="name">alias</span>
+            </p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the DELETE request to</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get" href="#Get" title="Link to this keyword">Get</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>params=None</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Get Request now*</b></p>
+                <p>Send a GET request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the GET request to</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Request" href="#Get%20Request" title="Link to this keyword">Get Request</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>headers=None</span>, <span>json=None</span>,
+                <span>params=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Send a GET request on the session object found using the given <span
+                    class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the GET request to</p>
+                <p><code>params</code> url parameters to append to the uri</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>json</code> json data to send in the body of the :class:<span class="name">Request</span>.</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Head" href="#Head" title="Link to this keyword">Head</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Head Request now*</b></p>
+                <p>Send a HEAD request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the HEAD request to</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Head Request" href="#Head%20Request" title="Link to this keyword">Head Request</a>
+            </td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Send a HEAD request on the session object found using the given <span
+                    class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the HEAD request to</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Options" href="#Options" title="Link to this keyword">Options</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Options Request now*</b></p>
+                <p>Send an OPTIONS request on the session object found using the given <span class="name">alias</span>
+                </p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the OPTIONS request to</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Options Request" href="#Options%20Request" title="Link to this keyword">Options
+                Request</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p>Send an OPTIONS request on the session object found using the given <span class="name">alias</span>
+            </p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the OPTIONS request to</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Patch" href="#Patch" title="Link to this keyword">Patch</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data={}</span>, <span>headers=None</span>,
+                <span>files={}</span>, <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Patch Request now*</b></p>
+                <p>Send a PATCH request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the PATCH request to</p>
+                <p><code>data</code> a dictionary of key-value pairs that will be urlencoded and sent as PATCH data or
+                    binary data that is sent as the raw body content</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>files</code> a dictionary of file names containing file data to PATCH to the server</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Patch Request" href="#Patch%20Request" title="Link to this keyword">Patch
+                Request</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=None</span>, <span>params=None</span>,
+                <span>headers=None</span>, <span>files=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span>
+            </td>
+            <td class="doc"><p>Send a PATCH request on the session object found using the given <span
+                    class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the PATCH request to</p>
+                <p><code>data</code> a dictionary of key-value pairs that will be urlencoded and sent as PATCH data or
+                    binary data that is sent as the raw body content</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>files</code> a dictionary of file names containing file data to PATCH to the server</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>params</code> url parameters to append to the uri</p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Post" href="#Post" title="Link to this keyword">Post</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data={}</span>, <span>headers=None</span>,
+                <span>files=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Post Request now*</b></p>
+                <p>Send a POST request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the GET request to</p>
+                <p><code>data</code> a dictionary of key-value pairs that will be urlencoded and sent as POST data or
+                    binary data that is sent as the raw body content</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>files</code> a dictionary of file names containing file data to POST to the server</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Post Request" href="#Post%20Request" title="Link to this keyword">Post Request</a>
+            </td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=None</span>, <span>params=None</span>,
+                <span>headers=None</span>, <span>files=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span>
+            </td>
+            <td class="doc"><p>Send a POST request on the session object found using the given <span
+                    class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the POST request to</p>
+                <p><code>data</code> a dictionary of key-value pairs that will be urlencoded and sent as POST data or
+                    binary data that is sent as the raw body content or passed as such for multipart form data if <code>files</code>
+                    is also defined</p>
+                <p><code>params</code> url parameters to append to the uri</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>files</code> a dictionary of file names containing file data to POST to the server</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Put" href="#Put" title="Link to this keyword">Put</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=None</span>, <span>headers=None</span>,
+                <span>allow_redirects=None</span>, <span>timeout=None</span></td>
+            <td class="doc"><p><b>*Deprecated- See Put Request now*</b></p>
+                <p>Send a PUT request on the session object found using the given <span class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the PUT request to</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Put Request" href="#Put%20Request" title="Link to this keyword">Put Request</a></td>
+            <td class="args"><span>alias</span>, <span>uri</span>, <span>data=None</span>, <span>params=None</span>,
+                <span>files=None</span>, <span>headers=None</span>, <span>allow_redirects=None</span>, <span>timeout=None</span>
+            </td>
+            <td class="doc"><p>Send a PUT request on the session object found using the given <span
+                    class="name">alias</span></p>
+                <p><code>alias</code> that will be used to identify the Session object in the cache</p>
+                <p><code>uri</code> to send the PUT request to</p>
+                <p><code>headers</code> a dictionary of headers to use with the request</p>
+                <p><code>allow_redirects</code> Boolean. Set to True if POST/PUT/DELETE redirect following is allowed.
+                </p>
+                <p><code>params</code> url parameters to append to the uri</p>
+                <p><code>timeout</code> connection timeout</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="To Json" href="#To%20Json" title="Link to this keyword">To Json</a></td>
+            <td class="args"><span>content</span>, <span>pretty_print=False</span></td>
+            <td class="doc"><p>Convert a string to a JSON object</p>
+                <p><code>content</code> String content to convert into JSON</p>
+                <p><code>pretty_print</code> If defined, will output JSON is pretty print format</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

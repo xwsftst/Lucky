@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AppiumLibrary</title>
+</head>
+<body>
+<div id="keywords-container"><h2 id="Keywords">Keywords</h2>
+    <table border="1" class="keywords">
+        <tbody>
+        <tr>
+            <th class="kw">Keyword</th>
+            <th class="args">Arguments</th>
+            <th class="doc">Documentation</th>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Background App" href="#Background%20App" title="Link to this keyword">Background
+                App</a></td>
+            <td class="args"><span>seconds=5</span></td>
+            <td class="doc"><p>Puts the application in the background on the device for a certain duration.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Capture Page Screenshot" href="#Capture%20Page%20Screenshot"
+                              title="Link to this keyword">Capture Page Screenshot</a></td>
+            <td class="args"><span>filename=None</span></td>
+            <td class="doc"><p>Takes a screenshot of the current page and embeds it into the log.</p>
+                <p><span class="name">filename</span> argument specifies the name of the file to write the screenshot
+                    into. If no <span class="name">filename</span> is given, the screenshot is saved into file <span
+                            class="name">appium-screenshot-&lt;counter&gt;.png</span> under the directory where the
+                    Robot Framework log file is written into. The <span class="name">filename</span> is also considered
+                    relative to the same directory, if it is not given in absolute format.</p>
+                <p><span class="name">css</span> can be used to modify how the screenshot is taken. By default the
+                    bakground color is changed to avoid possible problems with background leaking when the page layout
+                    is somehow broken.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Clear Text" href="#Clear%20Text" title="Link to this keyword">Clear Text</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Clears the text field identified by <span class="name">locator</span>.</p>
+                <p>See <a href="#Introduction" class="name">introduction</a> for details about locating elements.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click A Point" href="#Click%20A%20Point" title="Link to this keyword">Click A
+                Point</a></td>
+            <td class="args"><span>x=0</span>, <span>y=0</span>, <span>duration=100</span></td>
+            <td class="doc"><p>Click on a point</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Button" href="#Click%20Button" title="Link to this keyword">Click Button</a>
+            </td>
+            <td class="args"><span>index_or_name</span></td>
+            <td class="doc"><p>Click button</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Element" href="#Click%20Element" title="Link to this keyword">Click
+                Element</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Click element identified by <span class="name">locator</span>.</p>
+                <p>Key attributes for arbitrary elements are <span class="name">index</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Element At Coordinates" href="#Click%20Element%20At%20Coordinates"
+                              title="Link to this keyword">Click Element At Coordinates</a></td>
+            <td class="args"><span>coordinate_X</span>, <span>coordinate_Y</span></td>
+            <td class="doc"><p>click element at a certain coordinate</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Click Text" href="#Click%20Text" title="Link to this keyword">Click Text</a></td>
+            <td class="args"><span>text</span>, <span>exact_match=False</span></td>
+            <td class="doc"><p>Click text identified by <code>text</code>.</p>
+                <p>By default tries to click first text involves given <code>text</code>, if you would like to click
+                    exactly matching text, then set <code>exact_match</code> to <span class="name">True</span>.</p>
+                <p>If there are multiple use of <code>text</code> and you do not want first one, use <span class="name">locator</span>
+                    with <a href="#Get%20Webelements" class="name">Get Web Elements</a> instead.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close All Applications" href="#Close%20All%20Applications"
+                              title="Link to this keyword">Close All Applications</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes all open applications.</p>
+                <p>This keyword is meant to be used in test or suite teardown to make sure all the applications are
+                    closed before the test execution finishes.</p>
+                <p>After this keyword, the application indices returned by <a href="#Open%20Application" class="name">Open
+                    Application</a> are reset and start from <span class="name">1</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Close Application" href="#Close%20Application" title="Link to this keyword">Close
+                Application</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Closes the current application and also close webdriver session.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Attribute Should Match" href="#Element%20Attribute%20Should%20Match"
+                              title="Link to this keyword">Element Attribute Should Match</a></td>
+            <td class="args"><span>locator</span>, <span>attr_name</span>, <span>match_pattern</span>, <span>regexp=False</span>
+            </td>
+            <td class="doc"><p>Verify that an attribute of an element matches the expected criteria.</p>
+                <p>The element is identified by <i>locator</i>. See <a href="#Introduction"
+                                                                       class="name">introduction</a> for details about
+                    locating elements. If more than one element matches, the first element is selected.</p>
+                <p>The <i>attr_name</i> is the name of the attribute within the selected element.</p>
+                <p>The <i>match_pattern</i> is used for the matching, if the match_pattern is</p>
+                <ul>
+                    <li>boolean or 'True'/'true'/'False'/'false' String then a boolean match is applied</li>
+                    <li>any other string is cause a string match</li>
+                </ul>
+                <p>The <i>regexp</i> defines whether the string match is done using regular expressions (i.e. BuiltIn
+                    Library's <a
+                            href="http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match%20Regexp">Should
+                        Match Regexp</a> or string pattern match (i.e. BuiltIn Library's <a
+                            href="http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match">Should
+                        Match</a>)</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Element Attribute Should Match</td>
+                        <td>xpath = //*[contains(@text,'foo')]</td>
+                        <td>text</td>
+                        <td>*foobar</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Element Attribute Should Match</td>
+                        <td>xpath = //*[contains(@text,'foo')]</td>
+                        <td>text</td>
+                        <td>f.*ar</td>
+                        <td>regexp = True</td>
+                    </tr>
+                    <tr>
+                        <td>Element Attribute Should Match</td>
+                        <td>xpath = //*[contains(@text,'foo')]</td>
+                        <td>enabled</td>
+                        <td>True</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <pre>1. is a string pattern match i.e. the 'text' attribute should end with the string 'foobar'
+2. is a regular expression match i.e. the regexp 'f.*ar' should be within the 'text' attribute
+3. is a boolead match i.e. the 'enabled' attribute should be True
+</pre>
+                <p><i><b>NOTE: </b></i> On Android the supported attribute names are hard-coded in the <a
+                        href="https://github.com/appium/appium/blob/master/lib/devices/android/bootstrap/src/io/appium/android/bootstrap/AndroidElement.java">AndroidElement</a>
+                    Class's getBoolAttribute() and getStringAttribute() methods. Currently supported (appium v1.4.11):
+                    <i>contentDescription, text, className, resourceId, enabled, checkable, checked, clickable,
+                        focusable, focused, longClickable, scrollable, selected, displayed</i></p>
+                <p><i><b>NOTE: </b></i> Some attributes can be evaluated in two different ways e.g. these evaluate the
+                    same thing:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Element Attribute Should Match</td>
+                        <td>xpath = //*[contains(@text,'example text')]</td>
+                        <td>name</td>
+                        <td>txt_field_name</td>
+                    </tr>
+                    <tr>
+                        <td>Element Name Should Be</td>
+                        <td>xpath = //*[contains(@text,'example text')]</td>
+                        <td>txt_field_name</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Name Should Be" href="#Element%20Name%20Should%20Be"
+                              title="Link to this keyword">Element Name Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span></td>
+            <td class="doc"></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Disabled" href="#Element%20Should%20Be%20Disabled"
+                              title="Link to this keyword">Element Should Be Disabled</a></td>
+            <td class="args"><span>locator</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that element identified with locator is disabled.</p>
+                <p>Key attributes for arbitrary elements are <span class="name">id</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Enabled" href="#Element%20Should%20Be%20Enabled"
+                              title="Link to this keyword">Element Should Be Enabled</a></td>
+            <td class="args"><span>locator</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that element identified with locator is enabled.</p>
+                <p>Key attributes for arbitrary elements are <span class="name">id</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Be Visible" href="#Element%20Should%20Be%20Visible"
+                              title="Link to this keyword">Element Should Be Visible</a></td>
+            <td class="args"><span>locator</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that element identified with locator is visible.</p>
+                <p>Key attributes for arbitrary elements are <span class="name">id</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p>
+                <p>New in AppiumLibrary 1.4.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Contain Text" href="#Element%20Should%20Contain%20Text"
+                              title="Link to this keyword">Element Should Contain Text</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=</span></td>
+            <td class="doc"><p>Verifies element identified by <code>locator</code> contains text <code>expected</code>.
+            </p>
+                <p>If you wish to assert an exact (not a substring) match on the text of the element, use <a
+                        href="#Element%20Text%20Should%20Be" class="name">Element Text Should Be</a>.</p>
+                <p>Key attributes for arbitrary elements are <code>id</code> and <code>xpath</code>.
+                    <code>message</code> can be used to override the default error message.</p>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Should Not Contain Text" href="#Element%20Should%20Not%20Contain%20Text"
+                              title="Link to this keyword">Element Should Not Contain Text</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=</span></td>
+            <td class="doc"><p>Verifies element identified by <code>locator</code> does not contain text
+                <code>expected</code>.</p>
+                <p><code>message</code> can be used to override the default error message. See <a
+                        href="#Element%20Should%20Contain%20Text" class="name">Element Should Contain Text</a> for more
+                    details.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Text Should Be" href="#Element%20Text%20Should%20Be"
+                              title="Link to this keyword">Element Text Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span>, <span>message=</span></td>
+            <td class="doc"><p>Verifies element identified by <code>locator</code> exactly contains text
+                <code>expected</code>.</p>
+                <p>In contrast to <a href="#Element%20Should%20Contain%20Text" class="name">Element Should Contain
+                    Text</a>, this keyword does not try a substring match but an exact match on the element identified
+                    by <code>locator</code>.</p>
+                <p><code>message</code> can be used to override the default error message.</p>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Element Value Should Be" href="#Element%20Value%20Should%20Be"
+                              title="Link to this keyword">Element Value Should Be</a></td>
+            <td class="args"><span>locator</span>, <span>expected</span></td>
+            <td class="doc"></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Execute Async Script" href="#Execute%20Async%20Script" title="Link to this keyword">Execute
+                Async Script</a></td>
+            <td class="args"><span>script</span></td>
+            <td class="doc"><p>Inject a snippet of Async-JavaScript into the page for execution in the context of the
+                currently selected frame (Web context only).</p>
+                <p>The executed script is assumed to be asynchronous and must signal that is done by invoking the
+                    provided callback, which is always provided as the final argument to the function.</p>
+                <p>The value to this callback will be returned to the client.</p>
+                <p>New in AppiumLibrary 1.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Execute Script" href="#Execute%20Script" title="Link to this keyword">Execute
+                Script</a></td>
+            <td class="args"><span>script</span></td>
+            <td class="doc"><p>Inject a snippet of JavaScript into the page for execution in the context of the
+                currently selected frame (Web context only).</p>
+                <p>The executed script is assumed to be synchronous and the result of evaluating the script is returned
+                    to the client.</p>
+                <p>New in AppiumLibrary 1.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Activity" href="#Get%20Activity" title="Link to this keyword">Get Activity</a>
+            </td>
+            <td class="args"></td>
+            <td class="doc"><p>Retrieves the current activity on the device.</p>
+                <p>Android only.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Appium SessionId" href="#Get%20Appium%20SessionId" title="Link to this keyword">Get
+                Appium SessionId</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the current session ID as a reference</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Appium Timeout" href="#Get%20Appium%20Timeout" title="Link to this keyword">Get
+                Appium Timeout</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Gets the timeout in seconds that is used by various keywords.</p>
+                <p>See <a href="#Set%20Appium%20Timeout" class="name">Set Appium Timeout</a> for an explanation.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Capability" href="#Get%20Capability" title="Link to this keyword">Get
+                Capability</a></td>
+            <td class="args"><span>capability_name</span></td>
+            <td class="doc"><p>Return the desired capability value by desired capability name</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Contexts" href="#Get%20Contexts" title="Link to this keyword">Get Contexts</a>
+            </td>
+            <td class="args"></td>
+            <td class="doc"><p>Get available contexts.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Current Context" href="#Get%20Current%20Context" title="Link to this keyword">Get
+                Current Context</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Get current context.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Attribute" href="#Get%20Element%20Attribute"
+                              title="Link to this keyword">Get Element Attribute</a></td>
+            <td class="args"><span>locator</span>, <span>attribute</span></td>
+            <td class="doc"><p>Get element attribute using given attribute: name, value,...</p>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Get Element Attribute</td>
+                        <td>locator</td>
+                        <td>name</td>
+                    </tr>
+                    <tr>
+                        <td>Get Element Attribute</td>
+                        <td>locator</td>
+                        <td>value</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Location" href="#Get%20Element%20Location" title="Link to this keyword">Get
+                Element Location</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Get element location</p>
+                <p>Key attributes for arbitrary elements are <span class="name">id</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Element Size" href="#Get%20Element%20Size" title="Link to this keyword">Get
+                Element Size</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Get element size</p>
+                <p>Key attributes for arbitrary elements are <span class="name">id</span> and <span
+                        class="name">name</span>. See <a href="#Introduction" class="name">introduction</a> for details
+                    about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Matching Xpath Count" href="#Get%20Matching%20Xpath%20Count"
+                              title="Link to this keyword">Get Matching Xpath Count</a></td>
+            <td class="args"><span>xpath</span></td>
+            <td class="doc"><p>Returns number of elements matching <code>xpath</code></p>
+                <p>One should not use the <span class="name">xpath=</span> prefix for 'xpath'. XPath is assumed.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><b>Correct:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${count}</td>
+                        <td>Get Matching Xpath Count</td>
+                        <td>//android.view.View[@text='Test']</td>
+                    </tr>
+                    <tr>
+                        <td>Incorrect:</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${count}</td>
+                        <td>Get Matching Xpath Count</td>
+                        <td>xpath=//android.view.View[@text='Test']</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>If you wish to assert the number of matching elements, use <a
+                        href="#Xpath%20Should%20Match%20X%20Times" class="name">Xpath Should Match X Times</a>.</p>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Network Connection Status" href="#Get%20Network%20Connection%20Status"
+                              title="Link to this keyword">Get Network Connection Status</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns an integer bitmask specifying the network connection type.</p>
+                <p>Android only.</p>
+                <p>See <a href="#Set%20Network%20Connection%20Status" class="name">set network connection status</a> for
+                    more details.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Source" href="#Get%20Source" title="Link to this keyword">Get Source</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Returns the entire source of the current page.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Text" href="#Get%20Text" title="Link to this keyword">Get Text</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Get element text (for hybrid and mobile browser use <span class="name">xpath</span>
+                locator, others might cause problem)</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${text}</td>
+                        <td>Get Text</td>
+                        <td>//*[contains(@text,'foo')]</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Webelement" href="#Get%20Webelement" title="Link to this keyword">Get
+                Webelement</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns the first <a
+                    href="http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement">WebElement</a>
+                object matching <code>locator</code>.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${element}</td>
+                        <td>Get Webelement</td>
+                        <td>id=my_element</td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>${element}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Webelements" href="#Get%20Webelements" title="Link to this keyword">Get
+                Webelements</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Returns list of <a
+                    href="http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement">WebElement</a>
+                objects matching <code>locator</code>.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>@{elements}</td>
+                        <td>Get Webelements</td>
+                        <td>id=my_element</td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>@{elements}[2]</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>This keyword was changed in AppiumLibrary 1.4 in following ways:</p>
+                <ul>
+                    <li>Name is changed from <span class="name">Get Elements</span> to current one.</li>
+                    <li>Deprecated argument <code>fail_on_error</code>, use <span class="name">Run Keyword and Ignore Error</span>
+                        if necessary.
+                    </li>
+                </ul>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Height" href="#Get%20Window%20Height" title="Link to this keyword">Get
+                Window Height</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Get current device height.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${width}</td>
+                        <td>Get Window Height</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${height}</td>
+                        <td>Get Window Height</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Click A Point</td>
+                        <td>${width</td>
+                        <td>${height}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in AppiumLibrary 1.4.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Get Window Width" href="#Get%20Window%20Width" title="Link to this keyword">Get
+                Window Width</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Get current device width.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${width}</td>
+                        <td>Get Window Height</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${height}</td>
+                        <td>Get Window Height</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Click A Point</td>
+                        <td>${width</td>
+                        <td>${height}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>New in AppiumLibrary 1.4.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Go Back" href="#Go%20Back" title="Link to this keyword">Go Back</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Goes one step backward in the browser history.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Go To Url" href="#Go%20To%20Url" title="Link to this keyword">Go To Url</a></td>
+            <td class="args"><span>url</span></td>
+            <td class="doc"><p>Opens URL in default web browser.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4755/wd/hub">http://localhost:4755/wd/hub</a></td>
+                        <td>platformName=iOS</td>
+                        <td>platformVersion=7.0</td>
+                        <td>deviceName='iPhone Simulator'</td>
+                        <td>browserName=Safari</td>
+                    </tr>
+                    <tr>
+                        <td>Go To URL</td>
+                        <td><a href="http://m.webapp.com">http://m.webapp.com</a></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Hide Keyboard" href="#Hide%20Keyboard" title="Link to this keyword">Hide
+                Keyboard</a></td>
+            <td class="args"><span>key_name=None</span></td>
+            <td class="doc"><p>Hides the software keyboard on the device. (optional) In iOS, use <span class="name">key_name</span>
+                to press a particular key, ex. <span class="name">Done</span>. In Android, no parameters are used.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Password" href="#Input%20Password" title="Link to this keyword">Input
+                Password</a></td>
+            <td class="args"><span>locator</span>, <span>text</span></td>
+            <td class="doc"><p>Types the given password into text field identified by <span class="name">locator</span>.
+            </p>
+                <p>Difference between this keyword and <a href="#Input%20Text" class="name">Input Text</a> is that this
+                    keyword does not log the given password. See <a href="#Introduction" class="name">introduction</a>
+                    for details about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Text" href="#Input%20Text" title="Link to this keyword">Input Text</a></td>
+            <td class="args"><span>locator</span>, <span>text</span></td>
+            <td class="doc"><p>Types the given <span class="name">text</span> into text field identified by <span
+                    class="name">locator</span>.</p>
+                <p>See <a href="#Introduction" class="name">introduction</a> for details about locating elements.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Input Value" href="#Input%20Value" title="Link to this keyword">Input Value</a></td>
+            <td class="args"><span>locator</span>, <span>text</span></td>
+            <td class="doc"><p>Sets the given value into text field identified by <span class="name">locator</span>.
+                This is an IOS only keyword, input value makes use of set_value</p>
+                <p>See <a href="#Introduction" class="name">introduction</a> for details about locating elements.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Install App" href="#Install%20App" title="Link to this keyword">Install App</a></td>
+            <td class="args"><span>app_path</span>, <span>app_package</span></td>
+            <td class="doc"><p>Install App via Appium</p>
+                <p>Android only.</p>
+                <ul>
+                    <li>app_path - path to app</li>
+                    <li>app_package - package of install app to verify</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Landscape" href="#Landscape" title="Link to this keyword">Landscape</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Set the device orientation to LANDSCAPE</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Launch Application" href="#Launch%20Application" title="Link to this keyword">Launch
+                Application</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Launch application. Application can be launched while Appium session running. This
+                keyword can be used to launch application during test case or between test cases.</p>
+                <p>This keyword works while <a href="#Open%20Application" class="name">Open Application</a> has a test
+                    running. This is good practice to <a href="#Launch%20Application" class="name">Launch
+                        Application</a> and <a href="#Quit%20Application" class="name">Quit Application</a> between test
+                    cases. As Suite Setup is <a href="#Open%20Application" class="name">Open Application</a>, <span
+                            class="name">Test Setup</span> can be used to <a href="#Launch%20Application" class="name">Launch
+                        Application</a></p>
+                <p>Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>[Setup Suite]</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4723/wd/hub">http://localhost:4723/wd/hub</a></td>
+                        <td>platformName=Android</td>
+                        <td>deviceName=192.168.56.101:5555</td>
+                        <td>app=${CURDIR}/demoapp/OrangeDemoApp.apk</td>
+                    </tr>
+                    <tr>
+                        <td>[Test Setup]</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Launch Application</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>&lt;&lt;&lt;test execution&gt;&gt;&gt;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>&lt;&lt;&lt;test execution&gt;&gt;&gt;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>[Test Teardown]</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Quit Application</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>[Suite Teardown]</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Close Application</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>See <a href="#Quit%20Application" class="name">Quit Application</a> for quiting application but
+                    keeping Appium sesion running.</p>
+                <p>New in AppiumLibrary 1.4.6</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Lock" href="#Lock" title="Link to this keyword">Lock</a></td>
+            <td class="args"><span>seconds=5</span></td>
+            <td class="doc"><p>Lock the device for a certain period of time. iOS only.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Log Source" href="#Log%20Source" title="Link to this keyword">Log Source</a></td>
+            <td class="args"><span>loglevel=INFO</span></td>
+            <td class="doc"><p>Logs and returns the entire html source of the current page or frame.</p>
+                <p>The <span class="name">loglevel</span> argument defines the used log level. Valid log levels are
+                    <span class="name">WARN</span>, <span class="name">INFO</span> (default), <span
+                            class="name">DEBUG</span>, <span class="name">TRACE</span> and <span
+                            class="name">NONE</span> (no logging).</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Long Press" href="#Long%20Press" title="Link to this keyword">Long Press</a></td>
+            <td class="args"><span>locator</span>, <span>duration=1000</span></td>
+            <td class="doc"><p>Long press the element with optional duration</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Long Press Keycode" href="#Long%20Press%20Keycode" title="Link to this keyword">Long
+                Press Keycode</a></td>
+            <td class="args"><span>keycode</span>, <span>metastate=None</span></td>
+            <td class="doc"><p>Sends a long press of keycode to the device.</p>
+                <p>Android only.</p>
+                <p>See <a href="#Press%20Keycode" class="name">press keycode</a> for more details.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Open Application" href="#Open%20Application" title="Link to this keyword">Open
+                Application</a></td>
+            <td class="args"><span>remote_url</span>, <span>alias=None</span>, <span>**kwargs</span></td>
+            <td class="doc"><p>Opens a new application to given Appium server. Capabilities of appium server, Android
+                and iOS, Please check <a
+                        href="https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md">https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md</a>
+            </p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><b>Option</b></td>
+                        <td><b>Man.</b></td>
+                        <td><b>Description</b></td>
+                    </tr>
+                    <tr>
+                        <td>remote_url</td>
+                        <td>Yes</td>
+                        <td>Appium server url</td>
+                    </tr>
+                    <tr>
+                        <td>alias</td>
+                        <td>no</td>
+                        <td>alias</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Examples:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4723/wd/hub">http://localhost:4723/wd/hub</a></td>
+                        <td>alias=Myapp1</td>
+                        <td>platformName=iOS</td>
+                        <td>platformVersion=7.0</td>
+                        <td>deviceName='iPhone Simulator'</td>
+                        <td>app=your.app</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4723/wd/hub">http://localhost:4723/wd/hub</a></td>
+                        <td>platformName=Android</td>
+                        <td>platformVersion=4.2.2</td>
+                        <td>deviceName=192.168.56.101:5555</td>
+                        <td>app=${CURDIR}/demoapp/OrangeDemoApp.apk</td>
+                        <td>appPackage=com.netease.qa.orangedemo</td>
+                        <td>appActivity=MainActivity</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Element" href="#Page%20Should%20Contain%20Element"
+                              title="Link to this keyword">Page Should Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that current page contains <span class="name">locator</span> element.</p>
+                <p>If this keyword fails, it automatically logs the page source using the log level specified with the
+                    optional <span class="name">loglevel</span> argument. Giving <span class="name">NONE</span> as level
+                    disables logging.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Contain Text" href="#Page%20Should%20Contain%20Text"
+                              title="Link to this keyword">Page Should Contain Text</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that current page contains <span class="name">text</span>.</p>
+                <p>If this keyword fails, it automatically logs the page source using the log level specified with the
+                    optional <span class="name">loglevel</span> argument. Giving <span class="name">NONE</span> as level
+                    disables logging.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Element" href="#Page%20Should%20Not%20Contain%20Element"
+                              title="Link to this keyword">Page Should Not Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that current page not contains <span class="name">locator</span> element.</p>
+                <p>If this keyword fails, it automatically logs the page source using the log level specified with the
+                    optional <span class="name">loglevel</span> argument. Giving <span class="name">NONE</span> as level
+                    disables logging.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Page Should Not Contain Text" href="#Page%20Should%20Not%20Contain%20Text"
+                              title="Link to this keyword">Page Should Not Contain Text</a></td>
+            <td class="args"><span>text</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that current page not contains <span class="name">text</span>.</p>
+                <p>If this keyword fails, it automatically logs the page source using the log level specified with the
+                    optional <span class="name">loglevel</span> argument. Giving <span class="name">NONE</span> as level
+                    disables logging.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Pinch" href="#Pinch" title="Link to this keyword">Pinch</a></td>
+            <td class="args"><span>locator</span>, <span>percent=200%</span>, <span>steps=1</span></td>
+            <td class="doc"><p>Pinch in on an element a certain amount.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Portrait" href="#Portrait" title="Link to this keyword">Portrait</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Set the device orientation to PORTRAIT</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Press Keycode" href="#Press%20Keycode" title="Link to this keyword">Press
+                Keycode</a></td>
+            <td class="args"><span>keycode</span>, <span>metastate=None</span></td>
+            <td class="doc"><p>Sends a press of keycode to the device.</p>
+                <p>Android only.</p>
+                <p>Possible keycodes &amp; meta states can be found in <a
+                        href="http://developer.android.com/reference/android/view/KeyEvent.html">http://developer.android.com/reference/android/view/KeyEvent.html</a>
+                </p>
+                <p>Meta state describe the pressed state of key modifiers such as Shift, Ctrl &amp; Alt keys. The Meta
+                    State is an integer in which each bit set to 1 represents a pressed meta key.</p>
+                <p>For example</p>
+                <ul>
+                    <li>META_SHIFT_ON = 1</li>
+                    <li>META_ALT_ON = 2</li>
+                </ul>
+                <pre>metastate=1 --&gt; Shift is pressed
+metastate=2 --&gt; Alt is pressed
+metastate=3 --&gt; Shift+Alt is pressed
+</pre>
+                <ul>
+                    <li>_keycode- - the keycode to be sent to the device</li>
+                    <li>_metastate- - status of the meta keys</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Pull File" href="#Pull%20File" title="Link to this keyword">Pull File</a></td>
+            <td class="args"><span>path</span>, <span>decode=False</span></td>
+            <td class="doc"><p>Retrieves the file at <span class="name">path</span> and return it's content.</p>
+                <p>Android only.</p>
+                <ul>
+                    <li><i>path</i> - the path to the file on the device</li>
+                    <li><i>decode</i> - True/False decode the data (base64) before returning it (default=False)</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Pull Folder" href="#Pull%20Folder" title="Link to this keyword">Pull Folder</a></td>
+            <td class="args"><span>path</span>, <span>decode=False</span></td>
+            <td class="doc"><p>Retrieves a folder at <span class="name">path</span>. Returns the folder's contents
+                zipped.</p>
+                <p>Android only.</p>
+                <ul>
+                    <li><i>path</i> - the path to the folder on the device</li>
+                    <li><i>decode</i> - True/False decode the data (base64) before returning it (default=False)</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Push File" href="#Push%20File" title="Link to this keyword">Push File</a></td>
+            <td class="args"><span>path</span>, <span>data</span>, <span>encode=False</span></td>
+            <td class="doc"><p>Puts the data in the file specified as <span class="name">path</span>.</p>
+                <p>Android only.</p>
+                <ul>
+                    <li><i>path</i> - the path on the device</li>
+                    <li><i>data</i> - data to be written to the file</li>
+                    <li><i>encode</i> - True/False encode the data as base64 before writing it to the file
+                        (default=False)
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Quit Application" href="#Quit%20Application" title="Link to this keyword">Quit
+                Application</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Quit application. Application can be quit while Appium session is kept alive. This
+                keyword can be used to close application during test case or between test cases.</p>
+                <p>See <a href="#Launch%20Application" class="name">Launch Application</a> for an explanation.</p>
+                <p>New in AppiumLibrary 1.4.6</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Register Keyword To Run On Failure"
+                              href="#Register%20Keyword%20To%20Run%20On%20Failure" title="Link to this keyword">Register
+                Keyword To Run On Failure</a></td>
+            <td class="args"><span>keyword</span></td>
+            <td class="doc"><p>Sets the keyword to execute when a AppiumLibrary keyword fails.</p>
+                <p><span class="name">keyword_name</span> is the name of a keyword (from any available libraries) that
+                    will be executed if a AppiumLibrary keyword fails. It is not possible to use a keyword that requires
+                    arguments. Using the value "Nothing" will disable this feature altogether.</p>
+                <p>The initial keyword to use is set in <a href="#Importing" class="name">importing</a>, and the keyword
+                    that is used by default is <a href="#Capture%20Page%20Screenshot" class="name">Capture Page
+                        Screenshot</a>. Taking a screenshot when something failed is a very useful feature, but notice
+                    that it can slow down the execution.</p>
+                <p>This keyword returns the name of the previously registered failure keyword. It can be used to restore
+                    the original value later.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Register Keyword To Run On Failure</td>
+                        <td>Log Source</td>
+                        <td># Run <a href="#Log%20Source" class="name">Log Source</a> on failure.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>${previous kw}=</td>
+                        <td>Register Keyword To Run On Failure</td>
+                        <td>Nothing</td>
+                        <td># Disables run-on-failure functionality and stores the previous kw name in a variable.</td>
+                    </tr>
+                    <tr>
+                        <td>Register Keyword To Run On Failure</td>
+                        <td>${previous kw}</td>
+                        <td># Restore to the previous keyword.</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>This run-on-failure functionality only works when running tests on Python/Jython 2.4 or newer and it
+                    does not work on IronPython at all.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Remove Application" href="#Remove%20Application" title="Link to this keyword">Remove
+                Application</a></td>
+            <td class="args"><span>application_id</span></td>
+            <td class="doc"><p>Removes the application that is identified with an application id</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Remove Application</td>
+                        <td>com.netease.qa.orangedemo</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Reset Application" href="#Reset%20Application" title="Link to this keyword">Reset
+                Application</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Reset application. Open Application can be reset while Appium session is kept alive.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Scroll" href="#Scroll" title="Link to this keyword">Scroll</a></td>
+            <td class="args"><span>start_locator</span>, <span>end_locator</span></td>
+            <td class="doc"><p>Scrolls from one element to another Key attributes for arbitrary elements are <span
+                    class="name">id</span> and <span class="name">name</span>. See <a href="#Introduction" class="name">introduction</a>
+                for details about locating elements.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Scroll Down" href="#Scroll%20Down" title="Link to this keyword">Scroll Down</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Scrolls down to element</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Scroll Up" href="#Scroll%20Up" title="Link to this keyword">Scroll Up</a></td>
+            <td class="args"><span>locator</span></td>
+            <td class="doc"><p>Scrolls up to element</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Appium Timeout" href="#Set%20Appium%20Timeout" title="Link to this keyword">Set
+                Appium Timeout</a></td>
+            <td class="args"><span>seconds</span></td>
+            <td class="doc"><p>Sets the timeout in seconds used by various keywords.</p>
+                <p>There are several <span class="name">Wait ...</span> keywords that take timeout as an argument. All
+                    of these timeout arguments are optional. The timeout used by all of them can be set globally using
+                    this keyword.</p>
+                <p>The previous timeout value is returned by this keyword and can be used to set the old value back
+                    later. The default timeout is 5 seconds, but it can be altered in <a href="#Importing" class="name">importing</a>.
+                </p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${orig timeout} =</td>
+                        <td>Set Appium Timeout</td>
+                        <td>15 seconds</td>
+                    </tr>
+                    <tr>
+                        <td>Open page that loads slowly</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Set Appium Timeout</td>
+                        <td>${orig timeout}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Location" href="#Set%20Location" title="Link to this keyword">Set Location</a>
+            </td>
+            <td class="args"><span>latitude</span>, <span>longitude</span>, <span>altitude=10</span></td>
+            <td class="doc"><p>Set location</p>
+                <ul>
+                    <li><i>latitute</i></li>
+                    <li><i>longitude</i></li>
+                    <li><i>altitude</i> = 10 [optional]</li>
+                </ul>
+                <p>Android only. New in AppiumLibrary 1.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Set Network Connection Status" href="#Set%20Network%20Connection%20Status"
+                              title="Link to this keyword">Set Network Connection Status</a></td>
+            <td class="args"><span>connectionStatus</span></td>
+            <td class="doc"><p>Sets the network connection Status.</p>
+                <p>Android only.</p>
+                <p>Possible values:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <th>Value</th>
+                        <th>Alias</th>
+                        <th>Data</th>
+                        <th>Wifi</th>
+                        <th>Airplane Mode</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>(None)</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>(Airplane Mode)</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>(Wifi only)</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>(Data only)</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>(All network on)</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Shake" href="#Shake" title="Link to this keyword">Shake</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Shake the device</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Start Activity" href="#Start%20Activity" title="Link to this keyword">Start
+                Activity</a></td>
+            <td class="args"><span>appPackage</span>, <span>appActivity</span>, <span>**opts</span></td>
+            <td class="doc"><p>Opens an arbitrary activity during a test. If the activity belongs to another
+                application, that application is started and the activity is opened.</p>
+                <p>Android only.</p>
+                <ul>
+                    <li><i>appPackage</i> - The package containing the activity to start.</li>
+                    <li><i>appActivity</i> - The activity to start.</li>
+                    <li><i>appWaitPackage</i> - Begin automation after this package starts (optional).</li>
+                    <li><i>appWaitActivity</i> - Begin automation after this activity starts (optional).</li>
+                    <li><i>intentAction</i> - Intent to start (opt_ional).</li>
+                    <li><i>intentCategory</i> - Intent category to start (optional).</li>
+                    <li><i>intentFlags</i> - Flags to send to the intent (optional).</li>
+                    <li><i>optionalIntentArguments</i> - Optional arguments to the intent (optional).</li>
+                    <li><i>stopAppOnReset</i> - Should the app be stopped on reset (optional)?</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Swipe" href="#Swipe" title="Link to this keyword">Swipe</a></td>
+            <td class="args"><span>start_x</span>, <span>start_y</span>, <span>offset_x</span>, <span>offset_y</span>,
+                <span>duration=1000</span></td>
+            <td class="doc"><p>Swipe from one point to another point, for an optional duration.</p>
+                <p>Args:</p>
+                <ul>
+                    <li>start_x - x-coordinate at which to start</li>
+                    <li>start_y - y-coordinate at which to start</li>
+                    <li>offset_x - x-coordinate distance from start_x at which to stop</li>
+                    <li>offset_y - y-coordinate distance from start_y at which to stop</li>
+                    <li>duration - (optional) time to take the swipe, in ms.</li>
+                </ul>
+                <p>Usage:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Swipe</td>
+                        <td>500</td>
+                        <td>100</td>
+                        <td>100</td>
+                        <td>0</td>
+                        <td>1000</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i><b>NOTE: </b></i> Android 'Swipe' is not working properly, use <code>offset_x</code> and <code>offset_y</code>
+                    as if these are destination points.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Swipe By Direction" href="#Swipe%20By%20Direction" title="Link to this keyword">Swipe
+                By Direction</a></td>
+            <td class="args"><span>direction</span></td>
+            <td class="doc"><p>swipe by given direction: left, right, down, up.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Swipe By Percent" href="#Swipe%20By%20Percent" title="Link to this keyword">Swipe By
+                Percent</a></td>
+            <td class="args"><span>start_x</span>, <span>start_y</span>, <span>end_x</span>, <span>end_y</span>, <span>duration=1000</span>
+            </td>
+            <td class="doc"><p>Swipe from one percent of the screen to another percent, for an optional duration. Normal
+                swipe fails to scale for different screen resolutions, this can be avoided using percent.</p>
+                <p>Args:</p>
+                <ul>
+                    <li>start_x - x-percent at which to start</li>
+                    <li>start_y - y-percent at which to start</li>
+                    <li>end_x - x-percent distance from start_x at which to stop</li>
+                    <li>end_y - y-percent distance from start_y at which to stop</li>
+                    <li>duration - (optional) time to take the swipe, in ms.</li>
+                </ul>
+                <p>Usage:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>Swipe By Percent</td>
+                        <td>90</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>50</td>
+                        <td># Swipes screen from right to left.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i><b>NOTE: </b></i> This also considers swipe acts different between iOS and Android.</p>
+                <p>New in AppiumLibrary 1.4.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Switch Application" href="#Switch%20Application" title="Link to this keyword">Switch
+                Application</a></td>
+            <td class="args"><span>index_or_alias</span></td>
+            <td class="doc"><p>Switches the active application by index or alias.</p>
+                <p><span class="name">index_or_alias</span> is either application index (an integer) or alias (a
+                    string). Index is got as the return value of <a href="#Open%20Application" class="name">Open
+                        Application</a>.</p>
+                <p>This keyword returns the index of the previous active application, which can be used to switch back
+                    to that application later.</p>
+                <p>Example:</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td>${appium1}=</td>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4723/wd/hub">http://localhost:4723/wd/hub</a></td>
+                        <td>alias=MyApp1</td>
+                        <td>platformName=iOS</td>
+                        <td>platformVersion=7.0</td>
+                        <td>deviceName='iPhone Simulator'</td>
+                        <td>app=your.app</td>
+                    </tr>
+                    <tr>
+                        <td>${appium2}=</td>
+                        <td>Open Application</td>
+                        <td><a href="http://localhost:4755/wd/hub">http://localhost:4755/wd/hub</a></td>
+                        <td>alias=MyApp2</td>
+                        <td>platformName=iOS</td>
+                        <td>platformVersion=7.0</td>
+                        <td>deviceName='iPhone Simulator'</td>
+                        <td>app=your.app</td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>sendHello</td>
+                        <td># Executed on appium running at localhost:4755</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Switch Application</td>
+                        <td>${appium1}</td>
+                        <td># Switch using index</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Click Element</td>
+                        <td>ackHello</td>
+                        <td># Executed on appium running at localhost:4723</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Switch Application</td>
+                        <td>MyApp2</td>
+                        <td># Switch using alias</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Page Should Contain Text</td>
+                        <td>ackHello Received</td>
+                        <td># Executed on appium running at localhost:4755</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Switch To Context" href="#Switch%20To%20Context" title="Link to this keyword">Switch
+                To Context</a></td>
+            <td class="args"><span>context_name</span></td>
+            <td class="doc"><p>Switch to a new context</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Tap" href="#Tap" title="Link to this keyword">Tap</a></td>
+            <td class="args"><span>locator</span>, <span>x_offset=None</span>, <span>y_offset=None</span>,
+                <span>count=1</span></td>
+            <td class="doc"><p>Tap element identified by <code>locator</code>.</p>
+                <p>Args:</p>
+                <ul>
+                    <li><code>x_offset</code> - (optional) x coordinate to tap, relative to the top left corner of the
+                        element.
+                    </li>
+                    <li><code>y_offset</code> - (optional) y coordinate. If y is used, x must also be set, and vice
+                        versa
+                    </li>
+                    <li><code>count</code> - can be used for multiple times of tap on that element</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Text Should Be Visible" href="#Text%20Should%20Be%20Visible"
+                              title="Link to this keyword">Text Should Be Visible</a></td>
+            <td class="args"><span>text</span>, <span>exact_match=False</span>, <span>loglevel=INFO</span></td>
+            <td class="doc"><p>Verifies that element identified with text is visible.</p>
+                <p>New in AppiumLibrary 1.4.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Toggle Touch Id Enrollment" href="#Toggle%20Touch%20Id%20Enrollment"
+                              title="Link to this keyword">Toggle Touch Id Enrollment</a></td>
+            <td class="args"></td>
+            <td class="doc"><p>Toggle Touch ID enrolled state on iOS Simulator</p>
+                <p>New in AppiumLibrary 1.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Touch Id" href="#Touch%20Id" title="Link to this keyword">Touch Id</a></td>
+            <td class="args"><span>match=True</span></td>
+            <td class="doc"><p>Simulate Touch ID on iOS Simulator</p>
+                <p><span class="name">match</span> (boolean) whether the simulated fingerprint is valid (default true)
+                </p>
+                <p>New in AppiumLibrary 1.5</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Activity" href="#Wait%20Activity" title="Link to this keyword">Wait
+                Activity</a></td>
+            <td class="args"><span>activity</span>, <span>timeout</span>, <span>interval=1</span></td>
+            <td class="doc"><p>Wait for an activity: block until target activity presents or time out.</p>
+                <p>Android only.</p>
+                <ul>
+                    <li><i>activity</i> - target activity</li>
+                    <li><i>timeout</i> - max wait time, in seconds</li>
+                    <li><i>interval</i> - sleep interval between retries, in seconds</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Element Is Visible" href="#Wait%20Until%20Element%20Is%20Visible"
+                              title="Link to this keyword">Wait Until Element Is Visible</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element specified with <span class="name">locator</span> is visible.</p>
+                <p>Fails if <span class="name">timeout</span> expires before the element is visible. See <a
+                        href="#Introduction" class="name">introduction</a> for more information about <span
+                        class="name">timeout</span> and its default value.</p>
+                <p><span class="name">error</span> can be used to override the default error message.</p>
+                <p>See also <a href="#Wait%20Until%20Page%20Contains" class="name">Wait Until Page Contains</a>, <a
+                        href="#Wait%20Until%20Page%20Contains%20Element" class="name">Wait Until Page Contains
+                    Element</a>, <span class="name">Wait For Condition</span> and BuiltIn keyword <span class="name">Wait Until Keyword Succeeds</span>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Contains" href="#Wait%20Until%20Page%20Contains"
+                              title="Link to this keyword">Wait Until Page Contains</a></td>
+            <td class="args"><span>text</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until <span class="name">text</span> appears on current page.</p>
+                <p>Fails if <span class="name">timeout</span> expires before the text appears. See <a
+                        href="#Introduction" class="name">introduction</a> for more information about <span
+                        class="name">timeout</span> and its default value.</p>
+                <p><span class="name">error</span> can be used to override the default error message.</p>
+                <p>See also <a href="#Wait%20Until%20Page%20Does%20Not%20Contain" class="name">Wait Until Page Does Not
+                    Contain</a>, <a href="#Wait%20Until%20Page%20Contains%20Element" class="name">Wait Until Page
+                    Contains Element</a>, <a href="#Wait%20Until%20Page%20Does%20Not%20Contain%20Element" class="name">Wait
+                    Until Page Does Not Contain Element</a> and BuiltIn keyword <span class="name">Wait Until Keyword Succeeds</span>.
+                </p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Contains Element" href="#Wait%20Until%20Page%20Contains%20Element"
+                              title="Link to this keyword">Wait Until Page Contains Element</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element specified with <span class="name">locator</span> appears on current
+                page.</p>
+                <p>Fails if <span class="name">timeout</span> expires before the element appears. See <a
+                        href="#Introduction" class="name">introduction</a> for more information about <span
+                        class="name">timeout</span> and its default value.</p>
+                <p><span class="name">error</span> can be used to override the default error message.</p>
+                <p>See also <a href="#Wait%20Until%20Page%20Contains" class="name">Wait Until Page Contains</a>, <a
+                        href="#Wait%20Until%20Page%20Does%20Not%20Contain" class="name">Wait Until Page Does Not
+                    Contain</a> <a href="#Wait%20Until%20Page%20Does%20Not%20Contain%20Element" class="name">Wait Until
+                    Page Does Not Contain Element</a> and BuiltIn keyword <span
+                        class="name">Wait Until Keyword Succeeds</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Does Not Contain" href="#Wait%20Until%20Page%20Does%20Not%20Contain"
+                              title="Link to this keyword">Wait Until Page Does Not Contain</a></td>
+            <td class="args"><span>text</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until <span class="name">text</span> disappears from current page.</p>
+                <p>Fails if <span class="name">timeout</span> expires before the <span class="name">text</span>
+                    disappears. See <a href="#Introduction" class="name">introduction</a> for more information about
+                    <span class="name">timeout</span> and its default value.</p>
+                <p><span class="name">error</span> can be used to override the default error message.</p>
+                <p>See also <a href="#Wait%20Until%20Page%20Contains" class="name">Wait Until Page Contains</a>, <a
+                        href="#Wait%20Until%20Page%20Contains%20Element" class="name">Wait Until Page Contains
+                    Element</a>, <a href="#Wait%20Until%20Page%20Does%20Not%20Contain%20Element" class="name">Wait Until
+                    Page Does Not Contain Element</a> and BuiltIn keyword <span
+                        class="name">Wait Until Keyword Succeeds</span>.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Wait Until Page Does Not Contain Element"
+                              href="#Wait%20Until%20Page%20Does%20Not%20Contain%20Element" title="Link to this keyword">Wait
+                Until Page Does Not Contain Element</a></td>
+            <td class="args"><span>locator</span>, <span>timeout=None</span>, <span>error=None</span></td>
+            <td class="doc"><p>Waits until element specified with <span class="name">locator</span> disappears from
+                current page.</p>
+                <p>Fails if <span class="name">timeout</span> expires before the element disappears. See <a
+                        href="#Introduction" class="name">introduction</a> for more information about <span
+                        class="name">timeout</span> and its default value.</p>
+                <p><span class="name">error</span> can be used to override the default error message.</p>
+                <p>See also <a href="#Wait%20Until%20Page%20Contains" class="name">Wait Until Page Contains</a>, <a
+                        href="#Wait%20Until%20Page%20Does%20Not%20Contain" class="name">Wait Until Page Does Not
+                    Contain</a>, <a href="#Wait%20Until%20Page%20Contains%20Element" class="name">Wait Until Page
+                    Contains Element</a> and BuiltIn keyword <span class="name">Wait Until Keyword Succeeds</span>.</p>
+            </td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Xpath Should Match X Times" href="#Xpath%20Should%20Match%20X%20Times"
+                              title="Link to this keyword">Xpath Should Match X Times</a></td>
+            <td class="args"><span>xpath</span>, <span>count</span>, <span>error=None</span>, <span>loglevel=INFO</span>
+            </td>
+            <td class="doc"><p>Verifies that the page contains the given number of elements located by the given <code>xpath</code>.
+            </p>
+                <p>One should not use the <span class="name">xpath=</span> prefix for 'xpath'. XPath is assumed.</p>
+                <table border="1">
+                    <tbody>
+                    <tr>
+                        <td><b>Correct:</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Xpath Should Match X Times</td>
+                        <td>//android.view.View[@text='Test']</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Incorrect:</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Xpath Should Match X Times</td>
+                        <td>xpath=//android.view.View[@text='Test']</td>
+                        <td>1</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><code>error</code> can be used to override the default error message.</p>
+                <p>See <a href="#Log%20Source" class="name">Log Source</a> for explanation about <code>loglevel</code>
+                    argument.</p>
+                <p>New in AppiumLibrary 1.4.</p></td>
+        </tr>
+        <tr class="kw-row match">
+            <td class="kw"><a name="Zoom" href="#Zoom" title="Link to this keyword">Zoom</a></td>
+            <td class="args"><span>locator</span>, <span>percent=200%</span>, <span>steps=1</span></td>
+            <td class="doc"><p>Zooms in on an element a certain amount.</p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

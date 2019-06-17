@@ -1,51 +1,50 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-#@Time  : 2019/6/10 9:32
-#@user: xws
-#@File  : case.py
 from datetime import datetime
 
-from flask import url_for
 from flask_login import current_user
 from flask_restful import Resource, reqparse
-from sqlalchemy import and_
 
 from app.ext import db
-from app.models import Case, User, Project
+from app.models import Case, User, Step
 
 
-class CaseApi(Resource):
+class StepApi(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('id', type=int)
-        self.parser.add_argument('suite_id', type=int)
-        self.parser.add_argument('name', type=str)
-        self.parser.add_argument('desc', type=str)
-        self.parser.add_argument('tags', type=str)
+        self.parser.add_argument('case_id', type=int)
         self.parser.add_argument('prev', type=int)
+        self.parser.add_argument('keyword', type=str)
+        self.parser.add_argument('desc', type=str)
         self.parser.add_argument('method', type=str)
+        self.parser.add_argument('param_1', type=str)
+        self.parser.add_argument('param_2', type=str)
+        self.parser.add_argument('param_3', type=str)
+        self.parser.add_argument('param_4', type=str)
+        self.parser.add_argument('step', type=str)
         self.parser.add_argument('enable', type=bool, default=True)
-        self.parser.add_argument('setup', type=str)
-        self.parser.add_argument('teardown', type=str)
         self.parser.add_argument('page', type=int, default=1)
         self.parser.add_argument('rows', type=int, default=15)
 
     def get(self):
         args = self.parser.parse_args()
 
-        pagination = Case.query.filter_by(suite_id=args["suite_id"]).order_by(Case.id.asc()).paginate(
+        pagination = Step.query.filter_by(case_id=args["case_id"]).order_by(Step.id.asc()).paginate(
             args["page"], per_page=args["rows"],
             error_out=False
         )
 
-        cases = pagination.items
+        steps = pagination.items
         data = {"total": pagination.total, "rows": []}
-        for v in cases:
+        for v in steps:
             data["rows"].append({
                 "id": v.id,
-                "suite_id": v.suite_id,
-                "name": v.name,
+                "case_id": v.case_id,
+                "keyword": v.keyword,
                 "desc": v.desc,
+                "param_1": v.param_1,
+                "param_2": v.param_2,
+                "param_3": v.param_3,
+                "param_4": v.param_4,
                 "create_user": User.query.filter_by(id=v.create_user_id).first().username,
                 "create_timestamp": v.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
                 "update_user": User.query.filter_by(id=v.update_user_id).first().username,
@@ -56,6 +55,7 @@ class CaseApi(Resource):
 
     def post(self):
         args = self.parser.parse_args()
+
         method = args["method"].lower()
         if method == "create":
             return self.__create(args), 201
@@ -72,84 +72,88 @@ class CaseApi(Resource):
         result = {"status": "success",
                   "msg": "操作成功"}
 
-        case = Case.query.filter(and_(Case.name == args["name"],
-                                          Case.suite_id == args["suite_id"])).first()
-        if case is None:
+        case = Case.query.filter_by(id=args["case_id"]).first()
+        if case is not None:
             try:
-                case = Case(name=args["name"],
-                                desc=args["desc"],
-                                suite_id=args["suite_id"],
-                                tags=args["tags"],
+                step = Step(desc=args["desc"],
+                                keyword=args["keyword"],
+                                case_id=args["case_id"],
+                                param_1=args["param_1"],
+                                param_2=args["param_2"],
+                                param_3=args["param_3"],
+                                param_4=args["param_4"],
                                 enable=args["enable"],
-                                setup=args["setup"],
-                                teardown=args["teardown"],
+                                step=args["step"],
+                                prev=args["prev"],
                                 create_user_id=current_user.get_id(),
                                 update_user_id=current_user.get_id())
 
-                db.session.add(case)
+                db.session.add(step)
                 db.session.commit()
-                result["suite_id"] = case.suite_id
             except Exception as e:
                 result["status"] = "fail"
                 result["msg"] = "异常：%s" % str(e)
         else:
             result["status"] = "fail"
-            result["msg"] = "用例名称[%s]重复" % args["name"]
+            result["msg"] = "步骤id[%s]不存在" % args["name"]
 
         return result
 
     def __edit(self, args):
         result = {"status": "success",
                   "msg": "操作成功"}
-        case = Case.query.filter_by(id=args["id"]).first()
-        if case is None:
+        step = Step.query.filter_by(id=args["id"]).first()
+        if step is None:
             result["status"] = "fail"
-            result["msg"] = "未找到要修改的用例id"
+            result["msg"] = "未找到要修改的步骤id"
         else:
             try:
-                case.name = args["name"]
-                case.desc = args["desc"]
-                case.tags = args["tags"]
-                case.enable = args["enable"]
-                case.setup = args["setup"]
-                case.teardown = args["teardown"]
+                step.desc = args["desc"]
+                step.prev = args["prev"]
+                step.enable = args["enable"]
+                step.keyword = args["keyword"]
+                step.param_1 = args["param_1"]
+                step.param_2 = args["param_2"]
+                step.param_3 = args["param_3"]
+                step.param_4 = args["param_4"]
 
-                case.update_user_id = current_user.get_id()
-                case.update_timestamp = datetime.now()
+                step.update_user_id = current_user.get_id()
+                step.update_timestamp = datetime.now()
 
-                db.session.merge(case)
+                db.session.merge(step)
                 db.session.commit()
-                result["suite_id"] = case.suite_id
+
             except Exception as e:
                 result["status"] = "fail"
-                result["msg"] = "编辑用例[id-%s]失败：%s" % (args["id"], str(e))
+                result["msg"] = "编辑步骤[id-%s]失败：%s" % (args["id"], str(e))
 
         return result
 
+    """
     def __query(self, args):
         data = {"data": []}
         if args["id"] == -1:
             status = {True: "激活", False: "不可用"}
-            projects = Project.query.all()
+            projects = AutoProject.query.all()
             for p in projects:
                 data["data"].append({
                     "id": p.id,
-                    "name": p.name,
-                    #"所属产品": Product.query.filter_by(id=p.product_id).first().name,
-                    "desc": p.desc,
-                    "enable": status[p.enable],
-                    "create_user": User.query.filter_by(id=p.create_user_id).first().username,
-                    "create_timestamp": p.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-                    "update_user": User.query.filter_by(id=p.update_user_id).first().username,
-                    "update_timestamp": p.update_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+                    "名称": p.name,
+                    #"所属产品": AutoProduct.query.filter_by(id=p.product_id).first().name,
+                    "描述": p.desc,
+                    "状态": status[p.enable],
+                    "创建人": User.query.filter_by(id=p.create_author_id).first().username,
+                    "创建日期": p.create_timestamp.strftime("%Y-%m-%d"),
+                    "修改人": User.query.filter_by(id=p.update_author_id).first().username,
+                    "修改日期": p.update_timestamp.strftime("%Y-%m-%d")
                 })
         else:
-            project = Project.query.filter_by(id=args["id"]).first()
+            project = AutoProject.query.filter_by(id=args["id"]).first()
 
             return [{
                 "name": project.name,
                 "open": False,
-                "icon": url_for("static", filename="img/project.png"),
+                "icon": url_for("static", filename="images/project.png"),
                 "attr": {
                     "category": "project",
                     "id": project.id,
@@ -161,22 +165,23 @@ class CaseApi(Resource):
 
 
         return data
+    """
+
 
     def __delete(self, args):
         result = {"status": "success",
                   "msg": "操作成功"}
 
-        case = Case.query.filter_by(id=args["id"]).first()
-        if case is None:
+        step = Step.query.filter_by(id=args["id"]).first()
+        if step is None:
             result["status"] = "fail"
-            result["msg"] = "未找到要删除的用例id"
+            result["msg"] = "未找到要删除的步骤id"
         else:
             try:
-                result["suite_id"] = case.suite_id
-                db.session.delete(case)
+                db.session.delete(step)
                 db.session.commit()
             except Exception as e:
                 result["status"] = "fail"
-                result["msg"] = "删除用例[id-%s]失败：%s" % (args["id"], str(e))
+                result["msg"] = "删除步骤[id-%s]失败：%s" % (args["id"], str(e))
 
         return result

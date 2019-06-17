@@ -5,7 +5,7 @@ from flask_login import current_user
 from flask_restful import Resource, reqparse
 
 from app.ext import db
-from app.models import Project, Product, User, UserKeywordSuite, UserKeyword, Var, Object, Case, Suite
+from app.models import Project, Product, User, UserKeywordSuite, UserKeyword, Var, Object, Case, Suite, Step
 
 
 class ProjectApi(Resource):
@@ -85,7 +85,6 @@ class ProjectApi(Resource):
 
     def post(self):
         args = self.parser.parse_args()
-        import json
 
         method = args["method"].lower()
         if method == "create":
@@ -244,7 +243,7 @@ class ProjectApi(Resource):
         children = []
         cases = Case.query.filter_by(suite_id=id).order_by(Case.id.asc()).all()
         for case in cases:
-            # steps = self.__get_steps_by_case_id(case.id)
+            steps = self.__get_steps_by_case_id(case.id)
             children.append({
                 "id": case.id,
                 "text": case.name,
@@ -256,8 +255,30 @@ class ProjectApi(Resource):
                     "name": case.name,
                     "desc": case.desc
                 },
-                # "children": steps
+                "children": steps
             })
+
+        return children
+
+    def __get_steps_by_case_id(self, id):
+        children = []
+        steps = Step.query.filter_by(case_id=id).order_by(Step.id.asc()).all()
+        for step in steps:
+            children.append({
+                "id": step.id,
+                "text": step.keyword,  # .split(".")[1],
+                "iconCls": "icon-step",
+                "attributes": {
+                    "keyword": step.keyword,
+                    "category": "step",
+                    "id": step.id,
+                    "case_id": step.case_id,
+                    "desc": step.desc,
+                    "param_1": step.param_1,
+                    "param_2": step.param_2,
+                    "param_3": step.param_3,
+                    "param_4": step.param_4
+                }})
 
         return children
 
