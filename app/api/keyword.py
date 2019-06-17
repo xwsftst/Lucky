@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from app.models import Project, Object, Var, UserKeywordSuite, UserKeyword
-from app.utils.parsing import parser, parser_html
+from app.utils.parsing import parser_html
 
 
 class KeywordApi(Resource):
