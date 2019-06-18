@@ -200,10 +200,8 @@ function test_run(category){
             type : 'get',
             url : '/test_run/{0}/{1}'.lym_format(category, node.attributes["id"]),
             success : function(data, textStatus, request) {
-                alert("test_run");
                 var d = JSON.parse(data);
                 if(d["status"] == "success"){
-
                     show_msg("提示信息", d["msg"]);
                     addManageTab('查看任务', '/task', 'icon-task');
                 }
@@ -235,7 +233,6 @@ function addReportTab(project_id, build_no){
 }
 
 function addLogTab(project_id, build_no){
-    alert("asdas");
     var editor_tabs = $("#editor_tabs");
     var url = "/run_logs/{0}/{1}".lym_format(project_id, build_no)
     if (editor_tabs.tabs('exists', '查看日志')){

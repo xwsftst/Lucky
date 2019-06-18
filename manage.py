@@ -1,3 +1,4 @@
+import os
 import sys
 
 from flask_migrate import MigrateCommand

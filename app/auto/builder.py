@@ -104,16 +104,16 @@ class Builder:
             case_file.write("Library\t%s\n" % lib)
 
         project = Project.query.filter_by(id=self.id).first()
-        auto_lib = {"web": 'Selenium2Library',
+        auto_lib = {"web": 'SeleniumLibrary',
                     "app": 'AppiumLibrary',
                     "http": 'RequestsLibrary'}
         if project:
             case_file.write("Library\t%s\n" % auto_lib[project.category])
 
         case_file.write("\nResource\tresource.txt\n")
-        case_file.write("\nSuite Setup  Screenshot.Set Screenshot Directory\t%s\n" % images_dir)
+        case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
         if project.category == "web":
-            case_file.write("\nSuite Teardown  Selenium2Library.Close All Browsers\n\n")
+            case_file.write("\nSuite Teardown  SeleniumLibrary.Close All Browsers\n\n")
 
         case_file.write("*** Test Cases ***\n\n")
         suites = Suite.query.filter_by(project_id=self.id).order_by(Suite.id.asc()).all()

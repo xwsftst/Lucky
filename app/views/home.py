@@ -125,3 +125,11 @@ def view_image(project_id, build_no, filename):
         return send_file(img_path)
 
     return "截图失败，木有图片!!!"
+
+
+@home_blue.route('/detail/<project_id>/<build_no>', methods=['POST'])
+@login_required
+def detail(project_id, build_no):
+    r = Report(project_id, build_no)
+    import json
+    return json.dumps(r.parser_detail_info())

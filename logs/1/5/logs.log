@@ -1,1 +1,0 @@
-off python -m robot.run -d E:/WorkSpace/Lucky/logs/1/5 -L DEBUG -N °Ù¶È1 E:/WorkSpace/Lucky/logs/1/5/testcase.robot
