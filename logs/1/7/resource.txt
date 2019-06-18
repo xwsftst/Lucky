@@ -1,0 +1,16 @@
+*** Variables ***
+${URL}    https://www.baidu.com/
+${BROWSER}    Chrome
+
+
+${input_kw}    id=kw
+${search_btn}    id=su
+
+
+${search_word}    华为
+
+
+${search_result_title}    华为_百度搜索
+
+
+*** Keywords ***

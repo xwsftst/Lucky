@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.2 on win32)" generated="20190619 00:31:21.270" rpa="false">
+<suite id="s1" name="百度1" source="E:\WorkSpace\Lucky\logs\1\10\testcase.robot">
+<kw name="Set Screenshot Directory" library="SeleniumLibrary" type="setup">
+<doc>Sets the directory for captured screenshots.</doc>
+<arguments>
+<arg>E:/WorkSpace/Lucky/logs/1/10/images</arg>
+</arguments>
+<status status="PASS" starttime="20190619 00:31:22.874" endtime="20190619 00:31:22.875"></status>
+</kw>
+<test id="s1-t1" name="7-9 初始化套件.初始化用例">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20190619 00:31:22.881" level="INFO">Opening browser 'Chrome' to base url 'https://www.baidu.com/'.</msg>
+<msg timestamp="20190619 00:31:23.436" level="DEBUG">POST http://127.0.0.1:53388/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": []}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": []}}}</msg>
+<msg timestamp="20190619 00:31:23.439" level="DEBUG">Starting new HTTP connection (1): 127.0.0.1:53388</msg>
+<msg timestamp="20190619 00:31:28.394" level="DEBUG">http://127.0.0.1:53388 "POST /session HTTP/1.1" 200 1029</msg>
+<msg timestamp="20190619 00:31:28.396" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:28.397" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/timeouts/async_script {"ms": 5000.0, "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:28.404" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/timeouts/async_script HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:28.405" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:28.406" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/timeouts/implicit_wait {"ms": 0.0, "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:28.411" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/timeouts/implicit_wait HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:28.412" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:28.413" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/url {"url": "https://www.baidu.com/", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:31.594" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/url HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:31.594" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:31.595" level="DEBUG">Opened browser with session id f83cc9c86a80ca87480bc69fdbfa9f68.</msg>
+<status status="PASS" starttime="20190619 00:31:22.880" endtime="20190619 00:31:31.595"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<msg timestamp="20190619 00:31:31.597" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/window/current/maximize {"windowHandle": "current", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:31.769" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/window/current/maximize HTTP/1.1" 200 109</msg>
+<msg timestamp="20190619 00:31:31.770" level="DEBUG">Finished Request</msg>
+<status status="PASS" starttime="20190619 00:31:31.596" endtime="20190619 00:31:31.771"></status>
+</kw>
+<status status="PASS" starttime="20190619 00:31:22.876" endtime="20190619 00:31:31.771" critical="yes"></status>
+</test>
+<test id="s1-t2" name="8-11 百度搜素测试套件.百度搜索用例">
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${input_kw}</arg>
+<arg>${search_word}</arg>
+</arguments>
+<msg timestamp="20190619 00:31:31.781" level="INFO">Typing text '华为' into text field 'id=kw'.</msg>
+<msg timestamp="20190619 00:31:31.781" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/elements {"using": "id", "value": "kw", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:31.816" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/elements HTTP/1.1" 200 105</msg>
+<msg timestamp="20190619 00:31:31.817" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:31.817" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-1/clear {"id": "0.14695566643635316-1", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:31.880" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-1/clear HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:31.881" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:31.881" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-1/value {"text": "\u534e\u4e3a", "value": ["\u534e", "\u4e3a"], "id": "0.14695566643635316-1", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:32.128" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-1/value HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:32.129" level="DEBUG">Finished Request</msg>
+<status status="PASS" starttime="20190619 00:31:31.780" endtime="20190619 00:31:32.129"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20190619 00:31:32.130" level="DEBUG">GET http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/screenshot {"sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:32.589" level="DEBUG">http://127.0.0.1:53388 "GET /session/f83cc9c86a80ca87480bc69fdbfa9f68/screenshot HTTP/1.1" 200 27130</msg>
+<msg timestamp="20190619 00:31:32.590" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:32.592" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="images/selenium-screenshot-1.png"&gt;&lt;img src="images/selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20190619 00:31:32.129" endtime="20190619 00:31:32.592"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20190619 00:31:35.593" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20190619 00:31:32.593" endtime="20190619 00:31:35.593"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>${search_btn}</arg>
+</arguments>
+<msg timestamp="20190619 00:31:35.595" level="INFO">Clicking button 'id=su'.</msg>
+<msg timestamp="20190619 00:31:35.596" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/elements {"using": "id", "value": "su", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:36.928" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/elements HTTP/1.1" 200 105</msg>
+<msg timestamp="20190619 00:31:36.929" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:36.930" level="DEBUG">GET http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-2/name {"id": "0.14695566643635316-2", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:37.021" level="DEBUG">http://127.0.0.1:53388 "GET /session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-2/name HTTP/1.1" 200 75</msg>
+<msg timestamp="20190619 00:31:37.022" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:37.023" level="DEBUG">POST http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-2/click {"id": "0.14695566643635316-2", "sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:37.279" level="DEBUG">http://127.0.0.1:53388 "POST /session/f83cc9c86a80ca87480bc69fdbfa9f68/element/0.14695566643635316-2/click HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:37.281" level="DEBUG">Finished Request</msg>
+<status status="PASS" starttime="20190619 00:31:35.594" endtime="20190619 00:31:37.281"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20190619 00:31:42.284" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20190619 00:31:37.282" endtime="20190619 00:31:42.284"></status>
+</kw>
+<status status="PASS" starttime="20190619 00:31:31.774" endtime="20190619 00:31:42.285" critical="yes"></status>
+</test>
+<test id="s1-t3" name="8-12 百度搜素测试套件.百度搜索断言用例">
+<kw name="Get Title" library="SeleniumLibrary">
+<doc>Returns the title of current page.</doc>
+<assign>
+<var>${title}</var>
+</assign>
+<msg timestamp="20190619 00:31:42.295" level="DEBUG">GET http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68/title {"sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:42.311" level="DEBUG">http://127.0.0.1:53388 "GET /session/f83cc9c86a80ca87480bc69fdbfa9f68/title HTTP/1.1" 200 89</msg>
+<msg timestamp="20190619 00:31:42.312" level="DEBUG">Finished Request</msg>
+<msg timestamp="20190619 00:31:42.313" level="INFO">${title} = 华为_百度搜索</msg>
+<status status="PASS" starttime="20190619 00:31:42.294" endtime="20190619 00:31:42.313"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${title}</arg>
+<arg>${search_result_title}</arg>
+</arguments>
+<msg timestamp="20190619 00:31:42.315" level="DEBUG">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20190619 00:31:42.314" endtime="20190619 00:31:42.315"></status>
+</kw>
+<status status="PASS" starttime="20190619 00:31:42.286" endtime="20190619 00:31:42.315" critical="yes"></status>
+</test>
+<test id="s1-t4" name="9-13 清理套件.清理用例">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<msg timestamp="20190619 00:31:42.322" level="DEBUG">Closing browser with session id f83cc9c86a80ca87480bc69fdbfa9f68.</msg>
+<msg timestamp="20190619 00:31:42.322" level="DEBUG">DELETE http://127.0.0.1:53388/session/f83cc9c86a80ca87480bc69fdbfa9f68 {"sessionId": "f83cc9c86a80ca87480bc69fdbfa9f68"}</msg>
+<msg timestamp="20190619 00:31:42.436" level="DEBUG">http://127.0.0.1:53388 "DELETE /session/f83cc9c86a80ca87480bc69fdbfa9f68 HTTP/1.1" 200 72</msg>
+<msg timestamp="20190619 00:31:42.437" level="DEBUG">Finished Request</msg>
+<status status="PASS" starttime="20190619 00:31:42.321" endtime="20190619 00:31:43.881"></status>
+</kw>
+<status status="PASS" starttime="20190619 00:31:42.317" endtime="20190619 00:31:43.882" critical="yes"></status>
+</test>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="teardown">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<msg timestamp="20190619 00:31:43.887" level="DEBUG">Closing all browsers.</msg>
+<status status="PASS" starttime="20190619 00:31:43.886" endtime="20190619 00:31:43.887"></status>
+</kw>
+<status status="PASS" starttime="20190619 00:31:21.275" endtime="20190619 00:31:43.887"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="4" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="4" fail="0" id="s1" name="百度1">百度1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

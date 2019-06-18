@@ -33,7 +33,14 @@
 		var timer=null;
 
 		var toolbar = [{
-				text:'启动刷新',
+				text:'点击刷新',
+				iconCls:'icon-refresh',
+				handler:function(){
+					$("#task_list").datagrid('reload');
+					show_msg("提示信息", "启动自动刷新成功");
+				}
+			},'-',{
+				text:'自动刷新',
 				iconCls:'icon-reload',
 				handler:function(){
 					timer = setInterval(function(){ $("#task_list").datagrid('reload'); }, 5000);
@@ -41,7 +48,7 @@
 				}
 			},'-',{
 				text:'停止刷新',
-				iconCls:'icon-reload',
+				iconCls:'icon-break',
 				handler:function(){
 					clearInterval(timer);
 					show_msg("提示信息", "停止自动刷新成功");
