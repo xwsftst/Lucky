@@ -33,3 +33,18 @@ function manage_task(value, row, index){
     var method = {"false": "start", "true": "stop"};
     return "<a href=\"#\" class=\"easyui-linkbutton\" onclick=\"manage_scheduler('{1}','{2}','{3}')\">{0}</a>".lym_format(text[row.enable], method[row.enable], url, row.id);
 }
+
+function manage_scheduler(method, url, id){
+    $.ajax({
+        type : 'POST',
+        url : url,
+        data:  {
+               "method": method,
+               "trigger_id": id
+            },
+        success : function(data, textStatus, request) {
+            $("#task_list").datagrid('reload');
+            show_msg("提示", data.msg);
+        }
+    });
+}

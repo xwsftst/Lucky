@@ -11,6 +11,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/suite.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/case.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/stats.js') }}"></script>
 {% endblock %}
 
@@ -64,7 +65,7 @@
     <div style="margin: 0 0;"></div>
          <div id="editor_tabs" class="easyui-tabs" style="width:100%">
             <div title="欢迎页" style="padding:10px" data-options="iconCls:'icon-editor'">
-                <h3>{{ current_user.username }} 欢迎你</h3>
+                <h3> 欢迎你！&nbsp;&nbsp;&nbsp;{{ current_user.username }}</h3>
                 <div style="float:left">
                     <div id="p1" class="easyui-panel" title="项目统计"
                          style="width:400px;height:320px;padding:10px;"

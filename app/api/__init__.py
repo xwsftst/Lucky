@@ -24,6 +24,7 @@ from .var import VarApi
 from .help import HelpApi
 from .task import TaskApi
 from .trigger import TriggerApi
+from .stats import StatsApi
 
 
 api.add_resource(Login, '/login/')
@@ -42,3 +43,4 @@ api.add_resource(VarApi, '/var/')
 api.add_resource(HelpApi, '/help/')
 api.add_resource(TaskApi, '/task/')
 api.add_resource(TriggerApi, '/trigger/')
+api.add_resource(StatsApi, '/stats/')
