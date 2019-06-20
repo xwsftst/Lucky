@@ -178,7 +178,7 @@ class Project(db.Model):
     category = db.Column(db.String(64), index=True)
     desc = db.Column(db.String(128), index=True)
     tags = db.Column(db.String(64), index=True)
-    enable = db.Column(db.Boolean, default=True, index=True)
+    enable = db.Column(db.Boolean, default=False, index=True)
     version = db.Column(db.String(32), index=True)
     cron = db.Column(db.Text)
     setup = db.Column(db.Text)
