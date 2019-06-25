@@ -32,6 +32,24 @@
 			</tr>
 		</thead>
 	</table>
+
+    <div id="delete_task_win" class="easyui-window" title="删除任务"
+         data-options="modal:true,closed:true,iconCls:'icon-remove'"
+         style="width:500px;height:210px;padding:10px;">
+        <form id="delete_task_fm" action="/api/v1/task/" method="post">
+            <div style="margin-bottom:20px">
+                <input id="build_no" name="build_no" class="easyui-textbox" label="任务ID:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <div style="margin-bottom:20px">
+                <input id="name" name="name" class="easyui-textbox" label="名称:" labelPosition="left" style="width:100%;height:32px;">
+            </div>
+            <input hidden name="id" value="">
+            <input hidden name="method" value="delete">
+            <div style="text-align:center;margin-bottom:20px">
+                <a href="#" class="easyui-linkbutton" style="width:100px;height:32px" onclick="delete_task('delete_task_win', 'delete_task_fm');">删除</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -57,6 +75,15 @@
             handler:function(){
                 clearInterval(timer);
                 show_msg("提示信息", "停止自动刷新成功！");
+            }
+        },'-',{
+            text:'删除',
+            iconCls:'icon-remove',
+            handler:function(){
+                delete_task_confirm();
+
+                {#$("#task_list").datagrid('reload');#}
+                {#show_msg("提示信息", "刷新成功！");#}
             }
         }];
 	</script>

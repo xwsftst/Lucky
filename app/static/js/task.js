@@ -48,3 +48,31 @@ function manage_scheduler(method, url, id){
         }
     });
 }
+
+function delete_task_confirm(){
+    var row = $('#task_list').datagrid('getSelected');
+    if (row){
+        $("#delete_task_fm input[name='id']").val(row["id"]);
+        $("#delete_task_fm input#build_no").textbox('setValue', row["build_no"]);
+        $("#delete_task_fm input#name").textbox('setValue', row["name"]);
+        open_win('delete_task_win');
+    }
+    else{
+        show_msg("提示", "请选择要删除的任务");
+    }
+}
+
+function delete_task(win_id, fm_id){
+    $('#{0}'.lym_format(fm_id)).form('submit',{
+        url: "/api/v1/task/",
+        type: "post",
+        success:function(data){
+            var obj = JSON.parse(data);
+            if(obj.status == "success"){
+                $("#task_list").datagrid('reload');
+                close_win('{0}'.lym_format(win_id));
+            }
+            show_msg("提示", obj.msg);
+        }
+    });
+}
