@@ -4,3 +4,4 @@
 *.pyc
 migrations
 __pycache__
+logs
