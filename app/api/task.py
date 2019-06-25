@@ -13,6 +13,8 @@ from app.models import User, Project, Task
 class TaskApi(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
+        self.parser.add_argument('id', type=int, default=-1)
+        self.parser.add_argument('method', type=str)
         self.parser.add_argument('project_id', type=int, default=-1)
         self.parser.add_argument('task_id', type=int, default=-1)
         self.parser.add_argument('page', type=int, default=1)
@@ -99,3 +101,31 @@ class TaskApi(Resource):
         db.session.commit()
 
         return task
+
+    def post(self):
+        args = self.parser.parse_args()
+
+        method = args["method"].lower()
+        if method == "delete":
+            return self.__delete(args), 201
+
+        return {"status": "fail", "msg": "方法: %s 不支持" % method}, 201
+
+    def __delete(self, args):
+        result = {"status": "success",
+                  "msg": "操作成功"}
+
+        task = Task.query.filter_by(id=args["id"]).first()
+        if task is None:
+            result["status"] = "fail"
+            result["msg"] = "未找到要删除的任务id"
+        else:
+            try:
+
+                db.session.delete(task)
+                db.session.commit()
+            except Exception as e:
+                result["status"] = "fail"
+                result["msg"] = "删除任务[id-%s]失败：%s" % (args["id"], str(e))
+
+        return result
