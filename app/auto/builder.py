@@ -111,7 +111,8 @@ class Builder:
             case_file.write("Library\t%s\n" % auto_lib[project.category])
 
         case_file.write("\nResource\tresource.txt\n")
-        case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
+        if project.category != "http":# 接口测试不用截图
+            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
         if project.category == "web":
             case_file.write("\nSuite Teardown  SeleniumLibrary.Close All Browsers\n\n")
 
