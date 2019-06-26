@@ -111,10 +111,15 @@ class Builder:
             case_file.write("Library\t%s\n" % auto_lib[project.category])
 
         case_file.write("\nResource\tresource.txt\n")
-        if project.category != "http":# 接口测试不用截图
-            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
+
         if project.category == "web":
+            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
             case_file.write("\nSuite Teardown  SeleniumLibrary.Close All Browsers\n\n")
+
+        if project.category == "app":
+            case_file.write("Library\tScreenShot\n")
+            case_file.write("\nSuite Setup  ScreenShot.Set Screenshot Directory\t%s\n" % images_dir)
+            case_file.write("\nSuite Teardown  AppiumLibrary.Close All Applications\n\n")
 
         case_file.write("*** Test Cases ***\n\n")
         suites = Suite.query.filter_by(project_id=self.id).order_by(Suite.id.asc()).all()
