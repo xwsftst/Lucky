@@ -14,6 +14,8 @@ from sqlalchemy import and_
 from app.auto.builder import Builder
 from app.ext import db
 from app.models import User, Project, Task
+from app.utils.email import send_email
+from app.utils.report import Report
 
 
 def run_process(category, id):

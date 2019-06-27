@@ -20,6 +20,38 @@ class Config:
     TRIGGER = None
     RUNNERS = []
 
+    MAIL_SERVER = 'smtp.126.com'
+    MAIL_PORT = 587
+    MAIL_USERNAME = 'xwsftst'
+    MAIL_PASSWORD = 'yahong940316'
+    FLASKY_MAIL_SUBJECT_PREFIX = '[Lucky]'
+    FLASKY_MAIL_SENDER = 'xwsftst<xwsftst@126.com>'
+
+    @classmethod
+    def init_app(cls, app):
+        Config.init_app(app)
+
+        # 发送初始化错误信息给管理员
+        import logging
+        from logging.handlers import SMTPHandler
+        credentials = None
+        secure = None
+        if getattr(cls, 'MAIL_USERNAME', None) is not None:
+            credentials = (cls.MAIL_USERNAME, cls.MAIL_PASSWORD)
+            if getattr(cls, 'MAIL_USE_TLS', None):
+                secure = ()
+
+        mail_handler = SMTPHandler(
+            mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
+            fromaddr=cls.FLASKY_MAIL_SENDER,
+            toaddrs=[cls.FLASKY_ADMIN],
+            subject=cls.FLASKY_MAIL_SUBJECT_PREFIX + ' Lucky Startup Error',
+            credentials=credentials,
+            secure=secure)
+
+        mail_handler.setLevel(logging.ERROR)
+        app.logger.addHandler(mail_handler)
+
 
 class DevelopConfig(Config):
     DEBUG = True
