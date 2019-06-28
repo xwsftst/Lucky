@@ -14,8 +14,6 @@ from sqlalchemy import and_
 from app.auto.builder import Builder
 from app.ext import db
 from app.models import User, Project, Task
-from app.utils.email import send_email
-from app.utils.report import Report
 
 
 def run_process(category, id):
@@ -181,10 +179,9 @@ class Runner:
         if os.path.exists(output_dir + "/log.html"):
             time.sleep(0.2)
             task = Task.query.filter(and_(Task.project_id == self.project_id,
-                                              Task.build_no == self.build_no)).first()
+                                          Task.build_no == self.build_no)).first()
             tree = ElementTree.parse(output_dir + "/output.xml")
             root = tree.getroot()
-            passed = root.find("./statistics/suite/stat").attrib["pass"]
             fail = root.find("./statistics/suite/stat").attrib["fail"]
             if int(fail) != 0:
                 task.status = 'fail'
