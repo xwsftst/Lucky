@@ -22,10 +22,12 @@ class Config:
 
     MAIL_SERVER = 'smtp.126.com'
     MAIL_PORT = 587
+    MAIL_USE_TLS = True
     MAIL_USERNAME = 'xwsftst@126.com'
     MAIL_PASSWORD = 'yahong940316'
     FLASKY_MAIL_SUBJECT_PREFIX = '[Lucky]'
     FLASKY_MAIL_SENDER = 'xwsftst<xwsftst@126.com>'
+    MAIL_RECIPIENTS = ['xwsftst@126.com', '739650977@qq.com']
 
     @classmethod
     def init_app(cls, app):

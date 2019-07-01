@@ -1,14 +1,17 @@
+# -*- coding: utf-8 -*-
 import codecs
+import json
 import os
 import platform
 
-from flask import render_template, send_file
+from flask import render_template, send_file, redirect, url_for
 from flask_login import logout_user, login_required
 
 from app.decoradors import admin_required
 from app.models import Permission
 from app.utils.report import Report
 from app.utils.runner import run_process
+from app.utils.send_email import send_email
 from . import home_blue
 
 
@@ -133,3 +136,17 @@ def detail(project_id, build_no):
     r = Report(project_id, build_no)
     import json
     return json.dumps(r.parser_detail_info())
+
+
+@home_blue.route('/email/<project_id>/<build_no>', methods=['GET', 'POST'])
+@login_required
+def email(project_id, build_no):
+    output_dir = os.getcwd() + "/logs/%s/%s" % (project_id, build_no)
+    output_dir = output_dir.replace("\\", "/")
+    r = Report(project_id, build_no)
+    res = r.get_summary()
+    report_url = output_dir + "/report.html"
+    log = codecs.open(output_dir + "/logs.log", "r", encoding="cp936").read().replace("\n", "<br>")
+    send_email(res['name'], build_no, res['status'], res['starttime'], res['endtime'], report_url, log)
+
+    return redirect(url_for('home.report', project_id=project_id, build_no=build_no))

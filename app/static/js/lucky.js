@@ -232,7 +232,7 @@ function test_frame_run(id, category){
 
 function addReportTab(project_id, build_no){
     var editor_tabs = $("#editor_tabs");
-    var url = "/report/{0}/{1}".lym_format(project_id, build_no)
+    var url = "/email/{0}/{1}".lym_format(project_id, build_no)
     if (editor_tabs.tabs('exists', '详细报告')){
         //如果tab已经存在,则选中并刷新该tab
         editor_tabs.tabs('select', '详细报告');

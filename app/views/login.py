@@ -1,5 +1,5 @@
 import flask
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, current_app
 from flask_login import login_user
 
 from app.models import User
@@ -20,6 +20,7 @@ def sign_in():
         # login_user(user, True)
         flask.flash('Logged in successfully.')
         # return redirect(url_for('home_blue.work_home'))
+
     return render_template('login.html')
 
 #

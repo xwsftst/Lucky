@@ -38,7 +38,7 @@ def run_process(category, id):
             "runner": runner
         })
 
-        return json.dumps({"status": "success", "msg": "任务启动成功"})
+        return json.dumps({"status": "success", "msg": "任务启动成功", "project_id": builder.id, "task_id": builder.build_no})
     else:
         return json.dumps({"status": "fail", "msg": "项目中没有创建关键字步骤，任务启动失败，请新增关键字步骤！！！"})
 

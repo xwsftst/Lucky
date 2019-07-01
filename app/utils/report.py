@@ -18,9 +18,14 @@ class Report:
                                build_no=self.build_no,
                                summary=self.__parser_summary())
 
+    def get_summary(self):
+
+        return self.__parser_summary()
+
     def __parser_summary(self):
         summary = {}
         output_dir = os.getcwd() + "/logs/%s/%s" % (self.project_id, self.build_no)
+        output_dir = output_dir.replace("\\", "/")
         tree = ElementTree.parse(output_dir + "/output.xml")
         root = tree.getroot()
 
@@ -33,12 +38,12 @@ class Report:
         summary["status"] = root.find("./suite/status").attrib["status"]
         summary["pass"] = root.find("./statistics/suite/stat").attrib["pass"]
         summary["fail"] = root.find("./statistics/suite/stat").attrib["fail"]
-
         return summary
 
     def parser_detail_info(self):
         detail_data = []
         output_dir = os.getcwd() + "/logs/%s/%s" % (self.project_id, self.build_no)
+        output_dir = output_dir.replace("\\", "/")
         tree = ElementTree.parse(output_dir + "/output.xml")
         root = tree.getroot()
         for test in root.iter("test"):
