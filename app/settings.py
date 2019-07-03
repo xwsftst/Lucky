@@ -11,7 +11,7 @@ def get_db_uri(dbinfo):
 
 
 class Config:
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     SECRET_KEY = 'JWH3h463237HTL37'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

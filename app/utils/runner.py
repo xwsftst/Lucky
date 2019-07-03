@@ -53,7 +53,7 @@ class Runner:
 
     def auto_run(self):
         try:
-            user_id = User.query.filter_by(username="AutoExecutor").first().id
+            user_id = User.query.filter_by(username="admin").first().id
             name = Project.query.filter_by(id=self.project_id).first().name
             task = Task(project_id=self.project_id,
                             build_no=self.build_no,
