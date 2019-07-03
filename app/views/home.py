@@ -11,7 +11,7 @@ from flask_login import logout_user, login_required
 from app.decoradors import admin_required
 from app.models import Permission
 from app.utils.report import Report
-from app.utils.runner import run_process
+from app.utils.runner import run_process, debug_run
 from app.utils.send_email import send_email
 from . import home_blue
 
@@ -76,8 +76,7 @@ def test_run(category, id):
     output_dir = output_dir.replace("\\", "/")
     while not os.path.exists(output_dir + "/output.xml"):
         sleep(1)
-    if os.path.exists(output_dir + "/output.xml"):
-        sleep(20)
+    sleep(30)
     r = Report(project_id, build_no)
     res = r.get_summary()
     report_url = output_dir + "/report.html"
@@ -151,3 +150,22 @@ def detail(project_id, build_no):
     r = Report(project_id, build_no)
     import json
     return json.dumps(r.parser_detail_info())
+
+
+@home_blue.route('/debug/<id>', methods=['GET'])
+def debug(id):
+    project_id, build_no = debug_run(id)
+    log_path = os.getcwd() + "/logs/%s/%s/debug.log" % (project_id, build_no)
+    logs = "还没捕获到调试信息^_^"
+    while not os.path.exists(log_path):
+        sleep(1)
+    sleep(10)
+    f = codecs.open(log_path, "r", "utf-8")
+    if f.read() == '':
+        logs = '你的用例正常，可以尝试执行用例'
+    else:
+        logs = f.read()
+    f.close()
+
+    return render_template('debug.html', logs=logs)
+

@@ -43,6 +43,16 @@ def run_process(category, id):
         return json.dumps({"status": "fail", "msg": "项目中没有创建关键字步骤，任务启动失败，请新增关键字步骤！！！"})
 
 
+def debug_run(id):
+    builder = Builder(id)
+    builder.build()
+    runner = Runner(builder.id, builder.build_no)
+
+    runner.debug()
+
+    return builder.id, builder.build_no
+
+
 class Runner:
     def __init__(self, project_id, build_no):
         self.project_id = project_id

@@ -305,3 +305,8 @@ function addTaskTab(title, url, icon){
         });
     }
 }
+
+function debug_run(){
+    var node = $('#project_tree').tree('getSelected');
+    addTaskTab("调试运行", "/debug/{0}".lym_format(node.attributes["id"]), "icon-debug");
+}
