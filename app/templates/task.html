@@ -87,21 +87,6 @@
                 {#show_msg("提示信息", "刷新成功！");#}
             }
         }];
-        {##}
-        {#window.onload=function () {#}
-        {#    wait(2000);#}
-        {#    var img_run = $(".datagrid-btable").eq(1).find('img[src="/static/img/run.gif"]');#}
-        {#    while(img_run) {#}
-        {#        $(".l-btn-left").click();#}
-        {#        wait(2000);#}
-        {#    }#}
-        {#}#}
-        {##}
-        {#function wait(w){#}
-        {#    var startTime = new Date().getTime();#}
-        {#    while (new Date().getTime() < startTime + w) {#}
-        {#        console.log(new Date().getTime());#}
-        {#    }#}
-        {#}#}
+
 	</script>
 {% endblock %}
