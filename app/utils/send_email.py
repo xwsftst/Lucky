@@ -13,9 +13,8 @@ from email.mime.text import MIMEText
 from flask import current_app
 
 
-def send_email(project_name, build_no, status, starttime, endtime, report_url, log):
+def send_email(app, project_name, build_no, status, starttime, endtime, report_url, log):
 
-    app = current_app._get_current_object()
     mail_host = app.config['MAIL_SERVER']  # 设置服务器
     mail_user = app.config['MAIL_USERNAME']  # 用户名
     mail_pass = app.config['MAIL_PASSWORD']  # 口令

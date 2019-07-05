@@ -27,7 +27,7 @@
 				<th data-options="field:'duration'">持续时间</th>
                 <th data-options="field:'cron',width: 120">Cron表达式</th>
 				<th data-options="field:'runner'">执行人</th>
-				<th data-options="field:'report',width: 80, formatter:view_detail_report">  </th>
+				<th data-options="field:'report',width: 80, formatter:view_detail_report">详细报告</th>
 				<th data-options="field:'log',width: 80, formatter:view_run_log"> 实时日志 </th>
 			</tr>
 		</thead>
@@ -54,6 +54,7 @@
 
 {% block js %}
     <script type="text/javascript">
+
 		var timer=null;
 		var toolbar = [{
             text:'点击刷新',
@@ -86,5 +87,21 @@
                 {#show_msg("提示信息", "刷新成功！");#}
             }
         }];
+        {##}
+        {#window.onload=function () {#}
+        {#    wait(2000);#}
+        {#    var img_run = $(".datagrid-btable").eq(1).find('img[src="/static/img/run.gif"]');#}
+        {#    while(img_run) {#}
+        {#        $(".l-btn-left").click();#}
+        {#        wait(2000);#}
+        {#    }#}
+        {#}#}
+        {##}
+        {#function wait(w){#}
+        {#    var startTime = new Date().getTime();#}
+        {#    while (new Date().getTime() < startTime + w) {#}
+        {#        console.log(new Date().getTime());#}
+        {#    }#}
+        {#}#}
 	</script>
 {% endblock %}

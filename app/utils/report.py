@@ -1,8 +1,12 @@
+import codecs
 import os
 import re
+from time import sleep
 from xml.etree import ElementTree
 
 from flask import render_template
+
+from app.utils.send_email import send_email
 
 
 class Report:
@@ -18,9 +22,16 @@ class Report:
                                build_no=self.build_no,
                                summary=self.__parser_summary())
 
-    def get_summary(self):
-
-        return self.__parser_summary()
+    def send_email(self, app):
+        output_dir = os.getcwd() + "/logs/%s/%s" % (self.project_id, self.build_no)
+        output_dir = output_dir.replace("\\", "/")
+        while not os.path.exists(output_dir + "/output.xml"):
+            sleep(1)
+        sleep(30)
+        res = self.__parser_summary()
+        report_url = output_dir + "/report.html"
+        log = codecs.open(output_dir + "/logs.log", "r", encoding="cp936").read().replace("\n", "<br>")
+        send_email(app, res['name'], self.build_no, res['status'], res['starttime'], res['endtime'], report_url, log)
 
     def __parser_summary(self):
         summary = {}

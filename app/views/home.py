@@ -3,16 +3,16 @@ import codecs
 import json
 import os
 import platform
+from threading import Thread
 from time import sleep
 
-from flask import render_template, send_file, redirect, url_for
+from flask import render_template, send_file, redirect, url_for, current_app
 from flask_login import logout_user, login_required
 
 from app.decoradors import admin_required
 from app.models import Permission
 from app.utils.report import Report
 from app.utils.runner import run_process, debug_run
-from app.utils.send_email import send_email
 from . import home_blue
 
 
@@ -72,16 +72,12 @@ def test_run(category, id):
     status = json.loads(status)
     project_id = id
     build_no = status['task_id']
-    output_dir = os.getcwd() + "/logs/%s/%s" % (project_id, build_no)
-    output_dir = output_dir.replace("\\", "/")
-    while not os.path.exists(output_dir + "/output.xml"):
-        sleep(1)
-    sleep(30)
     r = Report(project_id, build_no)
-    res = r.get_summary()
-    report_url = output_dir + "/report.html"
-    log = codecs.open(output_dir + "/logs.log", "r", encoding="cp936").read().replace("\n", "<br>")
-    send_email(res['name'], build_no, res['status'], res['starttime'], res['endtime'], report_url, log)
+
+    app = current_app._get_current_object()
+    t = Thread(target=r.send_email, args=[app, ])
+    # 启动子线程
+    t.start()
 
     return json.dumps(status)
 

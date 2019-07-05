@@ -14,6 +14,7 @@ from sqlalchemy import and_
 from app.auto.builder import Builder
 from app.ext import db
 from app.models import User, Project, Task
+from app.utils.send_email import send_email
 
 
 def run_process(category, id):
@@ -127,6 +128,7 @@ class Runner:
                            "%s/testcase.robot" % output_dir]
 
             self._process = subprocess.Popen(command, shell=shell, stdout=self._out_fd, stderr=subprocess.STDOUT)
+
 
         except Exception as e:
             print(str(e))
