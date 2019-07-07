@@ -13,6 +13,9 @@ function show_ui_step_win(win_id, fm_id, method, category){
         $('#{0} input#param_2'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_2"]);
         $('#{0} input#param_3'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_3"]);
         $('#{0} input#param_4'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_4"]);
+        $('#{0} input#param_5'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_5"]);
+        $('#{0} input#param_6'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_6"]);
+        $('#{0} input#param_7'.lym_format(fm_id)).combotree('setValue', selected.attributes["param_7"]);
     }
     else{
         show_msg("提示", "方法错误: ".lym_format(method));
@@ -36,7 +39,10 @@ function manage_ui_step(win_id, fm_id){
                "param_1": $('#{0} input#param_1'.lym_format(fm_id)).combotree('getText'),
                "param_2": $('#{0} input#param_2'.lym_format(fm_id)).combotree('getText'),
                "param_3": $('#{0} input#param_3'.lym_format(fm_id)).combotree('getText'),
-               "param_4": $('#{0} input#param_4'.lym_format(fm_id)).combotree('getText')
+               "param_4": $('#{0} input#param_4'.lym_format(fm_id)).combotree('getText'),
+               "param_5": $('#{0} input#param_5'.lym_format(fm_id)).combotree('getText'),
+               "param_6": $('#{0} input#param_6'.lym_format(fm_id)).combotree('getText'),
+               "param_7": $('#{0} input#param_7'.lym_format(fm_id)).combotree('getText')
             },
         success : function(data, textStatus, request) {
 
@@ -74,7 +80,10 @@ function manage_ui_step_table(win_id, fm_id, method, category){
             $('#{0} input#param_1'.lym_format(fm_id)).combotree('setValue', row["param_1"]);
             $('#{0} input#param_2'.lym_format(fm_id)).combotree('setValue', row["param_2"]);
             $('#{0} input#param_3'.lym_format(fm_id)).combotree('setValue', row["param_3"]);
-            $('#{0} input#param_4'.lym_format(fm_id)).combotree('setValue', row["param_4'"]);
+            $('#{0} input#param_4'.lym_format(fm_id)).combotree('setValue', row["param_4"]);
+            $('#{0} input#param_5'.lym_format(fm_id)).combotree('setValue', row["param_5"]);
+            $('#{0} input#param_6'.lym_format(fm_id)).combotree('setValue', row["param_6"]);
+            $('#{0} input#param_7'.lym_format(fm_id)).combotree('setValue', row["param_7"]);
             $('#{0} input#method'.lym_format(fm_id)).val(method);
             $("#{0} a#manage_step".lym_format(fm_id)).linkbutton({'text': button[method]});
 

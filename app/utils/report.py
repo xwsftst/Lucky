@@ -11,9 +11,10 @@ from app.utils.send_email import send_email
 
 class Report:
 
-    def __init__(self, project_id, build_no):
+    def __init__(self, project_id, build_no, category):
         self.project_id = project_id
         self.build_no = build_no
+        self.category = category
 
     def build_report(self):
 
@@ -27,7 +28,13 @@ class Report:
         output_dir = output_dir.replace("\\", "/")
         while not os.path.exists(output_dir + "/output.xml"):
             sleep(1)
-        sleep(30)
+        if self.category == 'http':
+            sleep(10)
+        elif self.category == 'web':
+            sleep(30)
+        elif self.category == 'app':
+            sleep(60)
+
         res = self.__parser_summary()
         report_url = output_dir + "/report.html"
         log = codecs.open(output_dir + "/logs.log", "r", encoding="cp936").read().replace("\n", "<br>")

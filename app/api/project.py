@@ -277,7 +277,10 @@ class ProjectApi(Resource):
                     "param_1": step.param_1,
                     "param_2": step.param_2,
                     "param_3": step.param_3,
-                    "param_4": step.param_4
+                    "param_4": step.param_4,
+                    "param_5": step.param_5,
+                    "param_6": step.param_6,
+                    "param_7": step.param_7
                 }})
 
         return children

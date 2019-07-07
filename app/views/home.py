@@ -72,7 +72,7 @@ def test_run(category, id):
     status = json.loads(status)
     project_id = id
     build_no = status['task_id']
-    r = Report(project_id, build_no)
+    r = Report(project_id, build_no,category)
 
     app = current_app._get_current_object()
     t = Thread(target=r.send_email, args=[app, ])

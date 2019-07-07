@@ -140,7 +140,6 @@ def parser_doc():
 
 
 def parser_html(category="web"):
-
 	keyword_list = []
 	cwd = os.getcwd() + "/doc"
 	for k in USER_KEYS[category]:
@@ -152,6 +151,7 @@ def parser_html(category="web"):
 		for item in items:
 			keyword = item('td:first-child').find('a').attr('name')
 			keyword = "%s.%s" % (title, keyword)
+			print(keyword)
 			# 关键字参数
 			params = []
 			for arg in item('td:nth-child(2)')('span').items():

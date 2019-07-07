@@ -20,6 +20,9 @@ class StepApi(Resource):
         self.parser.add_argument('param_2', type=str)
         self.parser.add_argument('param_3', type=str)
         self.parser.add_argument('param_4', type=str)
+        self.parser.add_argument('param_5', type=str)
+        self.parser.add_argument('param_6', type=str)
+        self.parser.add_argument('param_7', type=str)
         self.parser.add_argument('step', type=str)
         self.parser.add_argument('enable', type=bool, default=True)
         self.parser.add_argument('page', type=int, default=1)
@@ -45,6 +48,9 @@ class StepApi(Resource):
                 "param_2": v.param_2,
                 "param_3": v.param_3,
                 "param_4": v.param_4,
+                "param_5": v.param_5,
+                "param_6": v.param_6,
+                "param_7": v.param_7,
                 "create_user": User.query.filter_by(id=v.create_user_id).first().username,
                 "create_timestamp": v.create_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
                 "update_user": User.query.filter_by(id=v.update_user_id).first().username,
@@ -82,6 +88,9 @@ class StepApi(Resource):
                                 param_2=args["param_2"],
                                 param_3=args["param_3"],
                                 param_4=args["param_4"],
+                                param_5=args["param_5"],
+                                param_6=args["param_6"],
+                                param_7=args["param_7"],
                                 enable=args["enable"],
                                 step=args["step"],
                                 prev=args["prev"],
@@ -116,6 +125,9 @@ class StepApi(Resource):
                 step.param_2 = args["param_2"]
                 step.param_3 = args["param_3"]
                 step.param_4 = args["param_4"]
+                step.param_5 = args["param_5"]
+                step.param_6 = args["param_6"]
+                step.param_7 = args["param_7"]
 
                 step.update_user_id = current_user.get_id()
                 step.update_timestamp = datetime.now()

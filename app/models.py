@@ -250,6 +250,9 @@ class Step(db.Model):
     param_2 = db.Column(db.String(128), index=True)
     param_3 = db.Column(db.String(128), index=True)
     param_4 = db.Column(db.String(128), index=True)
+    param_5 = db.Column(db.String(128), index=True)
+    param_6 = db.Column(db.String(128), index=True)
+    param_7 = db.Column(db.String(128), index=True)
     step = db.Column(db.Text)
 
     create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

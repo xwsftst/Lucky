@@ -126,9 +126,9 @@ environments = {
 
 # 关键字自定义配置
 USER_KEYS = {
-    "web": ["BuiltIn", "Collections", "String", "DateTime", "Screenshot", "SeleniumLibrary"],
+    "web": ["BuiltIn", "Collections", "String", "DateTime",  "SeleniumLibrary"],
     # "web": ["BuiltIn", "Collections", "String", "DateTime", "Screenshot", "SeleniumLibrary", "Selenium2Library"],
-    "app": ["BuiltIn", "Collections", "String", "DateTime", "Screenshot", "AppiumLibrary"],
+    "app": ["BuiltIn", "Collections", "String", "DateTime",  "AppiumLibrary", "SeleniumLibrary"],
     "http": ["BuiltIn", "Collections", "String", "DateTime", "RequestsLibrary"],
     "all": ["BuiltIn", "Collections", "String", "Screenshot", "DateTime", "SeleniumLibrary", "AppiumLibrary",
             "RequestsLibrary", "Process", "Telnet", "OperatingSystem"]

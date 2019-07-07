@@ -75,7 +75,7 @@ class Builder:
                 resource_file.write("%s\n" % key.keyword)
                 params = eval(key.params)
                 for p in params:
-                    resource_file.write("\t%s\t%s\t%s\t%s\n" % (p["param_1"], p["param_2"], p["param_3"], p["param_4"]))
+                    resource_file.write("\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (p["param_1"], p["param_2"], p["param_3"], p["param_4"], p["param_5"], p["param_6"], p["param_7"]))
 
             resource_file.write("\n\n")
 
@@ -97,7 +97,7 @@ class Builder:
         # 写settings
         libs = ('Collections', 'DateTime',
                 'Dialogs', 'OperatingSystem', 'Process',
-                'Screenshot', 'String', 'Telnet', 'XML')
+                'String', 'Telnet', 'XML')
 
         case_file.write("*** Settings ***\n")
         for lib in libs:
@@ -117,8 +117,8 @@ class Builder:
             case_file.write("\nSuite Teardown  SeleniumLibrary.Close All Browsers\n\n")
 
         if project.category == "app":
-            case_file.write("Library\tScreenShot\n")
-            case_file.write("\nSuite Setup  ScreenShot.Set Screenshot Directory\t%s\n" % images_dir)
+            case_file.write("Library\tSeleniumLibrary\n")
+            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
             case_file.write("\nSuite Teardown  AppiumLibrary.Close All Applications\n\n")
 
         case_file.write("*** Test Cases ***\n\n")
@@ -130,9 +130,9 @@ class Builder:
                 steps = Step.query.filter_by(case_id=case.id).order_by(Step.id.asc()).all()
                 for step in steps:
                     self.has_case = True
-                    case_file.write("\t%s\t%s\t%s\t%s\t%s\n" % (
+                    case_file.write("\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (
                         step.keyword,
-                        step.param_1, step.param_2, step.param_3, step.param_4
+                        step.param_1, step.param_2, step.param_3, step.param_4, step.param_5, step.param_6, step.param_7
                     ))
 
             case_file.write("\n\n")

@@ -5,6 +5,7 @@ from app.utils.parsing import parser_html
 
 class KeywordApi(Resource):
     def __init__(self):
+        print('KeywordApi)_)_)_)_)_)_)_)_)_)_)_)_)_)_)_)_')
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('project_id', type=int, default=-1)
 

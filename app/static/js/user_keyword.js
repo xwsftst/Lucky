@@ -60,8 +60,8 @@ function manage_keyword(win_id, fm_id){
         {
             $("#keyword_params").datagrid('endEdit', i);
 
-            params.push("{'param_0':'{0}','param_1': '{1}','param_2':'{2}', 'param_3': '{3}', 'param_4': '{4}'}".lym_format(
-                rows[i].param_0,rows[i].param_1,rows[i].param_2,rows[i].param_3,rows[i].param_4,
+            params.push("{'param_0':'{0}','param_1': '{1}','param_2':'{2}', 'param_3': '{3}', 'param_4': '{4}', 'param_5': '{5}', 'param_6': '{6}', 'param_7': '{7}'}".lym_format(
+                rows[i].param_0,rows[i].param_1,rows[i].param_2,rows[i].param_3,rows[i].param_4,rows[i].param_5,rows[i].param_6,rows[i].param_7,
             ));
         }
 
