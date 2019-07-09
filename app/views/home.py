@@ -72,10 +72,10 @@ def test_run(category, id):
     status = json.loads(status)
     project_id = id
     build_no = status['task_id']
-    r = Report(project_id, build_no, category)
+    r = Report(project_id, build_no)
 
     app = current_app._get_current_object()
-    t = Thread(target=r.send_email, args=[app, ])
+    t = Thread(target=r.send_email, args=[app, category])
     # 启动子线程
     t.start()
 
@@ -97,7 +97,7 @@ def task_list():
 @home_blue.route('/report/<project_id>/<build_no>', methods=['GET'])
 @login_required
 def report(project_id, build_no):
-    r = Report(project_id, build_no, 'report')
+    r = Report(project_id, build_no)
 
     return r.build_report()
 

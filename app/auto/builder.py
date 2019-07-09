@@ -95,7 +95,7 @@ class Builder:
         # case_file = codecs.open(case_path, 'w', 'UTF-8')
 
         # 写settings
-        libs = ('Collections', 'DateTime',
+        libs = ('Collections', 'DateTime', 'Screenshot',
                 'Dialogs', 'OperatingSystem', 'Process',
                 'String', 'Telnet', 'XML')
 
@@ -111,14 +111,10 @@ class Builder:
             case_file.write("Library\t%s\n" % auto_lib[project.category])
 
         case_file.write("\nResource\tresource.txt\n")
-
+        case_file.write("\nSuite Setup  Screenshot.Set Screenshot Directory\t%s\n" % images_dir)
         if project.category == "web":
-            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
             case_file.write("\nSuite Teardown  SeleniumLibrary.Close All Browsers\n\n")
-
         if project.category == "app":
-            case_file.write("Library\tSeleniumLibrary\n")
-            case_file.write("\nSuite Setup  SeleniumLibrary.Set Screenshot Directory\t%s\n" % images_dir)
             case_file.write("\nSuite Teardown  AppiumLibrary.Close All Applications\n\n")
 
         case_file.write("*** Test Cases ***\n\n")
