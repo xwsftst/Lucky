@@ -11,10 +11,11 @@ from app.utils.send_email import send_email
 
 class Report:
 
-    def __init__(self, project_id, build_no, category):
-        self.project_id = project_id
-        self.build_no = build_no
-        self.category = category
+    def __init__(self, *args):
+        self.project_id = args[0]
+        self.build_no = args[1]
+        if args[2] != 'report':
+            self.category = args[2]
 
     def build_report(self):
 
