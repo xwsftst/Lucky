@@ -31,8 +31,8 @@ class Report:
             sleep(10)
         elif category == 'web':
             sleep(30)
-        elif category == 'app':
-            sleep(60)
+        else:
+            sleep(100)
 
         res = self.__parser_summary()
         report_url = output_dir + "/report.html"

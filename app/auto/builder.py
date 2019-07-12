@@ -75,7 +75,9 @@ class Builder:
                 resource_file.write("%s\n" % key.keyword)
                 params = eval(key.params)
                 for p in params:
-                    resource_file.write("\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (p["param_1"], p["param_2"], p["param_3"], p["param_4"], p["param_5"], p["param_6"], p["param_7"]))
+                    resource_file.write("\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (p["param_1"], p["param_2"], p["param_3"],
+                                                                            p["param_4"], p["param_5"], p["param_6"],
+                                                                            p["param_7"]))
 
             resource_file.write("\n\n")
 
