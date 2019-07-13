@@ -14,7 +14,7 @@
   - [api接口测试流程示例截图](https://github.com/xwsftst/Lucky/new/master?readme=1#api%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B%E6%88%AA%E5%9B%BE)  
 
 ## Lucky自动化测试平台是个啥？  
-Lucky自动化测试平台是一个开源自动化测试解决方案，基于RobotFramework进行二次开发，支持RobotFramework几乎所有的库，目前可进行web测试和api测试。  
+Lucky自动化测试平台是一个开源自动化测试解决方案，基于RobotFramework进行二次开发，支持RobotFramework几乎所有的库，目前可进行web测试、app测试和api测试，也具有定时任务、测试结果邮件发送等功能。  
 
 ## 平台特点  
 1. 支持Mac、Linux、windows平台
@@ -123,7 +123,64 @@ PhantomJS驱动：http://phantomjs.org/releases.html
 HtmlUnit驱动：https://sourceforge.net/projects/htmlunit/files/htmlunit/  
 
 ## 功能截图
-
-## web测试流程示例截图
-
-## api接口测试流程示例截图
+debug和运行项目，debug是用于检查用例步骤是否正确  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/run.png)  
+产品管理  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/product.png)  
+项目管理  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/project.png)  
+任务调度  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/scheduler.png)  
+用户管理  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/user.png)  
+关键字文档  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/key_help.png)  
+测试报告  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/report.png)  
+运行日志  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/log.png)  
+## web测试流程示例截图  
+### 1、创建对象集  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/obj.png)  
+### 2、创建对象
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var1.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var2.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var3.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var4.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var5.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var6.png)  
+### 3、创建测试套件
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/suite.png)  
+### 4、创建测试用例
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/case.png)  
+### 5、创建测试步骤
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step1.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step2.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step3.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step4.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step5.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step6.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step7.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step8.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step9.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step10.png)  
+## app测试流程示例截图  
+### 测试步骤：  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step1.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step2.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step3.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step4.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step5.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step6.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step7.png)  
+## api接口测试流程示例截图  
+### 测试步骤：  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step1.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step2.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step3.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step4.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step5.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step6.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step7.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step8.png)  
+![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step9.png)  
