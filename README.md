@@ -101,9 +101,9 @@ git下载Lucky工程, 在Lucky根目录下有requirements.txt文件，该文件�
 
 之后在其他设备通过： http://ip:8000 就可以访问Lucky自动化测试平台了  
 
-![图片]()  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/login.png?raw=true)  
 使用admin/123456的默认超级管理员账号登录系统  
-![图片]()  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/home.png?raw=true)  
 
 ## 如何支持不同的浏览器 
 对于浏览器支持，下载相应的driver放到python环境变量目录下即可  
@@ -142,18 +142,18 @@ debug和运行项目，debug是用于检查用例步骤是否正确
 ## web测试流程示例截图  
 ### 1、创建对象集  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/obj.png?raw=true)  
-### 2、创建对象
+### 2、创建对象  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var1.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var2.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var3.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var4.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var5.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var6.png?raw=true)  
-### 3、创建测试套件
+### 3、创建测试套件  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/suite.png?raw=true)  
-### 4、创建测试用例
+### 4、创建测试用例  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/case.png?raw=true)  
-### 5、创建测试步骤
+### 5、创建测试步骤  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step1.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step2.png?raw=true)  
 ![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step3.png?raw=true)  
