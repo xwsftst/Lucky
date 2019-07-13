@@ -124,63 +124,63 @@ HtmlUnit驱动：https://sourceforge.net/projects/htmlunit/files/htmlunit/
 
 ## 功能截图
 debug和运行项目，debug是用于检查用例步骤是否正确  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/run.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/run.png?raw=true)  
 产品管理  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/product.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/product.png?raw=true)  
 项目管理  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/project.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/project.png?raw=true)  
 任务调度  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/scheduler.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/scheduler.png?raw=true)  
 用户管理  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/user.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/user.png?raw=true)  
 关键字文档  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/key_help.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/key_help.png?raw=true)  
 测试报告  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/report.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/report.png?raw=true)  
 运行日志  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/log.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/log.png?raw=true)  
 ## web测试流程示例截图  
 ### 1、创建对象集  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/obj.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/obj.png?raw=true)  
 ### 2、创建对象
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var1.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var2.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var3.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var4.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var5.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_var6.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var1.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var2.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var3.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var4.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var5.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_var6.png?raw=true)  
 ### 3、创建测试套件
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/suite.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/suite.png?raw=true)  
 ### 4、创建测试用例
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/case.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/case.png?raw=true)  
 ### 5、创建测试步骤
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step1.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step2.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step3.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step4.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step5.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step6.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step7.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step8.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step9.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/web_step10.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step1.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step2.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step3.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step4.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step5.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step6.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step7.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step8.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step9.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/web_step10.png?raw=true)  
 ## app测试流程示例截图  
 ### 测试步骤：  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step1.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step2.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step3.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step4.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step5.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step6.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/app_step7.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step1.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step2.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step3.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step4.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step5.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step6.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/app_step7.png?raw=true)  
 ## api接口测试流程示例截图  
 ### 测试步骤：  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step1.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step2.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step3.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step4.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step5.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step6.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step7.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step8.png)  
-![图片](https://github.com/xwsftst/Lucky/tree/master/guide/images/api_step9.png)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step1.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step2.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step3.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step4.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step5.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step6.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step7.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step8.png?raw=true)  
+![图片](https://github.com/xwsftst/Lucky/blob/master/guide/images/api_step9.png?raw=true)  
