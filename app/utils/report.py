@@ -80,7 +80,6 @@ class Report:
                             image = img[0]
                     else:
                         text = text + msg.text + "<br>"
-                #print(text)
                 """    
                 msg = kw.find("msg")
                 if msg is not None:
@@ -97,5 +96,6 @@ class Report:
                     "project_id": self.project_id,
                     "build_no": self.build_no
                 })
+                print(text)
 
         return detail_data

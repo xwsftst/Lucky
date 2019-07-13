@@ -145,6 +145,7 @@ def view_image(project_id, build_no, filename):
 def detail(project_id, build_no):
     r = Report(project_id, build_no)
     import json
+
     return json.dumps(r.parser_detail_info())
 
 
